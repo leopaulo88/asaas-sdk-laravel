@@ -23,8 +23,14 @@ class AsaasServiceProvider extends PackageServiceProvider
 
     public function packageRegistered()
     {
-        $this->app->singleton('asaas', function () {
+        // Register as a regular binding instead of singleton to allow multiple instances
+        $this->app->bind('asaas', function () {
             return new Asaas();
+        });
+
+        // Also register a factory method for creating instances with different configurations
+        $this->app->bind('asaas.factory', function () {
+            return new AsaasFactory();
         });
     }
 }

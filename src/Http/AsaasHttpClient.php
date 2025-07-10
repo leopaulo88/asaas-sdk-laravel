@@ -12,13 +12,14 @@ class AsaasHttpClient
 {
     protected string $apiKey;
     protected string $baseUrl;
+    protected string $environment;
     protected int $timeout;
 
     public function __construct(?string $apiKey = null, ?string $environment = null)
     {
         $this->apiKey = $apiKey ?? Config::get('asaas.api_key');
-        $environment = $environment ?? Config::get('asaas.environment', 'sandbox');
-        $this->baseUrl = Config::get("asaas.api_urls.{$environment}");
+        $this->environment = $environment ?? Config::get('asaas.environment', 'sandbox');
+        $this->baseUrl = Config::get("asaas.api_urls.{$this->environment}");
         $this->timeout = Config::get('asaas.timeout', 30);
 
         if (empty($this->apiKey)) {
@@ -86,5 +87,10 @@ class AsaasHttpClient
     public function getBaseUrl(): string
     {
         return $this->baseUrl;
+    }
+
+    public function getEnvironment(): string
+    {
+        return $this->environment;
     }
 }
