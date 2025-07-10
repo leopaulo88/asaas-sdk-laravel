@@ -16,10 +16,15 @@ class AsaasServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('asaas-sdk-laravel')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_asaas_sdk_laravel_table')
+            ->name('asaas')
+            ->hasConfigFile('asaas')
             ->hasCommand(AsaasCommand::class);
+    }
+
+    public function packageRegistered()
+    {
+        $this->app->singleton('asaas', function () {
+            return new Asaas();
+        });
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "leopaulo88/asaas-sdk-laravel",
+    "name": "huboo-ai/asaas-sdk-laravel",
     "description": "This is my package asaas-sdk-laravel",
     "keywords": [
         "huboo-ai",
@@ -18,7 +18,8 @@
     "require": {
         "php": "^8.3",
         "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^10.0||^11.0||^12.0"
+        "illuminate/contracts": "^10.0||^11.0||^12.0",
+        "guzzlehttp/guzzle": "^7.8"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
