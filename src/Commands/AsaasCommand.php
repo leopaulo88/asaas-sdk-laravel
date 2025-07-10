@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Hubooai\Asaas\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class AsaasCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'asaas-sdk-laravel';
 
     public $description = 'My command';
 
