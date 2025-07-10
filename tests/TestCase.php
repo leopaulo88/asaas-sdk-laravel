@@ -2,9 +2,9 @@
 
 namespace Hubooai\Asaas\Tests;
 
+use Hubooai\Asaas\AsaasServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Hubooai\Asaas\AsaasServiceProvider;
 
 class TestCase extends Orchestra
 {

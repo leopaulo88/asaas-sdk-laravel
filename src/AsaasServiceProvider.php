@@ -2,9 +2,9 @@
 
 namespace Hubooai\Asaas;
 
+use Hubooai\Asaas\Commands\AsaasCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Hubooai\Asaas\Commands\AsaasCommand;
 
 class AsaasServiceProvider extends PackageServiceProvider
 {
