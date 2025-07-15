@@ -1,9 +1,9 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Entities;
+namespace Leopaulo88\Asaas\Entities;
 
-use Leopaulo88\AsaasSdkLaravel\Entities\Customer\CustomerCreateRequest;
-use Leopaulo88\AsaasSdkLaravel\Entities\Customer\CustomerUpdateRequest;
+use Leopaulo88\Asaas\Entities\Customer\CustomerCreateRequest;
+use Leopaulo88\Asaas\Entities\Customer\CustomerUpdateRequest;
 
 class Customer
 {
@@ -12,7 +12,7 @@ class Customer
      */
     public static function create(array $data = []): CustomerCreateRequest
     {
-        return CustomerCreateRequest::create($data);
+        return new CustomerCreateRequest($data);
     }
 
     /**
@@ -20,6 +20,6 @@ class Customer
      */
     public static function update(array $data = []): CustomerUpdateRequest
     {
-        return CustomerUpdateRequest::create($data);
+        return new CustomerUpdateRequest($data);
     }
 }

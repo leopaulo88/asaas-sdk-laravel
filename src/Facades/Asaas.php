@@ -1,6 +1,6 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Facades;
+namespace Leopaulo88\Asaas\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

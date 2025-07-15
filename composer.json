@@ -36,17 +36,15 @@
     },
     "autoload": {
         "psr-4": {
-            "Leopaulo88\\AsaasSdkLaravel\\": "src/"
+            "Leopaulo88\\Asaas\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Leopaulo88\\AsaasSdkLaravel\\Tests\\": "tests/"
+            "Leopaulo88\\Asaas\\Tests\\": "tests/"
         }
     },
     "scripts": {
-        "post-autoload-dump": "@composer run prepare",
-        "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
@@ -62,10 +60,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hubooai\\Asaas\\AsaasServiceProvider"
+                "Leopaulo88\\Asaas\\AsaasServiceProvider"
             ],
             "aliases": {
-                "Asaas": "Hubooai\\Asaas\\Facades\\Asaas"
+                "Asaas": "Leopaulo88\\Asaas\\Facades\\Asaas"
             }
         }
     },

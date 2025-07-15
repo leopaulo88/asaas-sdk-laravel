@@ -1,10 +1,10 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel;
+namespace Leopaulo88\Asaas;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Leopaulo88\AsaasSdkLaravel\Commands\AsaasCommand;
+use Leopaulo88\Asaas\Commands\AsaasCommand;
 
 class AsaasServiceProvider extends PackageServiceProvider
 {

@@ -1,22 +1,31 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Entities\Customer;
+namespace Leopaulo88\Asaas\Entities\Customer;
 
-use Leopaulo88\AsaasSdkLaravel\Concerns\HasAttributes;
-use Leopaulo88\AsaasSdkLaravel\Concerns\HasFactory;
+use Leopaulo88\Asaas\Concerns\HasAttributes;
+use Leopaulo88\Asaas\Concerns\HasFactory;
 
 class CustomerResponse
 {
     use HasAttributes, HasFactory;
 
-    // All basic functionality now comes from traits
-    // Constructor, get(), toArray(), fromArray(), fromResponse() are inherited
+    // Basic info
+    public function getObject(): ?string
+    {
+        return $this->get('object');
+    }
 
     public function getId(): ?string
     {
         return $this->get('id');
     }
 
+    public function getDateCreated(): ?string
+    {
+        return $this->get('dateCreated');
+    }
+
+    // Customer details
     public function getName(): ?string
     {
         return $this->get('name');
@@ -25,11 +34,6 @@ class CustomerResponse
     public function getEmail(): ?string
     {
         return $this->get('email');
-    }
-
-    public function getCpfCnpj(): ?string
-    {
-        return $this->get('cpfCnpj');
     }
 
     public function getPhone(): ?string
@@ -42,23 +46,101 @@ class CustomerResponse
         return $this->get('mobilePhone');
     }
 
-    public function getDateCreated(): ?string
+    // Address information
+    public function getAddress(): ?string
     {
-        return $this->get('dateCreated');
+        return $this->get('address');
     }
 
-    public function getDateUpdated(): ?string
+    public function getAddressNumber(): ?string
     {
-        return $this->get('dateUpdated');
+        return $this->get('addressNumber');
     }
 
-    public function getObject(): ?string
+    public function getComplement(): ?string
     {
-        return $this->get('object');
+        return $this->get('complement');
     }
 
+    public function getProvince(): ?string
+    {
+        return $this->get('province');
+    }
+
+    public function getCity(): ?int
+    {
+        return $this->get('city');
+    }
+
+    public function getCityName(): ?string
+    {
+        return $this->get('cityName');
+    }
+
+    public function getState(): ?string
+    {
+        return $this->get('state');
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->get('country');
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->get('postalCode');
+    }
+
+    // Document and identification
+    public function getCpfCnpj(): ?string
+    {
+        return $this->get('cpfCnpj');
+    }
+
+    public function getPersonType(): ?string
+    {
+        return $this->get('personType');
+    }
+
+    public function isJuridica(): bool
+    {
+        return $this->getPersonType() === 'JURIDICA';
+    }
+
+    public function isFisica(): bool
+    {
+        return $this->getPersonType() === 'FISICA';
+    }
+
+    // Status and settings
     public function isDeleted(): bool
     {
         return $this->get('deleted', false);
+    }
+
+    public function getAdditionalEmails(): ?string
+    {
+        return $this->get('additionalEmails');
+    }
+
+    public function getExternalReference(): ?string
+    {
+        return $this->get('externalReference');
+    }
+
+    public function isNotificationDisabled(): bool
+    {
+        return $this->get('notificationDisabled', false);
+    }
+
+    public function getObservations(): ?string
+    {
+        return $this->get('observations');
+    }
+
+    public function isForeignCustomer(): bool
+    {
+        return $this->get('foreignCustomer', false);
     }
 }

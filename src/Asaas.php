@@ -1,9 +1,9 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel;
+namespace Leopaulo88\Asaas;
 
-use Leopaulo88\AsaasSdkLaravel\Http\AsaasClient;
-use Leopaulo88\AsaasSdkLaravel\Resources\CustomerResource;
+use Leopaulo88\Asaas\Http\AsaasClient;
+use Leopaulo88\Asaas\Resources\CustomerResource;
 
 class Asaas
 {
@@ -19,13 +19,14 @@ class Asaas
         return $this->client;
     }
 
+
+    public function withApiKey(string $apiKey): self
+    {
+        return new self($apiKey, $this->client->getEnvironment());
+    }
+
     public function customers(): CustomerResource
     {
         return new CustomerResource($this->client);
     }
-
-    // Futuros resources seguirão o mesmo padrão:
-    // public function payments(): PaymentResource
-    // public function subscriptions(): SubscriptionResource
-    // public function webhooks(): WebhookResource
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Concerns;
+namespace Leopaulo88\Asaas\Concerns;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;

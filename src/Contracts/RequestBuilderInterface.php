@@ -1,6 +1,6 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Contracts;
+namespace Leopaulo88\Asaas\Contracts;
 
 interface RequestBuilderInterface
 {

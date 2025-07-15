@@ -1,5 +1,5 @@
 <?php
 
-use Hubooai\Asaas\Tests\TestCase;
+use Leopaulo88\Asaas\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

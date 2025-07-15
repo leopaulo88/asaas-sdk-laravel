@@ -52,7 +52,7 @@ php artisan vendor:publish --tag="asaas-sdk-laravel-views"
 ## Usage
 
 ```php
-$asaas = new Hubooai\Asaas();
+$asaas = new Leopaulo88\Asaas();
 echo $asaas->echoPhrase('Hello, Hubooai!');
 ```
 

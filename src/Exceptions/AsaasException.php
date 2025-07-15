@@ -1,6 +1,6 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Exceptions;
+namespace Leopaulo88\Asaas\Exceptions;
 
 use Exception;
 

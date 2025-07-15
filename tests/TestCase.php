@@ -1,10 +1,10 @@
 <?php
 
-namespace Hubooai\Asaas\Tests;
+namespace Leopaulo88\Asaas\Tests;
 
-use Hubooai\Asaas\AsaasServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Leopaulo88\Asaas\AsaasServiceProvider;
 
 class TestCase extends Orchestra
 {

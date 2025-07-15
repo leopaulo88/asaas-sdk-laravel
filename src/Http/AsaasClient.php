@@ -1,11 +1,11 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Http;
+namespace Leopaulo88\Asaas\Http;
 
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
-use Leopaulo88\AsaasSdkLaravel\Exceptions\InvalidApiKeyException;
-use Leopaulo88\AsaasSdkLaravel\Exceptions\InvalidEnvironmentException;
+use Leopaulo88\Asaas\Exceptions\InvalidApiKeyException;
+use Leopaulo88\Asaas\Exceptions\InvalidEnvironmentException;
 
 class AsaasClient
 {

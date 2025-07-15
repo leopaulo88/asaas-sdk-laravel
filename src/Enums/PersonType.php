@@ -1,6 +1,6 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Enums;
+namespace Leopaulo88\Asaas\Enums;
 
 enum PersonType: string
 {

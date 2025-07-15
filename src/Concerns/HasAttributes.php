@@ -1,6 +1,6 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Concerns;
+namespace Leopaulo88\Asaas\Concerns;
 
 trait HasAttributes
 {

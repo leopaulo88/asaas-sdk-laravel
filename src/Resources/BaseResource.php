@@ -1,8 +1,8 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Resources;
+namespace Leopaulo88\Asaas\Resources;
 
-use Leopaulo88\AsaasSdkLaravel\Http\AsaasClient;
+use Leopaulo88\Asaas\Http\AsaasClient;
 
 abstract class BaseResource
 {

@@ -1,12 +1,9 @@
 <?php
 
-namespace Leopaulo88\AsaasSdkLaravel\Entities\Customer;
+namespace Leopaulo88\Asaas\Entities\Customer;
 
-use Leopaulo88\AsaasSdkLaravel\Concerns\ValidatesData;
-use Leopaulo88\AsaasSdkLaravel\Contracts\RequestBuilderInterface;
-use Leopaulo88\AsaasSdkLaravel\Enums\BrazilianState;
-use Leopaulo88\AsaasSdkLaravel\Enums\PersonType;
-use Illuminate\Validation\Rule;
+use Leopaulo88\Asaas\Concerns\ValidatesData;
+use Leopaulo88\Asaas\Contracts\RequestBuilderInterface;
 
 class CustomerUpdateRequest implements RequestBuilderInterface
 {
@@ -19,10 +16,16 @@ class CustomerUpdateRequest implements RequestBuilderInterface
         $this->data = $data;
     }
 
-    // Fluent methods for updating customer data (all optional)
+    // All fields are optional for updates
     public function name(string $name): self
     {
         $this->data['name'] = $name;
+        return $this;
+    }
+
+    public function cpfCnpj(string $cpfCnpj): self
+    {
+        $this->data['cpfCnpj'] = $cpfCnpj;
         return $this;
     }
 
@@ -44,31 +47,33 @@ class CustomerUpdateRequest implements RequestBuilderInterface
         return $this;
     }
 
-    public function cpfCnpj(string $cpfCnpj): self
-    {
-        $this->data['cpfCnpj'] = $cpfCnpj;
-        return $this;
-    }
-
-    /**
-     * Update complete address information
-     */
-    public function address(string $address, ?string $number = null, ?string $complement = null): self
+    public function address(string $address): self
     {
         $this->data['address'] = $address;
-        if ($number) $this->data['addressNumber'] = $number;
-        if ($complement) $this->data['complement'] = $complement;
         return $this;
     }
 
-    /**
-     * Update location with enum validation for Brazilian states
-     */
-    public function location(string $city, string|BrazilianState $state, ?string $postalCode = null): self
+    public function addressNumber(string $number): self
     {
-        $this->data['city'] = $city;
-        $this->data['state'] = $state instanceof BrazilianState ? $state->value : $state;
-        if ($postalCode) $this->data['postalCode'] = $postalCode;
+        $this->data['addressNumber'] = $number;
+        return $this;
+    }
+
+    public function complement(string $complement): self
+    {
+        $this->data['complement'] = $complement;
+        return $this;
+    }
+
+    public function province(string $province): self
+    {
+        $this->data['province'] = $province;
+        return $this;
+    }
+
+    public function postalCode(string $postalCode): self
+    {
+        $this->data['postalCode'] = $postalCode;
         return $this;
     }
 
@@ -78,12 +83,27 @@ class CustomerUpdateRequest implements RequestBuilderInterface
         return $this;
     }
 
-    /**
-     * Update notification settings
-     */
     public function disableNotifications(bool $disabled = true): self
     {
         $this->data['notificationDisabled'] = $disabled;
+        return $this;
+    }
+
+    public function additionalEmails(string $emails): self
+    {
+        $this->data['additionalEmails'] = $emails;
+        return $this;
+    }
+
+    public function municipalInscription(string $inscription): self
+    {
+        $this->data['municipalInscription'] = $inscription;
+        return $this;
+    }
+
+    public function stateInscription(string $inscription): self
+    {
+        $this->data['stateInscription'] = $inscription;
         return $this;
     }
 
@@ -93,9 +113,24 @@ class CustomerUpdateRequest implements RequestBuilderInterface
         return $this;
     }
 
-    /**
-     * Convert to array with validation and transformation
-     */
+    public function groupName(string $groupName): self
+    {
+        $this->data['groupName'] = $groupName;
+        return $this;
+    }
+
+    public function company(string $company): self
+    {
+        $this->data['company'] = $company;
+        return $this;
+    }
+
+    public function foreignCustomer(bool $foreign = true): self
+    {
+        $this->data['foreignCustomer'] = $foreign;
+        return $this;
+    }
+
     public function toArray(): array
     {
         $this->validate();
@@ -103,109 +138,23 @@ class CustomerUpdateRequest implements RequestBuilderInterface
         return array_filter($this->data, fn($value) => $value !== null);
     }
 
-    /**
-     * Get validation rules for update (all fields optional)
-     */
     protected function validationRules(): array
     {
         return [
-            'name' => 'nullable|string|max:100',
-            'email' => 'nullable|email|max:100',
-            'phone' => 'nullable|string|max:20',
-            'mobilePhone' => 'nullable|string|max:20',
-            'cpfCnpj' => 'nullable|string|min:11|max:14',
-            'postalCode' => 'nullable|string|size:8',
-            'address' => 'nullable|string|max:100',
-            'addressNumber' => 'nullable|string|max:10',
-            'complement' => 'nullable|string|max:50',
-            'province' => 'nullable|string|max:50',
-            'city' => 'nullable|string|max:50',
-            'state' => [
-                'nullable',
-                'string',
-                'size:2',
-                Rule::in(array_column(BrazilianState::cases(), 'value'))
-            ],
-            'country' => 'nullable|string|size:2',
-            'externalReference' => 'nullable|string|max:100',
-            'notificationDisabled' => 'nullable|boolean',
-            'additionalEmails' => 'nullable|string|max:200',
-            'municipalInscription' => 'nullable|string|max:20',
-            'stateInscription' => 'nullable|string|max:20',
-            'observations' => 'nullable|string|max:255',
+
         ];
     }
 
-    /**
-     * Get custom validation messages
-     */
-    protected function validationMessages(): array
-    {
-        return [
-            'name.max' => 'Customer name cannot exceed 100 characters',
-            'email.email' => 'Please provide a valid email address',
-            'cpfCnpj.min' => 'CPF must have 11 digits or CNPJ must have 14 digits',
-            'cpfCnpj.max' => 'CPF must have 11 digits or CNPJ must have 14 digits',
-            'state.in' => 'Please provide a valid Brazilian state code',
-            'state.size' => 'State must be exactly 2 characters',
-            'country.size' => 'Country must be exactly 2 characters',
-            'postalCode.size' => 'Postal code must be exactly 8 digits',
-        ];
-    }
-
-    /**
-     * Validate business rules (no required fields for updates)
-     */
-    protected function validate(): void
-    {
-        if (isset($this->data['email']) && !filter_var($this->data['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('Invalid email format');
-        }
-
-        // Validate Brazilian state if provided
-        if (isset($this->data['state']) && !BrazilianState::isValid($this->data['state'])) {
-            throw new \InvalidArgumentException('Invalid Brazilian state code');
-        }
-
-        // Validate CPF/CNPJ format if provided
-        if (isset($this->data['cpfCnpj'])) {
-            $cleanDocument = preg_replace('/\D/', '', $this->data['cpfCnpj']);
-            if (!in_array(strlen($cleanDocument), [11, 14])) {
-                throw new \InvalidArgumentException('CPF must have 11 digits or CNPJ must have 14 digits');
-            }
-        }
-    }
-
-    /**
-     * Transform data for API compatibility
-     */
     protected function transform(): void
     {
-        // Clean CPF/CNPJ - remove all non-numeric characters
+        // Clean CPF/CNPJ - remove formatting
         if (isset($this->data['cpfCnpj'])) {
             $this->data['cpfCnpj'] = preg_replace('/\D/', '', $this->data['cpfCnpj']);
         }
 
-        // Clean postal code
+        // Clean postal code - remove formatting
         if (isset($this->data['postalCode'])) {
             $this->data['postalCode'] = preg_replace('/\D/', '', $this->data['postalCode']);
         }
-
-        // Ensure state is uppercase
-        if (isset($this->data['state'])) {
-            $this->data['state'] = strtoupper($this->data['state']);
-        }
-    }
-
-    /**
-     * Get the person type based on document
-     */
-    public function getPersonType(): ?PersonType
-    {
-        if (!isset($this->data['cpfCnpj'])) {
-            return null;
-        }
-
-        return PersonType::fromDocument($this->data['cpfCnpj']);
     }
 }

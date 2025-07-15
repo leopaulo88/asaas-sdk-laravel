@@ -1,6 +1,6 @@
 <?php
 
-namespace Hubooai\Asaas\Commands;
+namespace Leopaulo88\Asaas\Commands;
 
 use Illuminate\Console\Command;
 
