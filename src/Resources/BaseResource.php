@@ -1,56 +1,32 @@
 <?php
 
-namespace Hubooai\Asaas\Resources;
+namespace Leopaulo88\AsaasSdkLaravel\Resources;
 
-use Hubooai\Asaas\Http\AsaasHttpClient;
+use Leopaulo88\AsaasSdkLaravel\Http\AsaasClient;
 
 abstract class BaseResource
 {
-    protected AsaasHttpClient $client;
-    protected string $endpoint;
-
-    public function __construct(AsaasHttpClient $client)
+    public function __construct(protected AsaasClient $client)
     {
-        $this->client = $client;
     }
 
-    /**
-     * List all resources with optional filters
-     */
-    public function list(array $filters = []): array
+    protected function get(string $endpoint, array $query = [])
     {
-        return $this->client->get($this->endpoint, $filters);
+        return $this->client->http()->get($endpoint, $query);
     }
 
-    /**
-     * Get a specific resource by ID
-     */
-    public function get(string $id): array
+    protected function post(string $endpoint, array $data = [])
     {
-        return $this->client->get("{$this->endpoint}/{$id}");
+        return $this->client->http()->post($endpoint, $data);
     }
 
-    /**
-     * Create a new resource
-     */
-    public function create(array $data): array
+    protected function put(string $endpoint, array $data = [])
     {
-        return $this->client->post($this->endpoint, $data);
+        return $this->client->http()->put($endpoint, $data);
     }
 
-    /**
-     * Update an existing resource
-     */
-    public function update(string $id, array $data): array
+    protected function delete(string $endpoint)
     {
-        return $this->client->put("{$this->endpoint}/{$id}", $data);
-    }
-
-    /**
-     * Delete a resource
-     */
-    public function delete(string $id): array
-    {
-        return $this->client->delete("{$this->endpoint}/{$id}");
+        return $this->client->http()->delete($endpoint);
     }
 }

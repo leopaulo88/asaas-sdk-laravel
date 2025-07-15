@@ -1,10 +1,12 @@
 {
-    "name": "huboo-ai/asaas-sdk-laravel",
-    "description": "This is my package asaas-sdk-laravel",
+    "name": "leopaulo88/asaas-sdk-laravel",
+    "description": "Laravel SDK for Asaas payment gateway integration",
     "keywords": [
-        "huboo-ai",
+        "asaas",
         "laravel",
-        "asaas-sdk-laravel"
+        "payment",
+        "gateway",
+        "sdk"
     ],
     "homepage": "https://github.com/leopaulo88/asaas-sdk-laravel",
     "license": "MIT",
@@ -16,10 +18,9 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.1",
         "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^10.0||^11.0||^12.0",
-        "guzzlehttp/guzzle": "^7.8"
+        "illuminate/contracts": "^10.0||^11.0||^12.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -35,14 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Hubooai\\Asaas\\": "src/",
-            "Hubooai\\Asaas\\Database\\Factories\\": "database/factories/"
+            "Leopaulo88\\AsaasSdkLaravel\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Hubooai\\Asaas\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Leopaulo88\\AsaasSdkLaravel\\Tests\\": "tests/"
         }
     },
     "scripts": {

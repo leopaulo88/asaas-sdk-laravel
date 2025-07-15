@@ -1,10 +1,10 @@
 <?php
 
-namespace Hubooai\Asaas;
+namespace Leopaulo88\AsaasSdkLaravel;
 
-use Hubooai\Asaas\Commands\AsaasCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Leopaulo88\AsaasSdkLaravel\Commands\AsaasCommand;
 
 class AsaasServiceProvider extends PackageServiceProvider
 {
@@ -16,21 +16,16 @@ class AsaasServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('asaas')
+            ->name('asaas-sdk-laravel')
             ->hasConfigFile('asaas')
             ->hasCommand(AsaasCommand::class);
     }
 
     public function packageRegistered()
     {
-        // Register as a regular binding instead of singleton to allow multiple instances
+        // Registra o binding para a Facade
         $this->app->bind('asaas', function () {
             return new Asaas();
-        });
-
-        // Also register a factory method for creating instances with different configurations
-        $this->app->bind('asaas.factory', function () {
-            return new AsaasFactory();
         });
     }
 }

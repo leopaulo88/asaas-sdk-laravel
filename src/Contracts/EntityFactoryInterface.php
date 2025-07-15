@@ -1,0 +1,18 @@
+<?php
+
+namespace Leopaulo88\AsaasSdkLaravel\Contracts;
+
+use Illuminate\Http\Client\Response;
+
+interface EntityFactoryInterface
+{
+    /**
+     * Create entity instance from array data
+     */
+    public static function fromArray(array $data): static;
+
+    /**
+     * Create entity instance from HTTP response
+     */
+    public static function fromResponse(Response $response): static;
+}

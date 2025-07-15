@@ -1,6 +1,6 @@
 <?php
 
-// config for Hubooai/Asaas
+// config for Leopaulo88/AsaasSdkLaravel
 return [
     /*
     |--------------------------------------------------------------------------
@@ -19,7 +19,6 @@ return [
     |--------------------------------------------------------------------------
     |
     | The API environment. Use 'sandbox' for testing and 'production' for live.
-    | Accepted values: 'sandbox', 'production'
     |
     */
     'environment' => env('ASAAS_ENVIRONMENT', 'sandbox'),
@@ -29,7 +28,7 @@ return [
     | API URLs
     |--------------------------------------------------------------------------
     |
-    | Base URLs for Asaas APIs
+    | The base URLs for different environments.
     |
     */
     'api_urls' => [
@@ -39,25 +38,25 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Request Timeout
+    | HTTP Timeout
     |--------------------------------------------------------------------------
     |
-    | Default timeout for HTTP requests in seconds
+    | Timeout in seconds for HTTP requests to the Asaas API.
     |
     */
     'timeout' => env('ASAAS_TIMEOUT', 30),
 
     /*
     |--------------------------------------------------------------------------
-    | Rate Limiting
+    | Rate Limits
     |--------------------------------------------------------------------------
     |
-    | Settings for request rate limiting
+    | Rate limiting configurations for API requests.
     |
     */
     'rate_limit' => [
         'enabled' => env('ASAAS_RATE_LIMIT_ENABLED', true),
-        'max_requests' => env('ASAAS_RATE_LIMIT_MAX_REQUESTS', 100),
-        'per_minute' => env('ASAAS_RATE_LIMIT_PER_MINUTE', 60),
+        'requests_per_minute' => env('ASAAS_RATE_LIMIT_RPM', 500),
+        'burst_limit' => env('ASAAS_RATE_LIMIT_BURST', 100),
     ],
 ];

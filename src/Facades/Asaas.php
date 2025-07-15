@@ -1,8 +1,7 @@
 <?php
 
-namespace Hubooai\Asaas\Facades;
+namespace Leopaulo88\AsaasSdkLaravel\Facades;
 
-use Hubooai\Asaas\Asaas as AsaasClient;
 use Illuminate\Support\Facades\Facade;
 
 class Asaas extends Facade

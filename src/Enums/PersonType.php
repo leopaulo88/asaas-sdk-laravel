@@ -1,9 +1,18 @@
 <?php
 
-namespace Hubooai\Asaas\Enums;
+namespace Leopaulo88\AsaasSdkLaravel\Enums;
 
 enum PersonType: string
 {
-    case FISICA = 'FISICA';
-    case JURIDICA = 'JURIDICA';
+    case INDIVIDUAL = 'cpf';
+    case COMPANY = 'cnpj';
+
+    public static function fromDocument(string $document): self
+    {
+        $cleanDocument = preg_replace('/\D/', '', $document);
+
+        return strlen($cleanDocument) === 11
+            ? self::INDIVIDUAL
+            : self::COMPANY;
+    }
 }
