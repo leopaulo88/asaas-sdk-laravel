@@ -6,4 +6,3 @@ class BadRequestException extends AsaasException
 {
     // HTTP 400
 }
-
