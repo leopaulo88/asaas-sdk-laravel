@@ -4,7 +4,7 @@ use Leopaulo88\Asaas\Entities\Responses\CustomerResponse;
 use Leopaulo88\Asaas\Factories\EntityFactory;
 
 beforeEach(function () {
-    // Limpar mapeamentos existentes para teste isolado
+
     $reflection = new ReflectionClass(EntityFactory::class);
     $property = $reflection->getProperty('entityMap');
     $property->setAccessible(true);

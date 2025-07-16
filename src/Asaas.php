@@ -19,9 +19,9 @@ class Asaas
         return $this->client;
     }
 
-    public function withApiKey(string $apiKey): self
+    public function withApiKey(string $apiKey, ?string $environment = null): self
     {
-        return new self($apiKey, $this->client->getEnvironment());
+        return new self($apiKey, $environment);
     }
 
     public function customers(): CustomerResource
