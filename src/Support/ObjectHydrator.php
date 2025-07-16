@@ -5,6 +5,7 @@ namespace Leopaulo88\Asaas\Support;
 class ObjectHydrator
 {
     private static array $reflectionCache = [];
+
     private static array $propertyTypeCache = [];
 
     public function validateAndTransformData(array $data, string $targetClass): array
@@ -38,7 +39,7 @@ class ObjectHydrator
     private function hasProperty(string $className, string $propertyName): bool
     {
         try {
-            if (!isset(self::$reflectionCache[$className])) {
+            if (! isset(self::$reflectionCache[$className])) {
                 self::$reflectionCache[$className] = new \ReflectionClass($className);
             }
 
@@ -54,15 +55,15 @@ class ObjectHydrator
             return null;
         }
 
-        $cacheKey = $targetClass . '::' . $key;
+        $cacheKey = $targetClass.'::'.$key;
 
-        if (!isset(self::$propertyTypeCache[$cacheKey])) {
+        if (! isset(self::$propertyTypeCache[$cacheKey])) {
             $this->cachePropertyType($targetClass, $key);
         }
 
         $propertyInfo = self::$propertyTypeCache[$cacheKey] ?? null;
 
-        if (!$propertyInfo) {
+        if (! $propertyInfo) {
             return $value;
         }
 
@@ -88,12 +89,12 @@ class ObjectHydrator
         if (class_exists($propertyType)) {
             $objectInstance = $this->createObjectInstance($propertyType, $value);
 
-
-            if ($objectInstance === $value && !($objectInstance instanceof $propertyType)) {
+            if ($objectInstance === $value && ! ($objectInstance instanceof $propertyType)) {
 
                 if ($isNullable) {
                     return null;
                 }
+
                 return $value;
             }
 
@@ -106,10 +107,10 @@ class ObjectHydrator
     private function castBuiltInType($value, string $type)
     {
         return match ($type) {
-            'string' => (string)$value,
-            'int' => (int)$value,
-            'float' => (float)$value,
-            'bool' => (bool)$value,
+            'string' => (string) $value,
+            'int' => (int) $value,
+            'float' => (float) $value,
+            'bool' => (bool) $value,
             default => $value
         };
     }
@@ -155,7 +156,7 @@ class ObjectHydrator
     private function cachePropertyType(string $className, string $key): void
     {
         try {
-            if (!isset(self::$reflectionCache[$className])) {
+            if (! isset(self::$reflectionCache[$className])) {
                 self::$reflectionCache[$className] = new \ReflectionClass($className);
             }
 
@@ -163,12 +164,12 @@ class ObjectHydrator
             $property = $reflection->getProperty($key);
             $type = $property->getType();
 
-            $cacheKey = $className . '::' . $key;
+            $cacheKey = $className.'::'.$key;
 
             if ($type instanceof \ReflectionNamedType) {
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => $type->getName(),
-                    'nullable' => $type->allowsNull()
+                    'nullable' => $type->allowsNull(),
                 ];
             } elseif ($type instanceof \ReflectionUnionType) {
                 $types = [];
@@ -184,20 +185,19 @@ class ObjectHydrator
 
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => $types[0] ?? 'mixed',
-                    'nullable' => $nullable
+                    'nullable' => $nullable,
                 ];
             } else {
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => 'mixed',
-                    'nullable' => true
+                    'nullable' => true,
                 ];
             }
         } catch (\ReflectionException) {
-            $cacheKey = $className . '::' . $key;
+            $cacheKey = $className.'::'.$key;
             self::$propertyTypeCache[$cacheKey] = null;
         }
     }
-
 
     public static function clearCache(): void
     {
@@ -205,12 +205,11 @@ class ObjectHydrator
         self::$propertyTypeCache = [];
     }
 
-
     public function getPropertyType(string $className, string $propertyName): ?array
     {
-        $cacheKey = $className . '::' . $propertyName;
+        $cacheKey = $className.'::'.$propertyName;
 
-        if (!isset(self::$propertyTypeCache[$cacheKey])) {
+        if (! isset(self::$propertyTypeCache[$cacheKey])) {
             $this->cachePropertyType($className, $propertyName);
         }
 

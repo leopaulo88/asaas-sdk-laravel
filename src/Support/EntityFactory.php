@@ -6,16 +6,13 @@ use Illuminate\Http\Client\Response;
 
 class EntityFactory
 {
-
     protected static array $entityMap = [
         'customer' => \Leopaulo88\Asaas\Entities\Customer\CustomerResponse::class,
         'account' => \Leopaulo88\Asaas\Entities\Account\AccountResponse::class,
         'list' => \Leopaulo88\Asaas\Entities\List\ListResponse::class,
     ];
 
-
     protected static array $conversionStack = [];
-
 
     public static function createFromResponse(Response $response)
     {
@@ -27,7 +24,6 @@ class EntityFactory
 
         return static::createFromArray($data);
     }
-
 
     public static function createFromArray(array $data)
     {
@@ -58,36 +54,30 @@ class EntityFactory
         return $result;
     }
 
-
     public static function registerEntity(string $objectType, string $entityClass): void
     {
         static::$entityMap[$objectType] = $entityClass;
     }
-
 
     public static function getEntityMap(): array
     {
         return static::$entityMap;
     }
 
-
     public static function isRegistered(string $objectType): bool
     {
         return isset(static::$entityMap[$objectType]);
     }
-
 
     public static function getEntityClass(string $objectType): ?string
     {
         return static::$entityMap[$objectType] ?? null;
     }
 
-
     public static function unregisterEntity(string $objectType): void
     {
         unset(static::$entityMap[$objectType]);
     }
-
 
     public static function createWithFallback($data, ?string $fallbackClass = null)
     {
@@ -114,6 +104,7 @@ class EntityFactory
             if (is_array($item)) {
                 return static::createFromArray($item);
             }
+
             return $item;
         }, $data);
     }
@@ -127,6 +118,7 @@ class EntityFactory
             if (is_array($item)) {
                 return $entityClass::fromArray($item);
             }
+
             return $item;
         }, $data);
     }

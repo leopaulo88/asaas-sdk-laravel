@@ -1,7 +1,7 @@
 <?php
 
-use Leopaulo88\Asaas\Entities\Customer\CustomerCreateEntity;
 use Leopaulo88\Asaas\Entities\Account\AccountCreate;
+use Leopaulo88\Asaas\Entities\Customer\CustomerCreateEntity;
 
 it('supports all patterns for CustomerCreateEntity', function () {
     // 1. Named Parameters (Padrão mais moderno)
@@ -21,14 +21,14 @@ it('supports all patterns for CustomerCreateEntity', function () {
         'name' => 'Maria Santos',
         'email' => 'maria@exemplo.com',
         'cpfCnpj' => '98765432100',
-        'address' => 'Rua das Flores, 123'
+        'address' => 'Rua das Flores, 123',
     ]);
 
     expect($customer2->name)->toBe('Maria Santos');
     expect($customer2->address)->toBe('Rua das Flores, 123');
 
     // 3. Fluent Interface (Compatibilidade)
-    $customer3 = (new CustomerCreateEntity())
+    $customer3 = (new CustomerCreateEntity)
         ->name('Pedro Costa')
         ->email('pedro@exemplo.com')
         ->cpfCnpj('11122233344')
@@ -39,7 +39,7 @@ it('supports all patterns for CustomerCreateEntity', function () {
     expect($customer3->phone)->toBe('11888888888');
 
     // 4. Propriedades Diretas (Novo padrão)
-    $customer4 = new CustomerCreateEntity();
+    $customer4 = new CustomerCreateEntity;
     $customer4->name = 'Ana Silva';
     $customer4->email = 'ana@exemplo.com';
     $customer4->cpfCnpj = '55566677788';
@@ -79,14 +79,14 @@ it('supports all patterns for AccountCreate', function () {
         'name' => 'Startup ABC',
         'email' => 'hello@abc.com',
         'cpfCnpj' => '98.765.432/0001-10',
-        'site' => 'https://abc.com'
+        'site' => 'https://abc.com',
     ]);
 
     expect($account2->name)->toBe('Startup ABC');
     expect($account2->site)->toBe('https://abc.com');
 
     // 3. Fluent Interface
-    $account3 = (new AccountCreate())
+    $account3 = (new AccountCreate)
         ->name('Tech Solutions')
         ->email('tech@solutions.com')
         ->cpfCnpj('11.111.111/0001-11')
@@ -98,7 +98,7 @@ it('supports all patterns for AccountCreate', function () {
     expect($account3->webhooks)->toBe(['PAYMENT_CREATED', 'PAYMENT_UPDATED']);
 
     // 4. Propriedades Diretas
-    $account4 = new AccountCreate();
+    $account4 = new AccountCreate;
     $account4->name = 'Digital Agency';
     $account4->email = 'contact@agency.com';
     $account4->cpfCnpj = '22.222.222/0001-22';
@@ -113,13 +113,13 @@ it('maintains backwards compatibility with existing code', function () {
     $customer = CustomerCreateEntity::fromArray([
         'name' => 'Cliente Novo',
         'email' => 'novo@exemplo.com',
-        'cpfCnpj' => '12345678901'
+        'cpfCnpj' => '12345678901',
     ]);
 
     expect($customer->name)->toBe('Cliente Novo');
 
     // Fluent interface continua funcionando
-    $customerFluent = (new CustomerCreateEntity())
+    $customerFluent = (new CustomerCreateEntity)
         ->name('Cliente Fluent')
         ->email('fluent@exemplo.com');
 

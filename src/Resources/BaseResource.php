@@ -16,22 +16,22 @@ abstract class BaseResource
 
     protected function get(string $endpoint, array $query = [])
     {
-        return $this->handleRequest(fn() => $this->getRaw($endpoint, $query));
+        return $this->handleRequest(fn () => $this->getRaw($endpoint, $query));
     }
 
     protected function post(string $endpoint, array $data = [])
     {
-        return $this->handleRequest(fn() => $this->postRaw($endpoint, $data));
+        return $this->handleRequest(fn () => $this->postRaw($endpoint, $data));
     }
 
     protected function put(string $endpoint, array $data = [])
     {
-        return $this->handleRequest(fn() => $this->putRaw($endpoint, $data));
+        return $this->handleRequest(fn () => $this->putRaw($endpoint, $data));
     }
 
     protected function delete(string $endpoint)
     {
-        return $this->handleRequest(fn() => $this->deleteRaw($endpoint));
+        return $this->handleRequest(fn () => $this->deleteRaw($endpoint));
     }
 
     private function handleRequest(callable $httpCall)
@@ -39,6 +39,7 @@ abstract class BaseResource
         try {
             $response = $httpCall();
             $response->throw();
+
             return EntityFactory::createFromResponse($response);
         } catch (RequestException $e) {
             $response = $e->response;

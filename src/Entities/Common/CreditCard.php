@@ -15,9 +15,7 @@ class CreditCard extends BaseEntity
         public ?string $expiryMonth = null,
         public ?string $expiryYear = null,
         public ?string $ccv = null
-    )
-    {
-    }
+    ) {}
 
     protected function validationRules(): array
     {

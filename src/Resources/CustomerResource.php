@@ -7,7 +7,6 @@ use Leopaulo88\Asaas\Entities\Customer\CustomerUpdateEntity;
 
 class CustomerResource extends BaseResource
 {
-
     public function list(array $params = [])
     {
         return $this->get('/customers', $params);

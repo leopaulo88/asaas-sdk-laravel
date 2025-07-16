@@ -8,6 +8,8 @@ use Leopaulo88\Asaas\Enums\CreditCardBrand;
 class CreditCardResponse extends BaseResponse
 {
     public ?string $creditCardNumber;
+
     public ?CreditCardBrand $creditCardBrand;
+
     public ?string $creditCardToken;
 }

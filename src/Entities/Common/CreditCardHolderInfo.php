@@ -19,9 +19,7 @@ class CreditCardHolderInfo extends BaseEntity
         public ?string $phone = null,
         public ?string $mobilePhone = null
 
-    )
-    {
-    }
+    ) {}
 
     protected function validationRules(): array
     {

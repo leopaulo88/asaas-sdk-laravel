@@ -11,20 +11,18 @@ class CreditCardCreate extends BaseEntity
 {
     use ValidatesData;
 
-
     public function __construct(
         public ?string $customer = null,
         public ?CreditCard $creditCard = null,
         public ?CreditCardHolderInfo $creditCardHolderInfo = null,
         public ?string $remoteIp = null
-    )
-    {
-    }
+    ) {}
 
     // metodos fluentes para definir os valores
     public function customer(string $customer): self
     {
         $this->customer = $customer;
+
         return $this;
     }
 
@@ -35,6 +33,7 @@ class CreditCardCreate extends BaseEntity
         }
 
         $this->creditCard = $creditCard;
+
         return $this;
     }
 
@@ -44,15 +43,16 @@ class CreditCardCreate extends BaseEntity
             $creditCardHolderInfo = CreditCardHolderInfo::fromArray($creditCardHolderInfo);
         }
         $this->creditCardHolderInfo = $creditCardHolderInfo;
+
         return $this;
     }
 
     public function remoteIp(string $remoteIp): self
     {
         $this->remoteIp = $remoteIp;
+
         return $this;
     }
-
 
     protected function validationRules(): array
     {
