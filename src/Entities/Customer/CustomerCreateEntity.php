@@ -33,7 +33,7 @@ class CustomerCreateEntity extends BaseEntity
         public ?bool $foreignCustomer = null
     ) {}
 
-    // Métodos fluent para compatibilidade
+
     public function name(string $name): self
     {
         $this->name = $name;

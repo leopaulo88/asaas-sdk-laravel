@@ -13,7 +13,6 @@ class CustomerResource extends BaseResource
         return $this->get('/customers', $params);
     }
 
-
     public function create(array|CustomerCreateEntity $data)
     {
         if (is_array($data)) {
@@ -23,12 +22,10 @@ class CustomerResource extends BaseResource
         return $this->post('/customers', $data->toArray());
     }
 
-
     public function find(string $id)
     {
         return $this->get("/customers/{$id}");
     }
-
 
     public function update(string $id, array|CustomerUpdateEntity $data)
     {
@@ -39,12 +36,10 @@ class CustomerResource extends BaseResource
         return $this->put("/customers/{$id}", $data->toArray());
     }
 
-
     public function delete(string $id)
     {
         return parent::delete("/customers/{$id}");
     }
-
 
     public function restore(string $id)
     {

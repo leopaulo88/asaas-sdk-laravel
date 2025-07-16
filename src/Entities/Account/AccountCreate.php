@@ -29,8 +29,6 @@ class AccountCreate extends BaseEntity
         public ?string $accountManager = null
     ) {}
 
-
-
     public function name(string $name): self
     {
         $this->name = $name;

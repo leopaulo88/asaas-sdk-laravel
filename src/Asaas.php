@@ -3,6 +3,7 @@
 namespace Leopaulo88\Asaas;
 
 use Leopaulo88\Asaas\Resources\AccountResource;
+use Leopaulo88\Asaas\Resources\CreditCardResource;
 use Leopaulo88\Asaas\Resources\CustomerResource;
 use Leopaulo88\Asaas\Support\AsaasClient;
 
@@ -33,5 +34,10 @@ class Asaas
     public function accounts(): AccountResource
     {
         return new AccountResource($this->client);
+    }
+
+    public function creditCards(): CreditCardResource
+    {
+        return new CreditCardResource($this->client);
     }
 }

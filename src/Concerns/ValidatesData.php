@@ -46,10 +46,8 @@ trait ValidatesData
      */
     protected function validate(): void
     {
-        // First run Laravel validation rules
-        $this->validateData($this->data, $this->validationRules(), $this->validationMessages());
+        $this->validateData(get_object_vars($this), $this->validationRules(), $this->validationMessages());
 
-        // Then run custom manual validations
         $this->customValidations();
     }
 
