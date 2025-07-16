@@ -30,5 +30,5 @@ phpstan.neon
 testbench.yaml
 /docs
 /coverage
-.env
-test.php
+/test.php
+/.env
