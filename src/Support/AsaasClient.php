@@ -1,6 +1,6 @@
 <?php
 
-namespace Leopaulo88\Asaas\Http;
+namespace Leopaulo88\Asaas\Support;
 
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Config;

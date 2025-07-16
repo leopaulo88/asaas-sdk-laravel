@@ -1,15 +1,15 @@
 <?php
 
-namespace Leopaulo88\Asaas\Entities\Responses;
+namespace Leopaulo88\Asaas\Entities;
 
-use Leopaulo88\Asaas\Contracts\EntityFactoryInterface;
-use Leopaulo88\Asaas\Http\ResponseHydrator;
+use Leopaulo88\Asaas\Contracts\ResponseInterface;
+use Leopaulo88\Asaas\Support\ObjectHydrator;
 
-abstract class BaseResponse implements EntityFactoryInterface
+abstract class BaseResponse implements ResponseInterface
 {
     public function __construct(array $attributes = [])
     {
-        $hydrator = new ResponseHydrator;
+        $hydrator = new ObjectHydrator;
         $validatedData = $hydrator->validateAndTransformData($attributes, static::class);
 
         foreach ($validatedData as $key => $value) {

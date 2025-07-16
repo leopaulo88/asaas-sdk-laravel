@@ -23,9 +23,9 @@ class AsaasServiceProvider extends PackageServiceProvider
 
     public function packageRegistered()
     {
-        // Registra o binding para a Facade
         $this->app->bind('asaas', function () {
             return new Asaas;
         });
     }
 }
+

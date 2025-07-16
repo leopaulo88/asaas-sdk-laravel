@@ -1,7 +1,7 @@
 <?php
 
-use Leopaulo88\Asaas\Entities\Responses\CustomerResponse;
-use Leopaulo88\Asaas\Factories\EntityFactory;
+use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
+use Leopaulo88\Asaas\Support\EntityFactory;
 
 beforeEach(function () {
 

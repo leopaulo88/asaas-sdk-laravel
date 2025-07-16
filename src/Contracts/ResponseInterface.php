@@ -4,7 +4,7 @@ namespace Leopaulo88\Asaas\Contracts;
 
 use Illuminate\Http\Client\Response;
 
-interface EntityFactoryInterface
+interface ResponseInterface
 {
     /**
      * Create entity instance from array data

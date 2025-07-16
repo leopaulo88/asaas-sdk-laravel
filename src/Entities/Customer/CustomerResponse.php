@@ -1,7 +1,8 @@
 <?php
 
-namespace Leopaulo88\Asaas\Entities\Responses;
+namespace Leopaulo88\Asaas\Entities\Customer;
 
+use Leopaulo88\Asaas\Entities\BaseResponse;
 use Leopaulo88\Asaas\Enums\PersonType;
 
 class CustomerResponse extends BaseResponse

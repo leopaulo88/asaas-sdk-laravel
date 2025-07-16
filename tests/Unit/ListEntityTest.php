@@ -1,6 +1,6 @@
 <?php
 
-use Leopaulo88\Asaas\Entities\Responses\ListResponse;
+use Leopaulo88\Asaas\Entities\List\ListResponse;
 
 describe('List Entity', function () {
 

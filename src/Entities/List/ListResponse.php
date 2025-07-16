@@ -1,9 +1,10 @@
 <?php
 
-namespace Leopaulo88\Asaas\Entities\Responses;
+namespace Leopaulo88\Asaas\Entities\List;
 
 use Leopaulo88\Asaas\Concerns\HasPagination;
-use Leopaulo88\Asaas\Factories\EntityFactory;
+use Leopaulo88\Asaas\Entities\BaseResponse;
+use Leopaulo88\Asaas\Support\EntityFactory;
 
 class ListResponse extends BaseResponse
 {

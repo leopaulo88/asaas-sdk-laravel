@@ -2,8 +2,9 @@
 
 namespace Leopaulo88\Asaas;
 
-use Leopaulo88\Asaas\Http\AsaasClient;
+use Leopaulo88\Asaas\Resources\AccountResource;
 use Leopaulo88\Asaas\Resources\CustomerResource;
+use Leopaulo88\Asaas\Support\AsaasClient;
 
 class Asaas
 {
@@ -27,5 +28,10 @@ class Asaas
     public function customers(): CustomerResource
     {
         return new CustomerResource($this->client);
+    }
+
+    public function accounts(): AccountResource
+    {
+        return new AccountResource($this->client);
     }
 }

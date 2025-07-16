@@ -1,28 +1,22 @@
 <?php
 
-namespace Leopaulo88\Asaas\Factories;
+namespace Leopaulo88\Asaas\Support;
 
 use Illuminate\Http\Client\Response;
 
 class EntityFactory
 {
-    /**
-     * Mapping of object types to their corresponding entity classes
-     */
+
     protected static array $entityMap = [
-        'customer' => \Leopaulo88\Asaas\Entities\Responses\CustomerResponse::class,
-        'list' => \Leopaulo88\Asaas\Entities\Responses\ListResponse::class,
-        // Add more as they are created
+        'customer' => \Leopaulo88\Asaas\Entities\Customer\CustomerResponse::class,
+        'account' => \Leopaulo88\Asaas\Entities\Account\AccountResponse::class,
+        'list' => \Leopaulo88\Asaas\Entities\List\ListResponse::class,
     ];
 
-    /**
-     * Stack to prevent infinite recursion
-     */
+
     protected static array $conversionStack = [];
 
-    /**
-     * Create an entity from API response automatically based on object type
-     */
+
     public static function createFromResponse(Response $response)
     {
         $data = $response->json();
@@ -34,9 +28,7 @@ class EntityFactory
         return static::createFromArray($data);
     }
 
-    /**
-     * Create an entity from array data automatically based on object type
-     */
+
     public static function createFromArray(array $data)
     {
         $objectType = $data['object'] ?? null;
@@ -66,49 +58,37 @@ class EntityFactory
         return $result;
     }
 
-    /**
-     * Register a new entity mapping
-     */
+
     public static function registerEntity(string $objectType, string $entityClass): void
     {
         static::$entityMap[$objectType] = $entityClass;
     }
 
-    /**
-     * Get all registered entity mappings
-     */
+
     public static function getEntityMap(): array
     {
         return static::$entityMap;
     }
 
-    /**
-     * Check if an object type is registered
-     */
+
     public static function isRegistered(string $objectType): bool
     {
         return isset(static::$entityMap[$objectType]);
     }
 
-    /**
-     * Get the entity class for an object type
-     */
+
     public static function getEntityClass(string $objectType): ?string
     {
         return static::$entityMap[$objectType] ?? null;
     }
 
-    /**
-     * Unregister an entity mapping
-     */
+
     public static function unregisterEntity(string $objectType): void
     {
         unset(static::$entityMap[$objectType]);
     }
 
-    /**
-     * Create entity with fallback to array if mapping doesn't exist
-     */
+
     public static function createWithFallback($data, ?string $fallbackClass = null)
     {
         if (is_array($data)) {
@@ -126,24 +106,28 @@ class EntityFactory
     }
 
     /**
-     * Create a collection of entities from array data
+     * Create a collection of entities from an array of data
      */
     public static function createCollectionFromArray(array $data): array
     {
         return array_map(function ($item) {
-            return static::createFromArray($item);
+            if (is_array($item)) {
+                return static::createFromArray($item);
+            }
+            return $item;
         }, $data);
     }
 
     /**
-     * Create a collection of specific entity instances
-     *
-     * @param  string  $entityClass  The entity class to map data to
+     * Create a collection of specific entity instances from an array of data
      */
     public static function createCollectionAs(array $data, string $entityClass): array
     {
         return array_map(function ($item) use ($entityClass) {
-            return new $entityClass($item);
+            if (is_array($item)) {
+                return $entityClass::fromArray($item);
+            }
+            return $item;
         }, $data);
     }
 }

@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Entities\Customer;
-use Leopaulo88\Asaas\Entities\Responses\CustomerResponse;
-use Leopaulo88\Asaas\Entities\Responses\ListResponse;
-use Leopaulo88\Asaas\Http\AsaasClient;
+use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
+use Leopaulo88\Asaas\Entities\List\ListResponse;
 use Leopaulo88\Asaas\Resources\CustomerResource;
+use Leopaulo88\Asaas\Support\AsaasClient;
 
 beforeEach(function () {
     $this->client = new AsaasClient('test_api_key', 'sandbox');
@@ -77,7 +77,6 @@ describe('CustomerResource', function () {
                 ->and($result->getTotalCount())->toBe(50)
                 ->and($result->count())->toBe(2);
 
-            // Test automatic entity conversion
             $customers = $result->getData();
             expect($customers)->toHaveCount(2)
                 ->and($customers[0])->toBeInstanceOf(CustomerResponse::class)
@@ -137,8 +136,8 @@ describe('CustomerResource', function () {
                 ->and($result->cpfCnpj)->toBe('12345678901');
         });
 
-        it('should create customer with CustomerCreateRequest', function () {
-            $request = Customer::create()
+        it('should create customer with CustomerCreateEntity', function () {
+            $request = with(new Customer\CustomerCreateEntity)
                 ->name('Maria Santos')
                 ->cpfCnpj('98765432100')
                 ->email('maria@teste.com');
@@ -246,9 +245,9 @@ describe('CustomerResource', function () {
                 ->and($result->email)->toBe('novo@email.com');
         });
 
-        it('should update customer with CustomerUpdateRequest', function () {
+        it('should update customer with CustomerUpdateEntity', function () {
             $customerId = 'cus_123';
-            $request = Customer::update()->email('atualizado@email.com');
+            $request = with(new Customer\CustomerUpdateEntity)->email('atualizado@email.com');
 
             Http::fake([
                 "https://sandbox.asaas.com/api/v3/customers/{$customerId}" => Http::response([

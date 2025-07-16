@@ -2,13 +2,13 @@
 
 namespace Leopaulo88\Asaas\Resources;
 
-use Leopaulo88\Asaas\Factories\EntityFactory;
-use Leopaulo88\Asaas\Http\AsaasClient;
 use Illuminate\Http\Client\RequestException;
-use Leopaulo88\Asaas\Exceptions\BadRequestException;
-use Leopaulo88\Asaas\Exceptions\UnauthorizedException;
-use Leopaulo88\Asaas\Exceptions\NotFoundException;
 use Leopaulo88\Asaas\Exceptions\AsaasException;
+use Leopaulo88\Asaas\Exceptions\BadRequestException;
+use Leopaulo88\Asaas\Exceptions\NotFoundException;
+use Leopaulo88\Asaas\Exceptions\UnauthorizedException;
+use Leopaulo88\Asaas\Support\AsaasClient;
+use Leopaulo88\Asaas\Support\EntityFactory;
 
 abstract class BaseResource
 {
