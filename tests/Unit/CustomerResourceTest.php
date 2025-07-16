@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Entities\Customer;
 use Leopaulo88\Asaas\Entities\Customer\CustomerCreateRequest;
 use Leopaulo88\Asaas\Entities\Customer\CustomerUpdateRequest;
-use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
+use Leopaulo88\Asaas\Entities\Responses\CustomerResponse;
+use Leopaulo88\Asaas\Entities\Responses\ListResponse;
 use Leopaulo88\Asaas\Http\AsaasClient;
 use Leopaulo88\Asaas\Resources\CustomerResource;
 
@@ -40,6 +41,73 @@ describe('CustomerResource', function () {
             });
         });
 
+        it('should return List entity with automatic conversion', function () {
+            Http::fake([
+                'https://sandbox.asaas.com/api/v3/customers' => Http::response([
+                    'object' => 'list',
+                    'hasMore' => true,
+                    'totalCount' => 50,
+                    'limit' => 10,
+                    'offset' => 0,
+                    'data' => [
+                        [
+                            'object' => 'customer',
+                            'id' => 'cus_123',
+                            'name' => 'João Silva',
+                            'email' => 'joao@teste.com',
+                            'cpfCnpj' => '12345678901',
+                            'personType' => 'FISICA',
+                            'deleted' => false
+                        ],
+                        [
+                            'object' => 'customer',
+                            'id' => 'cus_456',
+                            'name' => 'Maria Santos',
+                            'email' => 'maria@teste.com',
+                            'cpfCnpj' => '98765432100',
+                            'personType' => 'FISICA',
+                            'deleted' => false
+                        ]
+                    ]
+                ])
+            ]);
+
+            $result = $this->customerResource->list();
+
+            expect($result)->toBeInstanceOf(ListResponse::class)
+                ->and($result->hasMore())->toBe(true)
+                ->and($result->getTotalCount())->toBe(50)
+                ->and($result->count())->toBe(2);
+
+            // Test automatic entity conversion
+            $customers = $result->getData();
+            expect($customers)->toHaveCount(2)
+                ->and($customers[0])->toBeInstanceOf(CustomerResponse::class)
+                ->and($customers[0]->name)->toBe('João Silva')
+                ->and($customers[1])->toBeInstanceOf(CustomerResponse::class)
+                ->and($customers[1]->name)->toBe('Maria Santos');
+        });
+
+        it('should handle empty list correctly', function () {
+            Http::fake([
+                'https://sandbox.asaas.com/api/v3/customers' => Http::response([
+                    'object' => 'list',
+                    'hasMore' => false,
+                    'totalCount' => 0,
+                    'limit' => 10,
+                    'offset' => 0,
+                    'data' => []
+                ])
+            ]);
+
+            $result = $this->customerResource->list();
+
+            expect($result)->toBeInstanceOf(ListResponse::class)
+                ->and($result->isEmpty())->toBe(true)
+                ->and($result->count())->toBe(0)
+                ->and($result->getTotalCount())->toBe(0);
+        });
+
     });
 
     describe('create method', function () {
@@ -67,8 +135,8 @@ describe('CustomerResource', function () {
             $result = $this->customerResource->create($customerData);
 
             expect($result)->toBeInstanceOf(CustomerResponse::class)
-                ->and($result->getName())->toBe('João Silva')
-                ->and($result->getCpfCnpj())->toBe('12345678901');
+                ->and($result->name)->toBe('João Silva')
+                ->and($result->cpfCnpj)->toBe('12345678901');
         });
 
         it('should create customer with CustomerCreateRequest', function () {
@@ -93,7 +161,7 @@ describe('CustomerResource', function () {
             $result = $this->customerResource->create($request);
 
             expect($result)->toBeInstanceOf(CustomerResponse::class)
-                ->and($result->getName())->toBe('Maria Santos');
+                ->and($result->name)->toBe('Maria Santos');
         });
 
         it('should send correct headers and data', function () {
@@ -137,8 +205,8 @@ describe('CustomerResource', function () {
             $result = $this->customerResource->find($customerId);
 
             expect($result)->toBeInstanceOf(CustomerResponse::class)
-                ->and($result->getId())->toBe($customerId)
-                ->and($result->getName())->toBe('Cliente Encontrado');
+                ->and($result->id)->toBe($customerId)
+                ->and($result->name)->toBe('Cliente Encontrado');
         });
 
         it('should call correct endpoint', function () {
@@ -177,7 +245,7 @@ describe('CustomerResource', function () {
             $result = $this->customerResource->update($customerId, $updateData);
 
             expect($result)->toBeInstanceOf(CustomerResponse::class)
-                ->and($result->getEmail())->toBe('novo@email.com');
+                ->and($result->email)->toBe('novo@email.com');
         });
 
         it('should update customer with CustomerUpdateRequest', function () {
@@ -197,7 +265,7 @@ describe('CustomerResource', function () {
             $result = $this->customerResource->update($customerId, $request);
 
             expect($result)->toBeInstanceOf(CustomerResponse::class)
-                ->and($result->getEmail())->toBe('atualizado@email.com');
+                ->and($result->email)->toBe('atualizado@email.com');
         });
 
     });
@@ -209,7 +277,6 @@ describe('CustomerResource', function () {
 
             Http::fake([
                 "https://sandbox.asaas.com/api/v3/customers/{$customerId}" => Http::response([
-                    'object' => 'customer',
                     'id' => $customerId,
                     'deleted' => true
                 ])
@@ -256,8 +323,8 @@ describe('CustomerResource', function () {
             $result = $this->customerResource->restore($customerId);
 
             expect($result)->toBeInstanceOf(CustomerResponse::class)
-                ->and($result->getId())->toBe($customerId)
-                ->and($result->isDeleted())->toBe(false);
+                ->and($result->id)->toBe($customerId)
+                ->and($result->deleted)->toBe(false);
         });
 
         it('should call correct restore endpoint', function () {

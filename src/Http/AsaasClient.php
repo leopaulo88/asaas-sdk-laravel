@@ -3,6 +3,7 @@
 namespace Leopaulo88\Asaas\Http;
 
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Exceptions\InvalidApiKeyException;
 use Leopaulo88\Asaas\Exceptions\InvalidEnvironmentException;
@@ -31,15 +32,15 @@ class AsaasClient
 
     protected function buildConfig(?string $apiKey, ?string $environment): array
     {
-        $environment = $environment ?? config('asaas.environment', 'sandbox');
-        $apiUrls = config('asaas.api_urls', []);
+        $environment = $environment ?? Config::get('asaas.environment', 'sandbox');
+        $apiUrls = Config::get('asaas.api_urls', []);
 
         return [
-            'api_key' => $apiKey ?? config('asaas.api_key'),
+            'api_key' => $apiKey ?? Config::get('asaas.api_key'),
             'environment' => $environment,
             'base_url' => $apiUrls[$environment] ?? '',
-            'timeout' => config('asaas.timeout', 30),
-            'rate_limit' => config('asaas.rate_limit', []),
+            'timeout' => Config::get('asaas.timeout', 30),
+            'rate_limit' => Config::get('asaas.rate_limit', []),
         ];
     }
 

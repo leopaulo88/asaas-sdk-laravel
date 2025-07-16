@@ -2,71 +2,70 @@
 
 namespace Leopaulo88\Asaas\Resources;
 
-use Illuminate\Http\Client\Response;
 use Leopaulo88\Asaas\Entities\Customer\CustomerCreateRequest;
 use Leopaulo88\Asaas\Entities\Customer\CustomerUpdateRequest;
-use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
 
 class CustomerResource extends BaseResource
 {
     /**
      * List customers with optional filters
+     * Returns List entity automatically
      */
-    public function list(array $params = []): Response
+    public function list(array $params = [])
     {
         return $this->get('/customers', $params);
     }
 
     /**
      * Create a new customer
+     * Returns CustomerResponse entity automatically
      */
-    public function create(array|CustomerCreateRequest $data): CustomerResponse
+    public function create(array|CustomerCreateRequest $data)
     {
         if (is_array($data)) {
             $data = new CustomerCreateRequest($data);
         }
 
-        $response = $this->post('/customers', $data->toArray());
-        return CustomerResponse::fromResponse($response);
+        return $this->post('/customers', $data->toArray());
     }
 
     /**
      * Get customer by ID
+     * Returns CustomerResponse entity automatically
      */
-    public function find(string $id): CustomerResponse
+    public function find(string $id)
     {
-        $response = $this->get("/customers/{$id}");
-        return CustomerResponse::fromResponse($response);
+        return $this->get("/customers/{$id}");
     }
 
     /**
      * Update customer by ID
+     * Returns CustomerResponse entity automatically
      */
-    public function update(string $id, array|CustomerUpdateRequest $data): CustomerResponse
+    public function update(string $id, array|CustomerUpdateRequest $data)
     {
         if (is_array($data)) {
             $data = new CustomerUpdateRequest($data);
         }
 
-        $response = $this->put("/customers/{$id}", $data->toArray());
-        return CustomerResponse::fromResponse($response);
+        return $this->put("/customers/{$id}", $data->toArray());
     }
 
     /**
-     * Delete customer by ID - returns minimal response with deleted status
+     * Delete customer by ID
+     * Returns whatever the API returns (usually success confirmation)
      */
-    public function delete(string $id): array
+    public function delete(string $id)
     {
-        $response = parent::delete("/customers/{$id}");
-        return $response->json() ?? [];
+        return parent::delete("/customers/{$id}");
     }
 
     /**
      * Restore a deleted customer by ID
+     * Returns CustomerResponse entity automatically
      */
-    public function restore(string $id): CustomerResponse
+    public function restore(string $id)
     {
-        $response = $this->post("/customers/{$id}/restore");
-        return CustomerResponse::fromResponse($response);
+        return $this->post("/customers/{$id}/restore");
     }
 }
