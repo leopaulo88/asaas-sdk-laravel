@@ -2,13 +2,13 @@
 
 namespace Leopaulo88\Asaas\Resources;
 
+use Illuminate\Http\Client\RequestException;
+use Leopaulo88\Asaas\Exceptions\AsaasException;
+use Leopaulo88\Asaas\Exceptions\BadRequestException;
+use Leopaulo88\Asaas\Exceptions\NotFoundException;
+use Leopaulo88\Asaas\Exceptions\UnauthorizedException;
 use Leopaulo88\Asaas\Factories\EntityFactory;
 use Leopaulo88\Asaas\Http\AsaasClient;
-use Illuminate\Http\Client\RequestException;
-use Leopaulo88\Asaas\Exceptions\BadRequestException;
-use Leopaulo88\Asaas\Exceptions\UnauthorizedException;
-use Leopaulo88\Asaas\Exceptions\NotFoundException;
-use Leopaulo88\Asaas\Exceptions\AsaasException;
 
 abstract class BaseResource
 {
@@ -16,28 +16,29 @@ abstract class BaseResource
 
     protected function get(string $endpoint, array $query = [])
     {
-        return $this->handleRequest(fn() => $this->client->http()->get($endpoint, $query));
+        return $this->handleRequest(fn () => $this->client->http()->get($endpoint, $query));
     }
 
     protected function post(string $endpoint, array $data = [])
     {
-        return $this->handleRequest(fn() => $this->client->http()->post($endpoint, $data));
+        return $this->handleRequest(fn () => $this->client->http()->post($endpoint, $data));
     }
 
     protected function put(string $endpoint, array $data = [])
     {
-        return $this->handleRequest(fn() => $this->client->http()->put($endpoint, $data));
+        return $this->handleRequest(fn () => $this->client->http()->put($endpoint, $data));
     }
 
     protected function delete(string $endpoint)
     {
-        return $this->handleRequest(fn() => $this->client->http()->delete($endpoint));
+        return $this->handleRequest(fn () => $this->client->http()->delete($endpoint));
     }
 
     private function handleRequest(callable $httpCall)
     {
         try {
             $response = $httpCall();
+
             return EntityFactory::createFromResponse($response);
         } catch (RequestException $e) {
             $response = $e->response;
