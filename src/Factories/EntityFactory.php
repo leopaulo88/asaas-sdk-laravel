@@ -11,7 +11,6 @@ class EntityFactory
      */
     protected static array $entityMap = [
         'customer' => \Leopaulo88\Asaas\Entities\Responses\CustomerResponse::class,
-        'payment' => \Leopaulo88\Asaas\Entities\Responses\PaymentResponse::class,
         'list' => \Leopaulo88\Asaas\Entities\Responses\ListResponse::class,
         // Add more as they are created
     ];
@@ -43,27 +42,24 @@ class EntityFactory
         $objectType = $data['object'] ?? null;
 
         if (! $objectType) {
-            return $data; // Retorna array original se não tiver 'object'
+            return $data;
         }
 
         if (! isset(static::$entityMap[$objectType])) {
-            return $data; // Retorna array original se não tiver mapeamento
+            return $data;
         }
 
-        // Proteção contra recursão infinita
         $dataHash = md5(serialize($data));
         if (in_array($dataHash, static::$conversionStack)) {
-            return $data; // Retorna array se já está sendo processado
+            return $data;
         }
 
-        // Adiciona à pilha de conversão
         static::$conversionStack[] = $dataHash;
 
         try {
             $entityClass = static::$entityMap[$objectType];
             $result = $entityClass::fromArray($data);
         } finally {
-            // Remove da pilha sempre, mesmo se der erro
             array_pop(static::$conversionStack);
         }
 

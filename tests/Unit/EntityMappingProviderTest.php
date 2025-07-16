@@ -2,7 +2,6 @@
 
 use Leopaulo88\Asaas\Entities\Responses\CustomerResponse;
 use Leopaulo88\Asaas\Entities\Responses\ListResponse;
-use Leopaulo88\Asaas\Entities\Responses\PaymentResponse;
 use Leopaulo88\Asaas\Factories\EntityFactory;
 
 beforeEach(function () {
@@ -15,12 +14,10 @@ describe('EntityFactory', function () {
 
         it('has correct mappings registered', function () {
             expect(EntityFactory::isRegistered('list'))->toBe(true)
-                ->and(EntityFactory::isRegistered('customer'))->toBe(true)
-                ->and(EntityFactory::isRegistered('payment'))->toBe(true);
+                ->and(EntityFactory::isRegistered('customer'))->toBe(true);
 
             expect(EntityFactory::getEntityClass('list'))->toBe(ListResponse::class)
-                ->and(EntityFactory::getEntityClass('customer'))->toBe(CustomerResponse::class)
-                ->and(EntityFactory::getEntityClass('payment'))->toBe(PaymentResponse::class);
+                ->and(EntityFactory::getEntityClass('customer'))->toBe(CustomerResponse::class);
         });
 
     });
