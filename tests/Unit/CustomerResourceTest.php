@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Entities\Customer;
-use Leopaulo88\Asaas\Entities\Customer\CustomerCreateRequest;
-use Leopaulo88\Asaas\Entities\Customer\CustomerUpdateRequest;
 use Leopaulo88\Asaas\Entities\Responses\CustomerResponse;
 use Leopaulo88\Asaas\Entities\Responses\ListResponse;
 use Leopaulo88\Asaas\Http\AsaasClient;
@@ -35,7 +33,7 @@ describe('CustomerResource', function () {
             $params = ['limit' => 10, 'offset' => 0];
             $this->customerResource->list($params);
 
-            Http::assertSent(function ($request) use ($params) {
+            Http::assertSent(function ($request) {
                 return str_contains($request->url(), 'limit=10')
                     && str_contains($request->url(), 'offset=0');
             });
@@ -57,7 +55,7 @@ describe('CustomerResource', function () {
                             'email' => 'joao@teste.com',
                             'cpfCnpj' => '12345678901',
                             'personType' => 'FISICA',
-                            'deleted' => false
+                            'deleted' => false,
                         ],
                         [
                             'object' => 'customer',
@@ -66,10 +64,10 @@ describe('CustomerResource', function () {
                             'email' => 'maria@teste.com',
                             'cpfCnpj' => '98765432100',
                             'personType' => 'FISICA',
-                            'deleted' => false
-                        ]
-                    ]
-                ])
+                            'deleted' => false,
+                        ],
+                    ],
+                ]),
             ]);
 
             $result = $this->customerResource->list();
@@ -96,8 +94,8 @@ describe('CustomerResource', function () {
                     'totalCount' => 0,
                     'limit' => 10,
                     'offset' => 0,
-                    'data' => []
-                ])
+                    'data' => [],
+                ]),
             ]);
 
             $result = $this->customerResource->list();
@@ -116,7 +114,7 @@ describe('CustomerResource', function () {
             $customerData = [
                 'name' => 'João Silva',
                 'cpfCnpj' => '12345678901',
-                'email' => 'joao@teste.com'
+                'email' => 'joao@teste.com',
             ];
 
             Http::fake([
@@ -128,8 +126,8 @@ describe('CustomerResource', function () {
                     'email' => 'joao@teste.com',
                     'dateCreated' => '2025-01-15',
                     'personType' => 'FISICA',
-                    'deleted' => false
-                ])
+                    'deleted' => false,
+                ]),
             ]);
 
             $result = $this->customerResource->create($customerData);
@@ -154,8 +152,8 @@ describe('CustomerResource', function () {
                     'email' => 'maria@teste.com',
                     'dateCreated' => '2025-01-15',
                     'personType' => 'FISICA',
-                    'deleted' => false
-                ])
+                    'deleted' => false,
+                ]),
             ]);
 
             $result = $this->customerResource->create($request);
@@ -169,7 +167,7 @@ describe('CustomerResource', function () {
 
             $customerData = [
                 'name' => 'Test Customer',
-                'cpfCnpj' => '12345678901'
+                'cpfCnpj' => '12345678901',
             ];
 
             $this->customerResource->create($customerData);
@@ -198,8 +196,8 @@ describe('CustomerResource', function () {
                     'cpfCnpj' => '12345678901',
                     'dateCreated' => '2025-01-15',
                     'personType' => 'FISICA',
-                    'deleted' => false
-                ])
+                    'deleted' => false,
+                ]),
             ]);
 
             $result = $this->customerResource->find($customerId);
@@ -238,8 +236,8 @@ describe('CustomerResource', function () {
                     'cpfCnpj' => '12345678901',
                     'dateCreated' => '2025-01-15',
                     'personType' => 'FISICA',
-                    'deleted' => false
-                ])
+                    'deleted' => false,
+                ]),
             ]);
 
             $result = $this->customerResource->update($customerId, $updateData);
@@ -258,8 +256,8 @@ describe('CustomerResource', function () {
                     'id' => $customerId,
                     'email' => 'atualizado@email.com',
                     'dateCreated' => '2025-01-15',
-                    'deleted' => false
-                ])
+                    'deleted' => false,
+                ]),
             ]);
 
             $result = $this->customerResource->update($customerId, $request);
@@ -278,8 +276,8 @@ describe('CustomerResource', function () {
             Http::fake([
                 "https://sandbox.asaas.com/api/v3/customers/{$customerId}" => Http::response([
                     'id' => $customerId,
-                    'deleted' => true
-                ])
+                    'deleted' => true,
+                ]),
             ]);
 
             $result = $this->customerResource->delete($customerId);
@@ -316,8 +314,8 @@ describe('CustomerResource', function () {
                     'cpfCnpj' => '12345678901',
                     'dateCreated' => '2025-01-15',
                     'personType' => 'FISICA',
-                    'deleted' => false
-                ])
+                    'deleted' => false,
+                ]),
             ]);
 
             $result = $this->customerResource->restore($customerId);

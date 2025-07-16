@@ -11,8 +11,11 @@ class ListResponse extends BaseResponse
 
     // Pagination attributes
     public ?bool $hasMore;
+
     public ?int $totalCount;
+
     public ?int $limit;
+
     public ?int $offset;
 
     // List data
@@ -41,8 +44,7 @@ class ListResponse extends BaseResponse
     /**
      * Get the data mapped to specific entity instances
      *
-     * @param string $entityClass The entity class to map data to
-     * @return array
+     * @param  string  $entityClass  The entity class to map data to
      */
     public function getDataAs(string $entityClass): array
     {

@@ -2,7 +2,6 @@
 
 namespace Leopaulo88\Asaas\Entities\Responses;
 
-use Leopaulo88\Asaas\Concerns\HasFactory;
 use Leopaulo88\Asaas\Contracts\EntityFactoryInterface;
 use Leopaulo88\Asaas\Http\ResponseHydrator;
 
@@ -10,7 +9,7 @@ abstract class BaseResponse implements EntityFactoryInterface
 {
     public function __construct(array $attributes = [])
     {
-        $hydrator = new ResponseHydrator();
+        $hydrator = new ResponseHydrator;
         $validatedData = $hydrator->validateAndTransformData($attributes, static::class);
 
         foreach ($validatedData as $key => $value) {
@@ -28,6 +27,7 @@ abstract class BaseResponse implements EntityFactoryInterface
                 $data[$key] = $value instanceof \BackedEnum ? $value->value : $value;
             }
         }
+
         return $data;
     }
 
@@ -40,5 +40,4 @@ abstract class BaseResponse implements EntityFactoryInterface
     {
         return new static($response->json() ?? []);
     }
-
 }

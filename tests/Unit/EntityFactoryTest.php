@@ -1,8 +1,7 @@
 <?php
 
-use Leopaulo88\Asaas\Factories\EntityFactory;
 use Leopaulo88\Asaas\Entities\Responses\CustomerResponse;
-use Illuminate\Http\Client\Response;
+use Leopaulo88\Asaas\Factories\EntityFactory;
 
 beforeEach(function () {
     // Limpar mapeamentos existentes para teste isolado

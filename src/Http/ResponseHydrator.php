@@ -3,11 +3,11 @@
 namespace Leopaulo88\Asaas\Http;
 
 use Leopaulo88\Asaas\Entities\Responses\BaseResponse;
-use Leopaulo88\Asaas\Enums\PersonType;
 
 class ResponseHydrator
 {
     private static array $reflectionCache = [];
+
     private static array $propertyTypeCache = [];
 
     public function hydrate(array $data, string $responseClass): BaseResponse
@@ -22,7 +22,7 @@ class ResponseHydrator
         $transformedData = [];
 
         foreach ($data as $key => $value) {
-            if (!property_exists($responseClass, $key)) {
+            if (! property_exists($responseClass, $key)) {
                 continue;
             }
 
@@ -38,9 +38,9 @@ class ResponseHydrator
             return null;
         }
 
-        $cacheKey = $responseClass . '::' . $key;
+        $cacheKey = $responseClass.'::'.$key;
 
-        if (!isset(self::$propertyTypeCache[$cacheKey])) {
+        if (! isset(self::$propertyTypeCache[$cacheKey])) {
             $this->cachePropertyType($responseClass, $key);
         }
 
@@ -56,7 +56,7 @@ class ResponseHydrator
     private function cachePropertyType(string $responseClass, string $key): void
     {
         try {
-            if (!isset(self::$reflectionCache[$responseClass])) {
+            if (! isset(self::$reflectionCache[$responseClass])) {
                 self::$reflectionCache[$responseClass] = new \ReflectionClass($responseClass);
             }
 
@@ -64,7 +64,7 @@ class ResponseHydrator
             $property = $reflection->getProperty($key);
             $type = $property->getType();
 
-            $cacheKey = $responseClass . '::' . $key;
+            $cacheKey = $responseClass.'::'.$key;
 
             if ($type instanceof \ReflectionNamedType) {
                 self::$propertyTypeCache[$cacheKey] = $type->getName();
@@ -72,7 +72,7 @@ class ResponseHydrator
                 self::$propertyTypeCache[$cacheKey] = null;
             }
         } catch (\ReflectionException) {
-            self::$propertyTypeCache[$responseClass . '::' . $key] = null;
+            self::$propertyTypeCache[$responseClass.'::'.$key] = null;
         }
     }
 }

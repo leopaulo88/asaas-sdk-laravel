@@ -3,7 +3,6 @@
 namespace Leopaulo88\Asaas\Factories;
 
 use Illuminate\Http\Client\Response;
-use Leopaulo88\Asaas\Entities\Responses\ListResponse;
 
 class EntityFactory
 {
@@ -29,7 +28,7 @@ class EntityFactory
     {
         $data = $response->json();
 
-        if (!is_array($data)) {
+        if (! is_array($data)) {
             return $data;
         }
 
@@ -43,11 +42,11 @@ class EntityFactory
     {
         $objectType = $data['object'] ?? null;
 
-        if (!$objectType) {
+        if (! $objectType) {
             return $data; // Retorna array original se não tiver 'object'
         }
 
-        if (!isset(static::$entityMap[$objectType])) {
+        if (! isset(static::$entityMap[$objectType])) {
             return $data; // Retorna array original se não tiver mapeamento
         }
 
@@ -114,7 +113,7 @@ class EntityFactory
     /**
      * Create entity with fallback to array if mapping doesn't exist
      */
-    public static function createWithFallback($data, string $fallbackClass = null)
+    public static function createWithFallback($data, ?string $fallbackClass = null)
     {
         if (is_array($data)) {
             $entity = static::createFromArray($data);
@@ -143,9 +142,7 @@ class EntityFactory
     /**
      * Create a collection of specific entity instances
      *
-     * @param array $data
-     * @param string $entityClass The entity class to map data to
-     * @return array
+     * @param  string  $entityClass  The entity class to map data to
      */
     public static function createCollectionAs(array $data, string $entityClass): array
     {

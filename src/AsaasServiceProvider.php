@@ -2,9 +2,9 @@
 
 namespace Leopaulo88\Asaas;
 
+use Leopaulo88\Asaas\Commands\AsaasCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Leopaulo88\Asaas\Commands\AsaasCommand;
 
 class AsaasServiceProvider extends PackageServiceProvider
 {
@@ -25,7 +25,7 @@ class AsaasServiceProvider extends PackageServiceProvider
     {
         // Registra o binding para a Facade
         $this->app->bind('asaas', function () {
-            return new Asaas();
+            return new Asaas;
         });
     }
 }

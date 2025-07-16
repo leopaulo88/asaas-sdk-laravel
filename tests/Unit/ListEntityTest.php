@@ -1,7 +1,6 @@
 <?php
 
 use Leopaulo88\Asaas\Entities\Responses\ListResponse;
-use Leopaulo88\Asaas\Entities\Responses\CustomerResponse;
 
 describe('List Entity', function () {
 
@@ -14,7 +13,7 @@ describe('List Entity', function () {
                 'totalCount' => 100,
                 'limit' => 10,
                 'offset' => 20,
-                'data' => []
+                'data' => [],
             ];
 
             $response = ListResponse::fromArray($apiData);
@@ -33,7 +32,7 @@ describe('List Entity', function () {
                 'totalCount' => 0,
                 'limit' => 10,
                 'offset' => 0,
-                'data' => []
+                'data' => [],
             ];
 
             $response = ListResponse::fromArray($apiData);

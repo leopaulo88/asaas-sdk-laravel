@@ -49,7 +49,7 @@ trait HasPagination
      */
     public function isLastPage(): bool
     {
-        return !$this->hasMore();
+        return ! $this->hasMore();
     }
 
     /**
@@ -58,6 +58,7 @@ trait HasPagination
     public function getCurrentPage(): int
     {
         $limit = $this->getLimit();
+
         return $limit > 0 ? (int) floor($this->getOffset() / $limit) + 1 : 1;
     }
 
@@ -98,7 +99,7 @@ trait HasPagination
      */
     public function getNextPageParams(): ?array
     {
-        if (!$this->hasMore()) {
+        if (! $this->hasMore()) {
             return null;
         }
 

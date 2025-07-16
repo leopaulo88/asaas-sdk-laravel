@@ -3,8 +3,8 @@
 namespace Leopaulo88\Asaas\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Leopaulo88\Asaas\AsaasServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

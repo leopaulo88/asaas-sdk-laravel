@@ -25,7 +25,7 @@ class AsaasClient
             ->withHeaders($this->getHeaders())
             ->when($this->isRateLimitEnabled(), function (PendingRequest $request) {
                 return $request->withOptions([
-                    'rate_limit' => $this->config['rate_limit']
+                    'rate_limit' => $this->config['rate_limit'],
                 ]);
             });
     }
@@ -46,16 +46,16 @@ class AsaasClient
 
     protected function validateConfig(): void
     {
-        if (!$this->config['api_key']) {
-            throw new InvalidApiKeyException();
+        if (! $this->config['api_key']) {
+            throw new InvalidApiKeyException;
         }
 
         $availableEnvironments = array_keys(config('asaas.api_urls', []));
-        if (!in_array($this->config['environment'], $availableEnvironments)) {
+        if (! in_array($this->config['environment'], $availableEnvironments)) {
             throw new InvalidEnvironmentException($this->config['environment'], $availableEnvironments);
         }
 
-        if (!$this->config['base_url']) {
+        if (! $this->config['base_url']) {
             throw new InvalidEnvironmentException($this->config['environment'], $availableEnvironments);
         }
     }
