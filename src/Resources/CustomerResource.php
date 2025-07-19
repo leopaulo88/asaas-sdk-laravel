@@ -91,8 +91,7 @@ class CustomerResource extends BaseResource
      */
     public function delete(string $id): Deleted
     {
-        $response =  parent::delete("/customers/{$id}");
-
+        $response = parent::delete("/customers/{$id}");
         return Deleted::fromArray($response);
     }
 

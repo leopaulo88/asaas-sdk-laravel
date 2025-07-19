@@ -113,7 +113,7 @@
          {
              $response = parent::delete("/payments/{$id}");
 
-             return Deleted::fromArray($response->json());
+             return Deleted::fromArray($response);
          }
 
          /**
@@ -168,7 +168,7 @@
          {
              $res = $this->get("/payments/{$id}/billingInfo");
 
-             return BillingInfoResponse::fromResponse($res);
+             return BillingInfoResponse::fromArray($res);
          }
 
             /**

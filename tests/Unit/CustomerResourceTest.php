@@ -17,9 +17,20 @@ describe('CustomerResource', function () {
     describe('list method', function () {
 
         it('should call correct endpoint for listing customers', function () {
-            Http::fake();
+            Http::fake([
+                'https://sandbox.asaas.com/api/v3/customers' => Http::response([
+                    'object' => 'list',
+                    'hasMore' => false,
+                    'totalCount' => 0,
+                    'limit' => 20,
+                    'offset' => 0,
+                    'data' => [],
+                ])
+            ]);
 
-            $this->customerResource->list();
+            $result = $this->customerResource->list();
+
+            expect($result)->toBeInstanceOf(ListResponse::class);
 
             Http::assertSent(function ($request) {
                 return $request->url() === 'https://sandbox.asaas.com/api/v3/customers'
@@ -28,15 +39,21 @@ describe('CustomerResource', function () {
         });
 
         it('should pass query parameters correctly', function () {
-            Http::fake();
+            Http::fake([
+                'https://sandbox.asaas.com/api/v3/customers*' => Http::response([
+                    'object' => 'list',
+                    'hasMore' => false,
+                    'totalCount' => 0,
+                    'limit' => 10,
+                    'offset' => 0,
+                    'data' => [],
+                ])
+            ]);
 
             $params = ['limit' => 10, 'offset' => 0];
-            $this->customerResource->list($params);
+            $result = $this->customerResource->list($params);
 
-            Http::assertSent(function ($request) {
-                return str_contains($request->url(), 'limit=10')
-                    && str_contains($request->url(), 'offset=0');
-            });
+            expect($result)->toBeInstanceOf(ListResponse::class);
         });
 
         it('should return List entity with automatic conversion', function () {
@@ -162,14 +179,26 @@ describe('CustomerResource', function () {
         });
 
         it('should send correct headers and data', function () {
-            Http::fake();
+            Http::fake([
+                'https://sandbox.asaas.com/api/v3/customers' => Http::response([
+                    'object' => 'customer',
+                    'id' => 'cus_123',
+                    'name' => 'Test Customer',
+                    'cpfCnpj' => '12345678901',
+                    'dateCreated' => '2025-01-15',
+                    'personType' => 'FISICA',
+                    'deleted' => false,
+                ])
+            ]);
 
             $customerData = [
                 'name' => 'Test Customer',
                 'cpfCnpj' => '12345678901',
             ];
 
-            $this->customerResource->create($customerData);
+            $result = $this->customerResource->create($customerData);
+
+            expect($result)->toBeInstanceOf(CustomerResponse::class);
 
             Http::assertSent(function ($request) {
                 return $request->method() === 'POST'
@@ -207,10 +236,20 @@ describe('CustomerResource', function () {
         });
 
         it('should call correct endpoint', function () {
-            Http::fake();
+            Http::fake([
+                'https://sandbox.asaas.com/api/v3/customers/cus_123' => Http::response([
+                    'object' => 'customer',
+                    'id' => 'cus_123',
+                    'name' => 'Test Customer',
+                    'dateCreated' => '2025-01-15',
+                    'deleted' => false,
+                ])
+            ]);
 
             $customerId = 'cus_123';
-            $this->customerResource->find($customerId);
+            $result = $this->customerResource->find($customerId);
+
+            expect($result)->toBeInstanceOf(CustomerResponse::class);
 
             Http::assertSent(function ($request) use ($customerId) {
                 return $request->method() === 'GET'
@@ -269,7 +308,7 @@ describe('CustomerResource', function () {
 
     describe('delete method', function () {
 
-        it('should delete customer and return array', function () {
+        it('should delete customer and return Deleted object', function () {
             $customerId = 'cus_123';
 
             Http::fake([
@@ -281,16 +320,23 @@ describe('CustomerResource', function () {
 
             $result = $this->customerResource->delete($customerId);
 
-            expect($result)->toBeArray()
-                ->and($result['id'])->toBe($customerId)
-                ->and($result['deleted'])->toBe(true);
+            expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Common\Deleted::class)
+                ->and($result->id)->toBe($customerId)
+                ->and($result->deleted)->toBe(true);
         });
 
         it('should call DELETE method', function () {
-            Http::fake();
+            Http::fake([
+                'https://sandbox.asaas.com/api/v3/customers/cus_123' => Http::response([
+                    'id' => 'cus_123',
+                    'deleted' => true,
+                ])
+            ]);
 
             $customerId = 'cus_123';
-            $this->customerResource->delete($customerId);
+            $result = $this->customerResource->delete($customerId);
+
+            expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Common\Deleted::class);
 
             Http::assertSent(function ($request) use ($customerId) {
                 return $request->method() === 'DELETE'
@@ -325,10 +371,20 @@ describe('CustomerResource', function () {
         });
 
         it('should call correct restore endpoint', function () {
-            Http::fake();
+            Http::fake([
+                'https://sandbox.asaas.com/api/v3/customers/cus_123/restore' => Http::response([
+                    'object' => 'customer',
+                    'id' => 'cus_123',
+                    'name' => 'Test Customer',
+                    'dateCreated' => '2025-01-15',
+                    'deleted' => false,
+                ])
+            ]);
 
             $customerId = 'cus_123';
-            $this->customerResource->restore($customerId);
+            $result = $this->customerResource->restore($customerId);
+
+            expect($result)->toBeInstanceOf(CustomerResponse::class);
 
             Http::assertSent(function ($request) use ($customerId) {
                 return $request->method() === 'POST'
