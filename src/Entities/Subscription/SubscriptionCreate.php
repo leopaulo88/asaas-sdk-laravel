@@ -4,13 +4,13 @@ namespace Leopaulo88\Asaas\Entities\Subscription;
 
 use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
+use Leopaulo88\Asaas\Entities\Common\Callback;
 use Leopaulo88\Asaas\Entities\Common\CreditCard;
 use Leopaulo88\Asaas\Entities\Common\CreditCardHolderInfo;
-use Leopaulo88\Asaas\Entities\Common\Split;
-use Leopaulo88\Asaas\Entities\Common\Callback;
 use Leopaulo88\Asaas\Entities\Common\Discount;
 use Leopaulo88\Asaas\Entities\Common\Fine;
 use Leopaulo88\Asaas\Entities\Common\Interest;
+use Leopaulo88\Asaas\Entities\Common\Split;
 use Leopaulo88\Asaas\Enums\BillingType;
 use Leopaulo88\Asaas\Enums\SubscriptionCycle;
 
