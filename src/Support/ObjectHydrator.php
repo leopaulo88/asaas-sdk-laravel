@@ -2,10 +2,13 @@
 
 namespace Leopaulo88\Asaas\Support;
 
+use Carbon\Carbon;
+
 class ObjectHydrator
 {
     private static array $reflectionCache = [];
     private static array $propertyTypeCache = [];
+    private static array $useStatementsCache = [];
 
     public function validateAndTransformData(array $data, string $targetClass): array
     {
@@ -68,13 +71,27 @@ class ObjectHydrator
 
         $propertyType = $propertyInfo['type'];
         $isNullable = $propertyInfo['nullable'];
+        $arrayElementType = $propertyInfo['arrayElementType'] ?? null;
 
         if ($value === null && $isNullable) {
             return null;
         }
 
         if ($propertyType === 'array') {
-            return is_array($value) ? $value : [$value];
+            if (!is_array($value)) {
+                $value = [$value];
+            }
+
+            if ($arrayElementType && class_exists($arrayElementType)) {
+                return array_map(function($item) use ($arrayElementType) {
+                    if (is_array($item)) {
+                        return $this->createObjectInstance($arrayElementType, $item);
+                    }
+                    return $item;
+                }, $value);
+            }
+
+            return $value;
         }
 
         if (in_array($propertyType, ['string', 'int', 'float', 'bool'])) {
@@ -83,6 +100,11 @@ class ObjectHydrator
 
         if (enum_exists($propertyType)) {
             return $this->createEnumInstance($propertyType, $value);
+        }
+
+        // Handle Carbon date conversion
+        if ($propertyType === 'Carbon\Carbon' && is_string($value)) {
+            return $this->createCarbonInstance($value);
         }
 
         if (class_exists($propertyType)) {
@@ -165,10 +187,25 @@ class ObjectHydrator
 
             $cacheKey = $className . '::' . $key;
 
+            $arrayElementType = null;
+            $docComment = $property->getDocComment();
+            if ($docComment) {
+                if (preg_match('/@var\s+array<([^>]+)>/', $docComment, $matches)) {
+                    $arrayElementType = trim($matches[1]);
+                } elseif (preg_match('/@var\s+([^\\s\\[]+)\[\]/', $docComment, $matches)) {
+                    $arrayElementType = trim($matches[1]);
+                }
+
+                if ($arrayElementType) {
+                    $arrayElementType = $this->resolveClassName($arrayElementType, $reflection);
+                }
+            }
+
             if ($type instanceof \ReflectionNamedType) {
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => $type->getName(),
-                    'nullable' => $type->allowsNull()
+                    'nullable' => $type->allowsNull(),
+                    'arrayElementType' => $arrayElementType
                 ];
             } elseif ($type instanceof \ReflectionUnionType) {
                 $types = [];
@@ -184,12 +221,14 @@ class ObjectHydrator
 
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => $types[0] ?? 'mixed',
-                    'nullable' => $nullable
+                    'nullable' => $nullable,
+                    'arrayElementType' => $arrayElementType
                 ];
             } else {
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => 'mixed',
-                    'nullable' => true
+                    'nullable' => true,
+                    'arrayElementType' => $arrayElementType
                 ];
             }
         } catch (\ReflectionException) {
@@ -203,6 +242,7 @@ class ObjectHydrator
     {
         self::$reflectionCache = [];
         self::$propertyTypeCache = [];
+        self::$useStatementsCache = [];
     }
 
 
@@ -215,5 +255,104 @@ class ObjectHydrator
         }
 
         return self::$propertyTypeCache[$cacheKey] ?? null;
+    }
+
+    private function resolveClassName(string $className, \ReflectionClass $reflection): string
+    {
+        if (str_contains($className, '\\')) {
+            return $className;
+        }
+
+        if (in_array($className, ['string', 'int', 'float', 'bool', 'array', 'object', 'mixed'])) {
+            return $className;
+        }
+
+        $reflectionClassName = $reflection->getName();
+
+        if (!isset(self::$useStatementsCache[$reflectionClassName])) {
+            self::$useStatementsCache[$reflectionClassName] = $this->extractUseStatements($reflection);
+        }
+
+        $useStatements = self::$useStatementsCache[$reflectionClassName];
+
+        if (isset($useStatements[$className])) {
+            return $useStatements[$className];
+        }
+
+        $namespace = $reflection->getNamespaceName();
+        if ($namespace) {
+            $fullyQualifiedName = $namespace . '\\' . $className;
+            if (class_exists($fullyQualifiedName)) {
+                return $fullyQualifiedName;
+            }
+        }
+
+        if (class_exists($className)) {
+            return $className;
+        }
+
+        return $className;
+    }
+
+    private function extractUseStatements(\ReflectionClass $reflection): array
+    {
+        $useStatements = [];
+
+        try {
+            $file = $reflection->getFileName();
+            if (!$file) {
+                return [];
+            }
+
+            $content = file_get_contents($file);
+            if (!$content) {
+                return [];
+            }
+
+            preg_match_all('/^use\s+([^;]+);/m', $content, $matches);
+
+            foreach ($matches[1] as $useStatement) {
+                $useStatement = trim($useStatement);
+
+                if (strpos($useStatement, ' as ') !== false) {
+                    [$fullClassName, $alias] = explode(' as ', $useStatement, 2);
+                    $useStatements[trim($alias)] = trim($fullClassName);
+                } else {
+                    $parts = explode('\\', $useStatement);
+                    $className = end($parts);
+                    $useStatements[$className] = $useStatement;
+                }
+            }
+        } catch (\Throwable) {
+
+        }
+
+        return $useStatements;
+    }
+
+    private function createCarbonInstance(string $dateString): ?Carbon
+    {
+        try {
+
+            if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $dateString)) {
+                return Carbon::createFromFormat('Y-m-d H:i:s', $dateString);
+            }
+
+
+            if (preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/', $dateString)) {
+                return Carbon::parse($dateString);
+            }
+
+
+            if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateString)) {
+                return Carbon::createFromFormat('Y-m-d', $dateString)->startOfDay();
+            }
+
+
+            return Carbon::parse($dateString);
+        } catch (\Throwable $e) {
+
+            return null;
+        }
     }
 }

@@ -2,13 +2,20 @@
 
 namespace Leopaulo88\Asaas;
 
+use Leopaulo88\Asaas\Concerns\HasAccounts;
+use Leopaulo88\Asaas\Concerns\HasCreditCards;
+use Leopaulo88\Asaas\Concerns\HasCustomers;
+use Leopaulo88\Asaas\Concerns\HasPayments;
 use Leopaulo88\Asaas\Resources\AccountResource;
 use Leopaulo88\Asaas\Resources\CreditCardResource;
 use Leopaulo88\Asaas\Resources\CustomerResource;
+use Leopaulo88\Asaas\Resources\PaymentResource;
 use Leopaulo88\Asaas\Support\AsaasClient;
 
 class Asaas
 {
+    use HasAccounts, HasPayments, HasCreditCards, HasCustomers;
+
     protected AsaasClient $client;
 
     public function __construct(?string $apiKey = null, ?string $environment = null)
@@ -24,20 +31,5 @@ class Asaas
     public function withApiKey(string $apiKey, ?string $environment = null): self
     {
         return new self($apiKey, $environment);
-    }
-
-    public function customers(): CustomerResource
-    {
-        return new CustomerResource($this->client);
-    }
-
-    public function accounts(): AccountResource
-    {
-        return new AccountResource($this->client);
-    }
-
-    public function creditCards(): CreditCardResource
-    {
-        return new CreditCardResource($this->client);
     }
 }

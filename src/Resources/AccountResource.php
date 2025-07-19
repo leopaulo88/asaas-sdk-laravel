@@ -3,15 +3,39 @@
 namespace Leopaulo88\Asaas\Resources;
 
 use Leopaulo88\Asaas\Entities\Account\AccountCreate;
+use Leopaulo88\Asaas\Entities\Account\AccountResponse;
+use Leopaulo88\Asaas\Entities\List\ListResponse;
 
 class AccountResource extends BaseResource
 {
-    public function list(array $params = [])
+    /**
+      * List all accounts.
+      *
+      * Available parameters in $params:
+      * - offset (int): List starting element.
+      * - limit (int, ≤ 100): Number of list elements (max: 100).
+      * - cpfCnpj (string): Filter by the subaccount's CPF or CNPJ.
+      * - email (string): Filter by subaccount email.
+      * - name (string): Filter by subaccount name.
+      * - walletId (string): Filter by subaccount walletId.
+      *
+      * @see https://docs.asaas.com/reference/list-subaccounts
+      * @return ListResponse
+      * @param array $params
+      */
+    public function list(array $params = []): ListResponse
     {
         return $this->get('/accounts', $params);
     }
 
-    public function create(array|AccountCreate $data)
+    /**
+     * Create a new account.
+     *
+     * @see https://docs.asaas.com/reference/create-subaccount
+     * @param array|AccountCreate $data
+     * @return AccountResponse
+     */
+    public function create(array|AccountCreate $data): AccountResponse
     {
         if (is_array($data)) {
             $data = AccountCreate::fromArray($data);
@@ -20,13 +44,14 @@ class AccountResource extends BaseResource
         return $this->post('/accounts', $data->toArray());
     }
 
-    public function find(string $id)
+    /**
+     * Find an account by ID.
+     * @see https://docs.asaas.com/reference/retrieve-a-single-subaccount
+     * @param string $id
+     * @return AccountResponse
+     */
+    public function find(string $id): AccountResponse
     {
         return $this->get("/accounts/{$id}");
-    }
-
-    public function me()
-    {
-        return $this->get('/myAccount');
     }
 }

@@ -32,3 +32,4 @@ testbench.yaml
 /coverage
 /test.php
 /.env
+!/.todo/

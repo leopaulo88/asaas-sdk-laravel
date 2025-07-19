@@ -1,0 +1,13 @@
+<?php
+
+namespace Leopaulo88\Asaas\Enums;
+
+enum EscrowFinishReason: string
+{
+    case CHARGEBACK = 'CHARGEBACK';
+    case EXPIRED = 'EXPIRED';
+    case INSUFFICIENT_BALANCE = 'INSUFFICIENT_BALANCE';
+    case PAYMENT_REFUNDED = 'PAYMENT_REFUNDED';
+    case REQUESTED_BY_CUSTOMER = 'REQUESTED_BY_CUSTOMER';
+    case CUSTOMER_CONFIG_DISABLED = 'CUSTOMER_CONFIG_DISABLED';
+}

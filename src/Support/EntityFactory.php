@@ -6,11 +6,11 @@ use Illuminate\Http\Client\Response;
 
 class EntityFactory
 {
-
     protected static array $entityMap = [
         'customer' => \Leopaulo88\Asaas\Entities\Customer\CustomerResponse::class,
         'account' => \Leopaulo88\Asaas\Entities\Account\AccountResponse::class,
         'list' => \Leopaulo88\Asaas\Entities\List\ListResponse::class,
+        'payment' => \Leopaulo88\Asaas\Entities\Payment\PaymentResponse::class,
     ];
 
 
@@ -94,7 +94,6 @@ class EntityFactory
         if (is_array($data)) {
             $entity = static::createFromArray($data);
 
-            // Se retornou array e temos fallback, use o fallback
             if (is_array($entity) && $fallbackClass) {
                 return $fallbackClass::fromArray($data);
             }
@@ -105,9 +104,7 @@ class EntityFactory
         return $data;
     }
 
-    /**
-     * Create a collection of entities from an array of data
-     */
+
     public static function createCollectionFromArray(array $data): array
     {
         return array_map(function ($item) {
@@ -118,9 +115,7 @@ class EntityFactory
         }, $data);
     }
 
-    /**
-     * Create a collection of specific entity instances from an array of data
-     */
+
     public static function createCollectionAs(array $data, string $entityClass): array
     {
         return array_map(function ($item) use ($entityClass) {

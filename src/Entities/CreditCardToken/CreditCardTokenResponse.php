@@ -1,11 +1,11 @@
 <?php
 
-namespace Leopaulo88\Asaas\Entities\CreditCard;
+namespace Leopaulo88\Asaas\Entities\CreditCardToken;
 
 use Leopaulo88\Asaas\Entities\BaseResponse;
 use Leopaulo88\Asaas\Enums\CreditCardBrand;
 
-class CreditCardResponse extends BaseResponse
+class CreditCardTokenResponse extends BaseResponse
 {
     public ?string $creditCardNumber;
     public ?CreditCardBrand $creditCardBrand;

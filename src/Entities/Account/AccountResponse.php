@@ -2,14 +2,17 @@
 
 namespace Leopaulo88\Asaas\Entities\Account;
 
+use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseResponse;
 
 class AccountResponse extends BaseResponse
 {
     // Basic info
+    public ?string $object;
+
     public ?string $id;
 
-    public ?string $dateCreated;
+    public ?Carbon $dateCreated;
 
     public ?string $name;
 

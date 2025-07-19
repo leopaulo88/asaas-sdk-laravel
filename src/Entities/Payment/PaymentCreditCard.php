@@ -1,27 +1,24 @@
 <?php
 
-namespace Leopaulo88\Asaas\Entities\CreditCard;
+namespace Leopaulo88\Asaas\Entities\Payment;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
+use Leopaulo88\Asaas\Entities\Common\Callback;
 use Leopaulo88\Asaas\Entities\Common\CreditCard;
 use Leopaulo88\Asaas\Entities\Common\CreditCardHolderInfo;
+use Leopaulo88\Asaas\Entities\Common\Discount;
+use Leopaulo88\Asaas\Entities\Common\Fine;
+use Leopaulo88\Asaas\Entities\Common\Interest;
+use Leopaulo88\Asaas\Entities\Common\Split;
+use Leopaulo88\Asaas\Enums\BillingType;
 
-class CreditCardCreate extends BaseEntity
+class PaymentCreditCard extends BaseEntity
 {
     public function __construct(
-        public ?string $customer = null,
         public ?CreditCard $creditCard = null,
         public ?CreditCardHolderInfo $creditCardHolderInfo = null,
-        public ?string $remoteIp = null
-    )
-    {
-    }
-
-    public function customer(string $customer): self
-    {
-        $this->customer = $customer;
-        return $this;
-    }
+        public ?string $creditCardToken = null
+    ) {}
 
     public function creditCard(array|CreditCard $creditCard): self
     {
@@ -42,9 +39,9 @@ class CreditCardCreate extends BaseEntity
         return $this;
     }
 
-    public function remoteIp(string $remoteIp): self
+    public function creditCardToken(string $creditCardToken): self
     {
-        $this->remoteIp = $remoteIp;
+        $this->creditCardToken = $creditCardToken;
         return $this;
     }
 }
