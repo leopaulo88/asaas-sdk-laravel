@@ -2,6 +2,8 @@
 
 namespace Leopaulo88\Asaas\Exceptions;
 
+use Throwable;
+
 class InvalidEnvironmentException extends AsaasException
 {
     public function __construct(string $environment, array $availableEnvironments = [], int $code = 400, ?Throwable $previous = null, ?array $data = [])

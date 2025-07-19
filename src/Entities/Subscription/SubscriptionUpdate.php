@@ -4,11 +4,11 @@ namespace Leopaulo88\Asaas\Entities\Subscription;
 
 use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
+use Leopaulo88\Asaas\Entities\Common\Callback;
+use Leopaulo88\Asaas\Entities\Common\Discount;
+use Leopaulo88\Asaas\Entities\Common\Fine;
+use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Split;
-use Leopaulo88\Asaas\Entities\Payment\Callback;
-use Leopaulo88\Asaas\Entities\Payment\Discount;
-use Leopaulo88\Asaas\Entities\Payment\Fine;
-use Leopaulo88\Asaas\Entities\Payment\Interest;
 use Leopaulo88\Asaas\Enums\BillingType;
 use Leopaulo88\Asaas\Enums\SubscriptionCycle;
 use Leopaulo88\Asaas\Enums\SubscriptionStatus;

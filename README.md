@@ -279,7 +279,7 @@ composer test
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details on how to contribute.
+Please see [CONTRIBUTING](docs/CONTRIBUTING.md) for details on how to contribute.
 
 ## Security Vulnerabilities
 
@@ -287,7 +287,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Leonardo Paulo](https://github.com/leopaulo88)
+- [Leanderson Paulo](https://github.com/leopaulo88)
 - [All Contributors](../../contributors)
 
 ## License
