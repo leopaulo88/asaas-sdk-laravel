@@ -2,16 +2,11 @@
 
 namespace Leopaulo88\Asaas\Entities\Customer;
 
-use Leopaulo88\Asaas\Concerns\ValidatesData;
-use Leopaulo88\Asaas\Contracts\EntityInterface;
 use Leopaulo88\Asaas\Entities\BaseEntity;
 
 class CustomerCreateEntity extends BaseEntity
 {
-    use ValidatesData;
-
     public function __construct(
-        // Promoted properties (PHP 8.0+)
         public ?string $name = null,
         public ?string $cpfCnpj = null,
         public ?string $email = null,
@@ -146,14 +141,5 @@ class CustomerCreateEntity extends BaseEntity
     {
         $this->foreignCustomer = $foreign;
         return $this;
-    }
-
-    protected function validationRules(): array
-    {
-        return [
-            'name' => 'nullable',
-            'cpfCnpj' => 'nullable',
-            'email' => 'nullable',
-        ];
     }
 }

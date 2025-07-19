@@ -16,10 +16,6 @@ abstract class BaseEntity implements EntityInterface
 
      public function toArray(bool $preserveEmpty = false): array
     {
-        if (class_uses($this, ValidatedData::class)) {
-            $this->validate();
-        }
-
         $data = [];
 
         foreach (get_object_vars($this) as $key => $value) {

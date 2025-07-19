@@ -2,7 +2,6 @@
 
 namespace Leopaulo88\Asaas\Entities\Customer;
 
-use Leopaulo88\Asaas\Concerns\ValidatesData;
 use Leopaulo88\Asaas\Entities\BaseEntity;
 
 class CustomerUpdateEntity extends BaseEntity
@@ -48,19 +47,4 @@ class CustomerUpdateEntity extends BaseEntity
     public function groupName(string $groupName): self { $this->groupName = $groupName; return $this; }
     public function company(string $company): self { $this->company = $company; return $this; }
     public function foreignCustomer(bool $foreign = true): self { $this->foreignCustomer = $foreign; return $this; }
-
-    protected function transform(): void
-    {
-        if (
-            $this->cpfCnpj !== null
-        ) {
-            $this->cpfCnpj = preg_replace('/\D/', '', $this->cpfCnpj);
-        }
-
-        if (
-            $this->postalCode !== null
-        ) {
-            $this->postalCode = preg_replace('/\D/', '', $this->postalCode);
-        }
-    }
 }

@@ -2,16 +2,12 @@
 
 namespace Leopaulo88\Asaas\Entities\CreditCard;
 
-use Leopaulo88\Asaas\Concerns\ValidatesData;
 use Leopaulo88\Asaas\Entities\BaseEntity;
 use Leopaulo88\Asaas\Entities\Common\CreditCard;
 use Leopaulo88\Asaas\Entities\Common\CreditCardHolderInfo;
 
 class CreditCardCreate extends BaseEntity
 {
-    use ValidatesData;
-
-
     public function __construct(
         public ?string $customer = null,
         public ?CreditCard $creditCard = null,
@@ -21,7 +17,6 @@ class CreditCardCreate extends BaseEntity
     {
     }
 
-    // metodos fluentes para definir os valores
     public function customer(string $customer): self
     {
         $this->customer = $customer;
@@ -51,16 +46,5 @@ class CreditCardCreate extends BaseEntity
     {
         $this->remoteIp = $remoteIp;
         return $this;
-    }
-
-
-    protected function validationRules(): array
-    {
-        return [
-            'customer' => 'required',
-            'creditCard' => 'required',
-            'creditCardHolderInfo' => 'required',
-            'remoteIp' => 'required',
-        ];
     }
 }

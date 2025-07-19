@@ -47,13 +47,13 @@ abstract class BaseResource
             $status = $response?->status() ?? 0;
             switch ($status) {
                 case 400:
-                    throw new BadRequestException($message, $status, $e);
+                    throw new BadRequestException($message, $status, $e, $body);
                 case 401:
-                    throw new UnauthorizedException($message, $status, $e);
+                    throw new UnauthorizedException($message, $status, $e, $body);
                 case 404:
-                    throw new NotFoundException($message, $status, $e);
+                    throw new NotFoundException($message, $status, $e, $body);
                 default:
-                    throw new AsaasException($message, $status, $e);
+                    throw new AsaasException($message, $status, $e, $body);
             }
         }
     }

@@ -2,14 +2,10 @@
 
 namespace Leopaulo88\Asaas\Entities\Account;
 
-use Leopaulo88\Asaas\Concerns\ValidatesData;
-use Leopaulo88\Asaas\Contracts\EntityInterface;
 use Leopaulo88\Asaas\Entities\BaseEntity;
 
 class AccountCreate extends BaseEntity
 {
-    use ValidatesData;
-
     public function __construct(
         public ?string $name = null,
         public ?string $email = null,
@@ -123,14 +119,5 @@ class AccountCreate extends BaseEntity
     {
         $this->accountManager = $accountManager;
         return $this;
-    }
-
-    protected function validationRules(): array
-    {
-        return [
-            'name' => 'required',
-            'email' => 'required|email',
-            'cpfCnpj' => 'required',
-        ];
     }
 }
