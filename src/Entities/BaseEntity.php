@@ -2,6 +2,7 @@
 
 namespace Leopaulo88\Asaas\Entities;
 
+use Carbon\Carbon;
 use Leopaulo88\Asaas\Contracts\EntityInterface;
 use Leopaulo88\Asaas\Support\ObjectHydrator;
 
@@ -20,6 +21,13 @@ abstract class BaseEntity implements EntityInterface
             if ($preserveEmpty || $value !== null) {
                 if ($value instanceof \BackedEnum) {
                     $data[$key] = $value->value;
+                } elseif ($value instanceof \Carbon\Carbon) {
+                    // Converter Carbon para formato apropriado
+                    if ($this->isDateTimeField($key)) {
+                        $data[$key] = $value->format('Y-m-d H:i:s');
+                    } else {
+                        $data[$key] = $value->format('Y-m-d');
+                    }
                 } elseif (is_object($value) && method_exists($value, 'toArray')) {
                     $data[$key] = $value->toArray();
                 } else {
@@ -29,6 +37,16 @@ abstract class BaseEntity implements EntityInterface
         }
 
         return $data;
+    }
+
+    private function isDateTimeField(string $fieldName): bool
+    {
+        $dateTimeFields = [
+            'dateCreated',
+            'effectiveDate',
+        ];
+
+        return in_array($fieldName, $dateTimeFields);
     }
 
     public static function fromArray(array $data): static

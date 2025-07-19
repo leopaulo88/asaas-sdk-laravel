@@ -11,6 +11,7 @@ class EntityFactory
         'account' => \Leopaulo88\Asaas\Entities\Account\AccountResponse::class,
         'list' => \Leopaulo88\Asaas\Entities\List\ListResponse::class,
         'payment' => \Leopaulo88\Asaas\Entities\Payment\PaymentResponse::class,
+        'subscription' => \Leopaulo88\Asaas\Entities\Subscription\SubscriptionResponse::class,
     ];
 
     protected static array $conversionStack = [];
