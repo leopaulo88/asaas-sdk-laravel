@@ -4,8 +4,6 @@ namespace Leopaulo88\Asaas\Entities\Payment;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
 use Leopaulo88\Asaas\Entities\Common\Callback;
-use Leopaulo88\Asaas\Entities\Common\CreditCard;
-use Leopaulo88\Asaas\Entities\Common\CreditCardHolderInfo;
 use Leopaulo88\Asaas\Entities\Common\Discount;
 use Leopaulo88\Asaas\Entities\Common\Fine;
 use Leopaulo88\Asaas\Entities\Common\Interest;
@@ -37,46 +35,53 @@ class PaymentUpdate extends BaseEntity
         }
 
         $this->billingType = $billingType;
+
         return $this;
     }
 
     public function value(float $value): self
     {
         $this->value = $value;
+
         return $this;
     }
 
     public function dueDate(string $dueDate): self
     {
         $this->dueDate = $dueDate;
+
         return $this;
     }
 
     public function description(string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
     public function daysAfterDueDateToRegistrationCancellation(int $days): self
     {
         $this->daysAfterDueDateToRegistrationCancellation = $days;
+
         return $this;
     }
 
     public function externalReference(string $externalReference): self
     {
         $this->externalReference = $externalReference;
+
         return $this;
     }
 
     public function discount(array|Discount $discount): self
     {
-        if(is_array($discount)) {
+        if (is_array($discount)) {
             $discount = Discount::fromArray($discount);
         }
 
         $this->discount = $discount;
+
         return $this;
     }
 
@@ -87,6 +92,7 @@ class PaymentUpdate extends BaseEntity
         }
 
         $this->interest = $interest;
+
         return $this;
     }
 
@@ -97,17 +103,19 @@ class PaymentUpdate extends BaseEntity
         }
 
         $this->fine = $fine;
+
         return $this;
     }
 
     public function postalService(bool $postalService): self
     {
         $this->postalService = $postalService;
+
         return $this;
     }
 
     /**
-     * @param Split[] $split
+     * @param  Split[]  $split
      */
     public function split(array $split): self
     {
@@ -122,6 +130,7 @@ class PaymentUpdate extends BaseEntity
         }
 
         $this->split = $splits;
+
         return $this;
     }
 
@@ -132,6 +141,7 @@ class PaymentUpdate extends BaseEntity
         }
 
         $this->callback = $callback;
+
         return $this;
     }
 }

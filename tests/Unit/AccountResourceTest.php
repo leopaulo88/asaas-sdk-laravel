@@ -56,7 +56,7 @@ it('can create account with array data', function () {
 });
 
 it('can create account with fluent interface', function () {
-    $accountRequest = (new AccountCreate())
+    $accountRequest = (new AccountCreate)
         ->name('Maria Santos')
         ->email('maria@exemplo.com')
         ->cpfCnpj('98765432100')

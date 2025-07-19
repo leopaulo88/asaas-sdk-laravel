@@ -7,7 +7,9 @@ use Carbon\Carbon;
 class ObjectHydrator
 {
     private static array $reflectionCache = [];
+
     private static array $propertyTypeCache = [];
+
     private static array $useStatementsCache = [];
 
     public function validateAndTransformData(array $data, string $targetClass): array
@@ -41,7 +43,7 @@ class ObjectHydrator
     private function hasProperty(string $className, string $propertyName): bool
     {
         try {
-            if (!isset(self::$reflectionCache[$className])) {
+            if (! isset(self::$reflectionCache[$className])) {
                 self::$reflectionCache[$className] = new \ReflectionClass($className);
             }
 
@@ -57,15 +59,15 @@ class ObjectHydrator
             return null;
         }
 
-        $cacheKey = $targetClass . '::' . $key;
+        $cacheKey = $targetClass.'::'.$key;
 
-        if (!isset(self::$propertyTypeCache[$cacheKey])) {
+        if (! isset(self::$propertyTypeCache[$cacheKey])) {
             $this->cachePropertyType($targetClass, $key);
         }
 
         $propertyInfo = self::$propertyTypeCache[$cacheKey] ?? null;
 
-        if (!$propertyInfo) {
+        if (! $propertyInfo) {
             return $value;
         }
 
@@ -78,15 +80,16 @@ class ObjectHydrator
         }
 
         if ($propertyType === 'array') {
-            if (!is_array($value)) {
+            if (! is_array($value)) {
                 $value = [$value];
             }
 
             if ($arrayElementType && class_exists($arrayElementType)) {
-                return array_map(function($item) use ($arrayElementType) {
+                return array_map(function ($item) use ($arrayElementType) {
                     if (is_array($item)) {
                         return $this->createObjectInstance($arrayElementType, $item);
                     }
+
                     return $item;
                 }, $value);
             }
@@ -110,12 +113,12 @@ class ObjectHydrator
         if (class_exists($propertyType)) {
             $objectInstance = $this->createObjectInstance($propertyType, $value);
 
-
-            if ($objectInstance === $value && !($objectInstance instanceof $propertyType)) {
+            if ($objectInstance === $value && ! ($objectInstance instanceof $propertyType)) {
 
                 if ($isNullable) {
                     return null;
                 }
+
                 return $value;
             }
 
@@ -128,10 +131,10 @@ class ObjectHydrator
     private function castBuiltInType($value, string $type)
     {
         return match ($type) {
-            'string' => (string)$value,
-            'int' => (int)$value,
-            'float' => (float)$value,
-            'bool' => (bool)$value,
+            'string' => (string) $value,
+            'int' => (int) $value,
+            'float' => (float) $value,
+            'bool' => (bool) $value,
             default => $value
         };
     }
@@ -177,7 +180,7 @@ class ObjectHydrator
     private function cachePropertyType(string $className, string $key): void
     {
         try {
-            if (!isset(self::$reflectionCache[$className])) {
+            if (! isset(self::$reflectionCache[$className])) {
                 self::$reflectionCache[$className] = new \ReflectionClass($className);
             }
 
@@ -185,7 +188,7 @@ class ObjectHydrator
             $property = $reflection->getProperty($key);
             $type = $property->getType();
 
-            $cacheKey = $className . '::' . $key;
+            $cacheKey = $className.'::'.$key;
 
             $arrayElementType = null;
             $docComment = $property->getDocComment();
@@ -205,7 +208,7 @@ class ObjectHydrator
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => $type->getName(),
                     'nullable' => $type->allowsNull(),
-                    'arrayElementType' => $arrayElementType
+                    'arrayElementType' => $arrayElementType,
                 ];
             } elseif ($type instanceof \ReflectionUnionType) {
                 $types = [];
@@ -222,21 +225,20 @@ class ObjectHydrator
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => $types[0] ?? 'mixed',
                     'nullable' => $nullable,
-                    'arrayElementType' => $arrayElementType
+                    'arrayElementType' => $arrayElementType,
                 ];
             } else {
                 self::$propertyTypeCache[$cacheKey] = [
                     'type' => 'mixed',
                     'nullable' => true,
-                    'arrayElementType' => $arrayElementType
+                    'arrayElementType' => $arrayElementType,
                 ];
             }
         } catch (\ReflectionException) {
-            $cacheKey = $className . '::' . $key;
+            $cacheKey = $className.'::'.$key;
             self::$propertyTypeCache[$cacheKey] = null;
         }
     }
-
 
     public static function clearCache(): void
     {
@@ -245,12 +247,11 @@ class ObjectHydrator
         self::$useStatementsCache = [];
     }
 
-
     public function getPropertyType(string $className, string $propertyName): ?array
     {
-        $cacheKey = $className . '::' . $propertyName;
+        $cacheKey = $className.'::'.$propertyName;
 
-        if (!isset(self::$propertyTypeCache[$cacheKey])) {
+        if (! isset(self::$propertyTypeCache[$cacheKey])) {
             $this->cachePropertyType($className, $propertyName);
         }
 
@@ -269,7 +270,7 @@ class ObjectHydrator
 
         $reflectionClassName = $reflection->getName();
 
-        if (!isset(self::$useStatementsCache[$reflectionClassName])) {
+        if (! isset(self::$useStatementsCache[$reflectionClassName])) {
             self::$useStatementsCache[$reflectionClassName] = $this->extractUseStatements($reflection);
         }
 
@@ -281,7 +282,7 @@ class ObjectHydrator
 
         $namespace = $reflection->getNamespaceName();
         if ($namespace) {
-            $fullyQualifiedName = $namespace . '\\' . $className;
+            $fullyQualifiedName = $namespace.'\\'.$className;
             if (class_exists($fullyQualifiedName)) {
                 return $fullyQualifiedName;
             }
@@ -300,12 +301,12 @@ class ObjectHydrator
 
         try {
             $file = $reflection->getFileName();
-            if (!$file) {
+            if (! $file) {
                 return [];
             }
 
             $content = file_get_contents($file);
-            if (!$content) {
+            if (! $content) {
                 return [];
             }
 
@@ -338,16 +339,13 @@ class ObjectHydrator
                 return Carbon::createFromFormat('Y-m-d H:i:s', $dateString);
             }
 
-
             if (preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/', $dateString)) {
                 return Carbon::parse($dateString);
             }
 
-
             if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateString)) {
                 return Carbon::createFromFormat('Y-m-d', $dateString)->startOfDay();
             }
-
 
             return Carbon::parse($dateString);
         } catch (\Throwable $e) {

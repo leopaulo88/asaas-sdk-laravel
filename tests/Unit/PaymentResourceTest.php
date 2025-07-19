@@ -29,7 +29,7 @@ describe('PaymentResource', function () {
                     'limit' => 20,
                     'offset' => 0,
                     'data' => [],
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->list();
@@ -51,14 +51,14 @@ describe('PaymentResource', function () {
                     'limit' => 10,
                     'offset' => 0,
                     'data' => [],
-                ])
+                ]),
             ]);
 
             $params = [
                 'customer' => 'cus_123',
                 'status' => 'PENDING',
                 'limit' => 10,
-                'offset' => 0
+                'offset' => 0,
             ];
 
             $result = $this->paymentResource->list($params);
@@ -67,10 +67,11 @@ describe('PaymentResource', function () {
 
             Http::assertSent(function ($request) use ($params) {
                 foreach ($params as $key => $value) {
-                    if (!str_contains($request->url(), "{$key}={$value}")) {
+                    if (! str_contains($request->url(), "{$key}={$value}")) {
                         return false;
                     }
                 }
+
                 return true;
             });
         });
@@ -133,7 +134,7 @@ describe('PaymentResource', function () {
                 'billingType' => 'BOLETO',
                 'value' => 150.00,
                 'dueDate' => '2025-02-15',
-                'description' => 'Pagamento de teste'
+                'description' => 'Pagamento de teste',
             ];
 
             Http::fake([
@@ -147,7 +148,7 @@ describe('PaymentResource', function () {
                     'billingType' => 'BOLETO',
                     'dueDate' => '2025-02-15',
                     'dateCreated' => '2025-01-15T10:30:00.000Z',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->create($paymentData);
@@ -159,7 +160,7 @@ describe('PaymentResource', function () {
         });
 
         it('should create payment with PaymentCreate entity', function () {
-            $paymentCreate = new PaymentCreate();
+            $paymentCreate = new PaymentCreate;
             $paymentCreate->customer = 'cus_456';
             $paymentCreate->value = 200.00;
 
@@ -172,7 +173,7 @@ describe('PaymentResource', function () {
                     'value' => 200.00,
                     'billingType' => 'BOLETO',
                     'dateCreated' => '2025-01-15T10:30:00.000Z',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->create($paymentCreate);
@@ -188,14 +189,14 @@ describe('PaymentResource', function () {
                     'object' => 'payment',
                     'id' => 'pay_test',
                     'status' => 'PENDING',
-                ])
+                ]),
             ]);
 
             $paymentData = [
                 'customer' => 'cus_test',
                 'billingType' => 'PIX',
                 'value' => 99.99,
-                'description' => 'Test payment'
+                'description' => 'Test payment',
             ];
 
             $this->paymentResource->create($paymentData);
@@ -228,7 +229,7 @@ describe('PaymentResource', function () {
                     'description' => 'Pagamento encontrado',
                     'billingType' => 'CREDIT_CARD',
                     'dateCreated' => '2025-01-15T10:30:00.000Z',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->find($paymentId);
@@ -245,7 +246,7 @@ describe('PaymentResource', function () {
                     'object' => 'payment',
                     'id' => 'pay_test',
                     'status' => 'PENDING',
-                ])
+                ]),
             ]);
 
             $paymentId = 'pay_test';
@@ -267,7 +268,7 @@ describe('PaymentResource', function () {
             $paymentId = 'pay_123';
             $updateData = [
                 'description' => 'Pagamento atualizado',
-                'value' => 175.50
+                'value' => 175.50,
             ];
 
             Http::fake([
@@ -280,7 +281,7 @@ describe('PaymentResource', function () {
                     'description' => 'Pagamento atualizado',
                     'billingType' => 'BOLETO',
                     'dateCreated' => '2025-01-15T10:30:00.000Z',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->update($paymentId, $updateData);
@@ -292,7 +293,7 @@ describe('PaymentResource', function () {
 
         it('should update payment with PaymentUpdate entity', function () {
             $paymentId = 'pay_456';
-            $paymentUpdate = new PaymentUpdate();
+            $paymentUpdate = new PaymentUpdate;
             $paymentUpdate->description = 'Updated via entity';
 
             Http::fake([
@@ -301,7 +302,7 @@ describe('PaymentResource', function () {
                     'id' => $paymentId,
                     'description' => 'Updated via entity',
                     'status' => 'PENDING',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->update($paymentId, $paymentUpdate);
@@ -321,7 +322,7 @@ describe('PaymentResource', function () {
                 "https://sandbox.asaas.com/api/v3/payments/{$paymentId}" => Http::response([
                     'id' => $paymentId,
                     'deleted' => true,
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->delete($paymentId);
@@ -336,7 +337,7 @@ describe('PaymentResource', function () {
                 'https://sandbox.asaas.com/api/v3/payments/pay_test' => Http::response([
                     'id' => 'pay_test',
                     'deleted' => true,
-                ])
+                ]),
             ]);
 
             $paymentId = 'pay_test';
@@ -366,7 +367,7 @@ describe('PaymentResource', function () {
                     'value' => 100.00,
                     'description' => 'Pagamento restaurado',
                     'deleted' => false,
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->restore($paymentId);
@@ -390,7 +391,7 @@ describe('PaymentResource', function () {
                     'status' => 'RECEIVED',
                     'value' => 250.00,
                     'description' => 'Pagamento capturado',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->captureAuthorizedPayment($paymentId);
@@ -416,7 +417,7 @@ describe('PaymentResource', function () {
                 'number' => '4111111111111111',
                 'expiryMonth' => '12',
                 'expiryYear' => '2028',
-                'ccv' => '123'
+                'ccv' => '123',
             ];
 
             Http::fake([
@@ -426,7 +427,7 @@ describe('PaymentResource', function () {
                     'status' => 'RECEIVED',
                     'value' => 350.00,
                     'billingType' => 'CREDIT_CARD',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->payWithCreditCard($paymentId, $creditCardData);
@@ -438,7 +439,7 @@ describe('PaymentResource', function () {
 
         it('should pay with credit card using PaymentCreditCard entity', function () {
             $paymentId = 'pay_cc_456';
-            $creditCard = new PaymentCreditCard();
+            $creditCard = new PaymentCreditCard;
 
             Http::fake([
                 "https://sandbox.asaas.com/api/v3/payments/{$paymentId}/payWithCreditCard" => Http::response([
@@ -446,7 +447,7 @@ describe('PaymentResource', function () {
                     'id' => $paymentId,
                     'status' => 'RECEIVED',
                     'billingType' => 'CREDIT_CARD',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->payWithCreditCard($paymentId, $creditCard);
@@ -470,7 +471,7 @@ describe('PaymentResource', function () {
                     'cpfCnpj' => '12345678901',
                     'postalCode' => '12345678',
                     'address' => 'Rua Teste, 123',
-                ])
+                ]),
             ]);
 
             $result = $this->paymentResource->billingInfo($paymentId);

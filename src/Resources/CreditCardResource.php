@@ -2,18 +2,15 @@
 
 namespace Leopaulo88\Asaas\Resources;
 
-use Leopaulo88\Asaas\Entities\Account\AccountCreate;
 use Leopaulo88\Asaas\Entities\CreditCardToken\CreditCardTokenCreate;
 use Leopaulo88\Asaas\Entities\CreditCardToken\CreditCardTokenResponse;
 
 class CreditCardResource extends BaseResource
 {
-
     /**
      * Tokenize a credit card.
+     *
      * @see https://docs.asaas.com/reference/credit-card-tokenization
-     * @param array|CreditCardTokenCreate $data
-     * @return CreditCardTokenResponse
      */
     public function tokenize(array|CreditCardTokenCreate $data): CreditCardTokenResponse
     {
@@ -21,7 +18,7 @@ class CreditCardResource extends BaseResource
             $data = CreditCardTokenCreate::fromArray($data);
         }
 
-        $response =  $this->post('/creditCard/tokenizeCreditCard', $data->toArray());
+        $response = $this->post('/creditCard/tokenizeCreditCard', $data->toArray());
 
         return CreditCardTokenResponse::fromArray($response);
 

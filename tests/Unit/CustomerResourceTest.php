@@ -25,7 +25,7 @@ describe('CustomerResource', function () {
                     'limit' => 20,
                     'offset' => 0,
                     'data' => [],
-                ])
+                ]),
             ]);
 
             $result = $this->customerResource->list();
@@ -47,7 +47,7 @@ describe('CustomerResource', function () {
                     'limit' => 10,
                     'offset' => 0,
                     'data' => [],
-                ])
+                ]),
             ]);
 
             $params = ['limit' => 10, 'offset' => 0];
@@ -188,7 +188,7 @@ describe('CustomerResource', function () {
                     'dateCreated' => '2025-01-15',
                     'personType' => 'FISICA',
                     'deleted' => false,
-                ])
+                ]),
             ]);
 
             $customerData = [
@@ -243,7 +243,7 @@ describe('CustomerResource', function () {
                     'name' => 'Test Customer',
                     'dateCreated' => '2025-01-15',
                     'deleted' => false,
-                ])
+                ]),
             ]);
 
             $customerId = 'cus_123';
@@ -330,7 +330,7 @@ describe('CustomerResource', function () {
                 'https://sandbox.asaas.com/api/v3/customers/cus_123' => Http::response([
                     'id' => 'cus_123',
                     'deleted' => true,
-                ])
+                ]),
             ]);
 
             $customerId = 'cus_123';
@@ -378,7 +378,7 @@ describe('CustomerResource', function () {
                     'name' => 'Test Customer',
                     'dateCreated' => '2025-01-15',
                     'deleted' => false,
-                ])
+                ]),
             ]);
 
             $customerId = 'cus_123';

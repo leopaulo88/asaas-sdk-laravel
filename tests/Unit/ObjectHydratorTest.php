@@ -10,10 +10,10 @@ it('can handle enum properties automatically', function () {
         'id' => 'cus_123',
         'name' => 'João Silva',
         'personType' => 'FISICA', // String que será convertida para enum
-        'email' => 'joao@exemplo.com'
+        'email' => 'joao@exemplo.com',
     ];
 
-    $hydrator = new ObjectHydrator();
+    $hydrator = new ObjectHydrator;
     $transformedData = $hydrator->validateAndTransformData($mockData, CustomerResponse::class);
 
     $customer = new CustomerResponse($transformedData);
@@ -29,8 +29,8 @@ it('can handle type casting automatically', function () {
         'webhooks' => 'PAYMENT_CREATED', // String que será convertida para array
     ];
 
-    $hydrator = new ObjectHydrator();
-    $account = new \Leopaulo88\Asaas\Entities\Account\AccountCreate();
+    $hydrator = new ObjectHydrator;
+    $account = new \Leopaulo88\Asaas\Entities\Account\AccountCreate;
     $hydrator->fillObject($account, $mockData);
 
     expect($account->name)->toBe('Test Account');
@@ -40,14 +40,16 @@ it('can handle type casting automatically', function () {
 
 it('can handle nested objects creation', function () {
     // Exemplo de como poderia funcionar com objetos aninhados
-    class Address {
+    class Address
+    {
         public function __construct(
             public ?string $street = null,
             public ?string $number = null,
             public ?string $city = null
         ) {}
 
-        public static function fromArray(array $data): self {
+        public static function fromArray(array $data): self
+        {
             return new self(
                 street: $data['street'] ?? null,
                 number: $data['number'] ?? null,
@@ -56,7 +58,8 @@ it('can handle nested objects creation', function () {
         }
     }
 
-    class PersonWithAddress {
+    class PersonWithAddress
+    {
         public function __construct(
             public ?string $name = null,
             public ?Address $address = null
@@ -68,12 +71,12 @@ it('can handle nested objects creation', function () {
         'address' => [
             'street' => 'Rua das Flores',
             'number' => '123',
-            'city' => 'São Paulo'
-        ]
+            'city' => 'São Paulo',
+        ],
     ];
 
-    $hydrator = new ObjectHydrator();
-    $person = new PersonWithAddress();
+    $hydrator = new ObjectHydrator;
+    $person = new PersonWithAddress;
     $hydrator->fillObject($person, $mockData);
 
     expect($person->name)->toBe('Maria Silva');
@@ -84,24 +87,27 @@ it('can handle nested objects creation', function () {
 });
 
 it('handles failed object creation gracefully', function () {
-    class NonCreatableClass {
-        private function __construct() {
+    class NonCreatableClass
+    {
+        private function __construct()
+        {
             // Private constructor para simular falha
         }
     }
 
-    class TestClass {
+    class TestClass
+    {
         public function __construct(
             public ?NonCreatableClass $nonCreatable = null
         ) {}
     }
 
     $mockData = [
-        'nonCreatable' => ['some' => 'data']
+        'nonCreatable' => ['some' => 'data'],
     ];
 
-    $hydrator = new ObjectHydrator();
-    $instance = new TestClass();
+    $hydrator = new ObjectHydrator;
+    $instance = new TestClass;
 
     // Não deve lançar exception, deve retornar null para propriedades nullable
     // quando a criação do objeto falha
@@ -111,7 +117,7 @@ it('handles failed object creation gracefully', function () {
 });
 
 it('can get property type information', function () {
-    $hydrator = new ObjectHydrator();
+    $hydrator = new ObjectHydrator;
 
     $typeInfo = $hydrator->getPropertyType(CustomerResponse::class, 'personType');
 

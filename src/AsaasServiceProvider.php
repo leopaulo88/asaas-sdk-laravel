@@ -28,4 +28,3 @@ class AsaasServiceProvider extends PackageServiceProvider
         });
     }
 }
-

@@ -9,8 +9,8 @@ use Leopaulo88\Asaas\Enums\ChargebackStatus;
 
 class Chargeback extends BaseEntity
 {
-   public function __construct(
-       public ?string $id = null,
+    public function __construct(
+        public ?string $id = null,
         public ?string $installment = null,
         public ?string $customerAccount = null,
         public ?string $payment = null,
@@ -22,7 +22,5 @@ class Chargeback extends BaseEntity
         public ?ChargebackCreditCard $creditCard = null,
         public ?string $disputeStatus = null,
         public ?Carbon $deadlineToSendDisputeDocuments = null
-   )
-   {
-   }
+    ) {}
 }

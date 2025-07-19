@@ -13,13 +13,12 @@ class CreditCardTokenCreate extends BaseEntity
         public ?CreditCard $creditCard = null,
         public ?CreditCardHolderInfo $creditCardHolderInfo = null,
         public ?string $remoteIp = null
-    )
-    {
-    }
+    ) {}
 
     public function customer(string $customer): self
     {
         $this->customer = $customer;
+
         return $this;
     }
 
@@ -30,6 +29,7 @@ class CreditCardTokenCreate extends BaseEntity
         }
 
         $this->creditCard = $creditCard;
+
         return $this;
     }
 
@@ -39,12 +39,14 @@ class CreditCardTokenCreate extends BaseEntity
             $creditCardHolderInfo = CreditCardHolderInfo::fromArray($creditCardHolderInfo);
         }
         $this->creditCardHolderInfo = $creditCardHolderInfo;
+
         return $this;
     }
 
     public function remoteIp(string $remoteIp): self
     {
         $this->remoteIp = $remoteIp;
+
         return $this;
     }
 }

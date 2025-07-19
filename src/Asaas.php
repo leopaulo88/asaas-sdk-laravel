@@ -6,15 +6,11 @@ use Leopaulo88\Asaas\Concerns\HasAccounts;
 use Leopaulo88\Asaas\Concerns\HasCreditCards;
 use Leopaulo88\Asaas\Concerns\HasCustomers;
 use Leopaulo88\Asaas\Concerns\HasPayments;
-use Leopaulo88\Asaas\Resources\AccountResource;
-use Leopaulo88\Asaas\Resources\CreditCardResource;
-use Leopaulo88\Asaas\Resources\CustomerResource;
-use Leopaulo88\Asaas\Resources\PaymentResource;
 use Leopaulo88\Asaas\Support\AsaasClient;
 
 class Asaas
 {
-    use HasAccounts, HasPayments, HasCreditCards, HasCustomers;
+    use HasAccounts, HasCreditCards, HasCustomers, HasPayments;
 
     protected AsaasClient $client;
 

@@ -28,118 +28,136 @@ class CustomerCreateEntity extends BaseEntity
         public ?bool $foreignCustomer = null
     ) {}
 
-
     public function name(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function cpfCnpj(string $cpfCnpj): self
     {
         $this->cpfCnpj = $cpfCnpj;
+
         return $this;
     }
 
     public function email(string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
     public function phone(string $phone): self
     {
         $this->phone = $phone;
+
         return $this;
     }
 
     public function mobilePhone(string $mobilePhone): self
     {
         $this->mobilePhone = $mobilePhone;
+
         return $this;
     }
 
     public function address(string $address): self
     {
         $this->address = $address;
+
         return $this;
     }
 
     public function addressNumber(string $number): self
     {
         $this->addressNumber = $number;
+
         return $this;
     }
 
     public function complement(string $complement): self
     {
         $this->complement = $complement;
+
         return $this;
     }
 
     public function province(string $province): self
     {
         $this->province = $province;
+
         return $this;
     }
 
     public function postalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
+
         return $this;
     }
 
     public function externalReference(string $reference): self
     {
         $this->externalReference = $reference;
+
         return $this;
     }
 
     public function disableNotifications(bool $disabled = true): self
     {
         $this->notificationDisabled = $disabled;
+
         return $this;
     }
 
     public function additionalEmails(string $emails): self
     {
         $this->additionalEmails = $emails;
+
         return $this;
     }
 
     public function municipalInscription(string $inscription): self
     {
         $this->municipalInscription = $inscription;
+
         return $this;
     }
 
     public function stateInscription(string $inscription): self
     {
         $this->stateInscription = $inscription;
+
         return $this;
     }
 
     public function observations(string $observations): self
     {
         $this->observations = $observations;
+
         return $this;
     }
 
     public function groupName(string $groupName): self
     {
         $this->groupName = $groupName;
+
         return $this;
     }
 
     public function company(string $company): self
     {
         $this->company = $company;
+
         return $this;
     }
 
     public function foreignCustomer(bool $foreign = true): self
     {
         $this->foreignCustomer = $foreign;
+
         return $this;
     }
 }

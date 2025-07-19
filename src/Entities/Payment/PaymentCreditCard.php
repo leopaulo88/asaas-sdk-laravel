@@ -3,14 +3,8 @@
 namespace Leopaulo88\Asaas\Entities\Payment;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Entities\Common\Callback;
 use Leopaulo88\Asaas\Entities\Common\CreditCard;
 use Leopaulo88\Asaas\Entities\Common\CreditCardHolderInfo;
-use Leopaulo88\Asaas\Entities\Common\Discount;
-use Leopaulo88\Asaas\Entities\Common\Fine;
-use Leopaulo88\Asaas\Entities\Common\Interest;
-use Leopaulo88\Asaas\Entities\Common\Split;
-use Leopaulo88\Asaas\Enums\BillingType;
 
 class PaymentCreditCard extends BaseEntity
 {
@@ -27,6 +21,7 @@ class PaymentCreditCard extends BaseEntity
         }
 
         $this->creditCard = $creditCard;
+
         return $this;
     }
 
@@ -36,12 +31,14 @@ class PaymentCreditCard extends BaseEntity
             $creditCardHolderInfo = CreditCardHolderInfo::fromArray($creditCardHolderInfo);
         }
         $this->creditCardHolderInfo = $creditCardHolderInfo;
+
         return $this;
     }
 
     public function creditCardToken(string $creditCardToken): self
     {
         $this->creditCardToken = $creditCardToken;
+
         return $this;
     }
 }

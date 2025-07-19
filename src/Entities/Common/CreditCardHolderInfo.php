@@ -16,55 +16,61 @@ class CreditCardHolderInfo extends BaseEntity
         public ?string $phone = null,
         public ?string $mobilePhone = null
 
-    )
-    {
-    }
+    ) {}
 
     public function name(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function email(string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
     public function cpfCnpj(string $cpfCnpj): self
     {
         $this->cpfCnpj = $cpfCnpj;
+
         return $this;
     }
 
     public function postalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
+
         return $this;
     }
 
     public function addressNumber(string $addressNumber): self
     {
         $this->addressNumber = $addressNumber;
+
         return $this;
     }
 
     public function addressComplement(string $addressComplement): self
     {
         $this->addressComplement = $addressComplement;
+
         return $this;
     }
 
     public function phone(string $phone): self
     {
         $this->phone = $phone;
+
         return $this;
     }
 
     public function mobilePhone(string $mobilePhone): self
     {
         $this->mobilePhone = $mobilePhone;
+
         return $this;
     }
 }

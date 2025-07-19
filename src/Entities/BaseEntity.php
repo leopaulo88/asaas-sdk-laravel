@@ -2,19 +2,17 @@
 
 namespace Leopaulo88\Asaas\Entities;
 
-use Illuminate\Contracts\Support\ValidatedData;
 use Leopaulo88\Asaas\Contracts\EntityInterface;
-use Leopaulo88\Asaas\Http\ResponseHydrator;
 use Leopaulo88\Asaas\Support\ObjectHydrator;
 
 abstract class BaseEntity implements EntityInterface
 {
     public static function make(): static
     {
-        return new static();
+        return new static;
     }
 
-     public function toArray(bool $preserveEmpty = false): array
+    public function toArray(bool $preserveEmpty = false): array
     {
         $data = [];
 
@@ -35,9 +33,10 @@ abstract class BaseEntity implements EntityInterface
 
     public static function fromArray(array $data): static
     {
-        $instance = new static();
-        $hydrator = new ObjectHydrator();
+        $instance = new static;
+        $hydrator = new ObjectHydrator;
         $hydrator->fillObject($instance, $data);
+
         return $instance;
     }
 }

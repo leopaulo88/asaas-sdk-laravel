@@ -2,7 +2,6 @@
 
 namespace Leopaulo88\Asaas\Entities\Payment;
 
-use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseResponse;
 use Leopaulo88\Asaas\Enums\PaymentStatus;
 

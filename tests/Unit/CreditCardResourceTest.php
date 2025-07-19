@@ -23,7 +23,7 @@ describe('CreditCardResource', function () {
                     'number' => '4111111111111111',
                     'expiryMonth' => '12',
                     'expiryYear' => '2028',
-                    'ccv' => '123'
+                    'ccv' => '123',
                 ],
                 'creditCardHolderInfo' => [
                     'name' => 'João Silva',
@@ -31,17 +31,17 @@ describe('CreditCardResource', function () {
                     'cpfCnpj' => '12345678901',
                     'postalCode' => '12345678',
                     'addressNumber' => '123',
-                    'phone' => '11999999999'
+                    'phone' => '11999999999',
                 ],
-                'remoteIp' => '192.168.1.1'
+                'remoteIp' => '192.168.1.1',
             ];
 
             Http::fake([
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****1111',
                     'creditCardBrand' => 'VISA',
-                    'creditCardToken' => 'cc_token_123456789'
-                ])
+                    'creditCardToken' => 'cc_token_123456789',
+                ]),
             ]);
 
             $result = $this->creditCardResource->tokenize($creditCardData);
@@ -59,15 +59,15 @@ describe('CreditCardResource', function () {
         });
 
         it('should tokenize credit card with CreditCardTokenCreate entity', function () {
-            $creditCardTokenCreate = new CreditCardTokenCreate();
+            $creditCardTokenCreate = new CreditCardTokenCreate;
             $creditCardTokenCreate->customer('cus_456');
 
             Http::fake([
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****4242',
                     'creditCardBrand' => 'MASTERCARD',
-                    'creditCardToken' => 'cc_token_987654321'
-                ])
+                    'creditCardToken' => 'cc_token_987654321',
+                ]),
             ]);
 
             $result = $this->creditCardResource->tokenize($creditCardTokenCreate);
@@ -83,8 +83,8 @@ describe('CreditCardResource', function () {
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****1111',
                     'creditCardBrand' => 'VISA',
-                    'creditCardToken' => 'cc_token_test'
-                ])
+                    'creditCardToken' => 'cc_token_test',
+                ]),
             ]);
 
             $creditCardData = [
@@ -94,9 +94,9 @@ describe('CreditCardResource', function () {
                     'number' => '4111111111111111',
                     'expiryMonth' => '01',
                     'expiryYear' => '2030',
-                    'ccv' => '456'
+                    'ccv' => '456',
                 ],
-                'remoteIp' => '127.0.0.1'
+                'remoteIp' => '127.0.0.1',
             ];
 
             $this->creditCardResource->tokenize($creditCardData);
@@ -117,8 +117,8 @@ describe('CreditCardResource', function () {
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****1111',
                     'creditCardBrand' => 'VISA',
-                    'creditCardToken' => 'cc_token_headers_test'
-                ])
+                    'creditCardToken' => 'cc_token_headers_test',
+                ]),
             ]);
 
             $creditCardData = [
@@ -128,8 +128,8 @@ describe('CreditCardResource', function () {
                     'number' => '4111111111111111',
                     'expiryMonth' => '06',
                     'expiryYear' => '2029',
-                    'ccv' => '789'
-                ]
+                    'ccv' => '789',
+                ],
             ];
 
             $result = $this->creditCardResource->tokenize($creditCardData);
@@ -150,8 +150,8 @@ describe('CreditCardResource', function () {
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****5555',
                     'creditCardBrand' => 'MASTERCARD',
-                    'creditCardToken' => 'cc_token_minimal'
-                ])
+                    'creditCardToken' => 'cc_token_minimal',
+                ]),
             ]);
 
             $minimalData = [
@@ -161,8 +161,8 @@ describe('CreditCardResource', function () {
                     'number' => '5555555555554444',
                     'expiryMonth' => '03',
                     'expiryYear' => '2027',
-                    'ccv' => '321'
-                ]
+                    'ccv' => '321',
+                ],
             ];
 
             $result = $this->creditCardResource->tokenize($minimalData);
@@ -176,8 +176,8 @@ describe('CreditCardResource', function () {
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****1111',
                     'creditCardBrand' => 'VISA',
-                    'creditCardToken' => 'cc_token_visa'
-                ])
+                    'creditCardToken' => 'cc_token_visa',
+                ]),
             ]);
 
             $requestData = [
@@ -187,8 +187,8 @@ describe('CreditCardResource', function () {
                     'number' => '4111111111111111',
                     'expiryMonth' => '12',
                     'expiryYear' => '2025',
-                    'ccv' => '123'
-                ]
+                    'ccv' => '123',
+                ],
             ];
 
             $result = $this->creditCardResource->tokenize($requestData);
@@ -203,8 +203,8 @@ describe('CreditCardResource', function () {
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****4444',
                     'creditCardBrand' => 'MASTERCARD',
-                    'creditCardToken' => 'cc_token_mastercard'
-                ])
+                    'creditCardToken' => 'cc_token_mastercard',
+                ]),
             ]);
 
             $requestData = [
@@ -214,8 +214,8 @@ describe('CreditCardResource', function () {
                     'number' => '5555555555554444',
                     'expiryMonth' => '12',
                     'expiryYear' => '2025',
-                    'ccv' => '123'
-                ]
+                    'ccv' => '123',
+                ],
             ];
 
             $result = $this->creditCardResource->tokenize($requestData);
@@ -230,8 +230,8 @@ describe('CreditCardResource', function () {
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****0005',
                     'creditCardBrand' => 'AMEX',
-                    'creditCardToken' => 'cc_token_amex'
-                ])
+                    'creditCardToken' => 'cc_token_amex',
+                ]),
             ]);
 
             $requestData = [
@@ -241,8 +241,8 @@ describe('CreditCardResource', function () {
                     'number' => '378282246310005',
                     'expiryMonth' => '12',
                     'expiryYear' => '2025',
-                    'ccv' => '123'
-                ]
+                    'ccv' => '123',
+                ],
             ];
 
             $result = $this->creditCardResource->tokenize($requestData);
@@ -257,8 +257,8 @@ describe('CreditCardResource', function () {
                 'https://sandbox.asaas.com/api/v3/creditCard/tokenizeCreditCard' => Http::response([
                     'creditCardNumber' => '****1111',
                     'creditCardBrand' => 'VISA',
-                    'creditCardToken' => 'cc_token_endpoint_test'
-                ])
+                    'creditCardToken' => 'cc_token_endpoint_test',
+                ]),
             ]);
 
             $creditCardData = [
@@ -268,8 +268,8 @@ describe('CreditCardResource', function () {
                     'number' => '4111111111111111',
                     'expiryMonth' => '11',
                     'expiryYear' => '2026',
-                    'ccv' => '987'
-                ]
+                    'ccv' => '987',
+                ],
             ];
 
             $this->creditCardResource->tokenize($creditCardData);
