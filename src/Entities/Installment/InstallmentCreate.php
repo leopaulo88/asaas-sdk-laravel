@@ -4,7 +4,6 @@ namespace Leopaulo88\Asaas\Entities\Installment;
 
 use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Entities\Common\Callback;
 use Leopaulo88\Asaas\Entities\Common\CreditCard;
 use Leopaulo88\Asaas\Entities\Common\CreditCardHolderInfo;
 use Leopaulo88\Asaas\Entities\Common\Discount;
@@ -31,7 +30,6 @@ class InstallmentCreate extends BaseEntity
         public ?Fine $fine = null,
         /** @var Split[]|null */
         public ?array $split = null,
-      
 
         // Credit Card
         public ?CreditCard $creditCard = null,
@@ -110,8 +108,6 @@ class InstallmentCreate extends BaseEntity
 
         return $this;
     }
-
-
 
     public function discount(array|Discount $discount): self
     {

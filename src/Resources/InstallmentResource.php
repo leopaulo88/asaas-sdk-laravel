@@ -17,9 +17,6 @@ class InstallmentResource extends BaseResource
      *
      * For create a new installment with credit card, see documentation:
      * @see https://docs.asaas.com/reference/create-installment-with-credit-card
-     *
-     * @param array|InstallmentCreate $installment
-     * @return InstallmentResponse
      */
     public function create(array|InstallmentCreate $installment): InstallmentResponse
     {
@@ -32,12 +29,12 @@ class InstallmentResource extends BaseResource
 
     /**
      * List installments.
+     *
      * @see https://docs.asaas.com/reference/list-installments
-     * @param array $params{
-     *  @type int $offset List starting element.
-     *  @type int $limit Number of list elements (max: 100)
-     * }
-     * @return ListResponse
+     *
+     * @type int List starting element.
+     * @type int Number of list elements (max: 100)
+     *           }
      */
     public function list(array $params = []): ListResponse
     {
@@ -46,10 +43,10 @@ class InstallmentResource extends BaseResource
 
     /**
      * Find an installment by ID.
+     *
      * @see https://docs.asaas.com/reference/retrieve-a-single-installment
      *
-     * @param string $id The ID of the installment to find.
-     * @return InstallmentResponse
+     * @param  string  $id  The ID of the installment to find.
      */
     public function find(string $id): InstallmentResponse
     {
@@ -58,26 +55,27 @@ class InstallmentResource extends BaseResource
 
     /**
      * Remove an installment by ID.
+     *
      * @see https://docs.asaas.com/reference/remove-installment
      *
-     * @param string $id The ID of the installment to remove.
-     * @return Deleted
+     * @param  string  $id  The ID of the installment to remove.
      */
     public function remove(string $id): Deleted
     {
-        $res = $this->delete('installments/' . $id);
+        $res = $this->delete('installments/'.$id);
+
         return Deleted::fromArray($res);
     }
 
     /**
      * List payments for an installment.
+     *
      * @see https://docs.asaas.com/reference/list-payments-of-a-installment
      *
-     * @param string $id The ID of the installment.
-     * @param array $params{
-     *  @type string $status Filter by payment status
-     * }
-     * @return ListResponse
+     * @param  string  $id  The ID of the installment.
+     *
+     * @type string Filter by payment status
+     *              }
      */
     public function listPayments(string $id, array $params = []): ListResponse
     {
@@ -86,6 +84,7 @@ class InstallmentResource extends BaseResource
 
     /**
      * Refund an installment.
+     *
      * @see https://docs.asaas.com/reference/refund-installment
      */
     public function refund(string $id): InstallmentResponse
@@ -95,10 +94,11 @@ class InstallmentResource extends BaseResource
 
     /**
      * Update splits for an installment.
+     *
      * @see https://docs.asaas.com/reference/update-installment-splits
      *
-     * @param string $id The ID of the installment.
-     * @param Split[] $splits An array of splits to update.
+     * @param  string  $id  The ID of the installment.
+     * @param  Split[]  $splits  An array of splits to update.
      * @return Split[]
      */
     public function updateSplits(string $id, array $splits): array
@@ -123,5 +123,4 @@ class InstallmentResource extends BaseResource
 
         return $returnSplits;
     }
-
 }

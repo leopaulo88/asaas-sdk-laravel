@@ -98,8 +98,7 @@ class PaymentResource extends BaseResource
      *
      * @see https://docs.asaas.com/reference/delete-payment
      *
-     * @param string $id The unique identifier of the payment to be removed.
-     * @return Deleted
+     * @param  string  $id  The unique identifier of the payment to be removed.
      */
     public function remove(string $id): Deleted
     {

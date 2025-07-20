@@ -21,7 +21,7 @@ it('can create installment', function () {
         'value' => 150.00,
         'installmentCount' => 3,
         'billingType' => 'BOLETO',
-        'dateCreated' => '2023-01-01 10:00:00'
+        'dateCreated' => '2023-01-01 10:00:00',
     ];
 
     Http::fake([
@@ -32,7 +32,7 @@ it('can create installment', function () {
         'customer' => 'cus_123456789',
         'value' => 150.00,
         'installmentCount' => 3,
-        'dueDate' => '2023-02-01'
+        'dueDate' => '2023-02-01',
     ];
 
     $result = $this->resource->create($installmentData);
@@ -51,7 +51,7 @@ it('can find installment by id', function () {
         'customer' => 'cus_123456789',
         'value' => 150.00,
         'installmentCount' => 3,
-        'billingType' => 'BOLETO'
+        'billingType' => 'BOLETO',
     ];
 
     Http::fake([
@@ -78,16 +78,16 @@ it('can list installments', function () {
                 'id' => 'ins_123456789',
                 'customer' => 'cus_123456789',
                 'value' => 150.00,
-                'billingType' => 'BOLETO'
+                'billingType' => 'BOLETO',
             ],
             [
                 'object' => 'installment',
                 'id' => 'ins_987654321',
                 'customer' => 'cus_987654321',
                 'value' => 200.00,
-                'billingType' => 'PIX'
-            ]
-        ]
+                'billingType' => 'PIX',
+            ],
+        ],
     ];
 
     Http::fake([
@@ -109,7 +109,7 @@ it('can list installments with parameters', function () {
         'totalCount' => 0,
         'limit' => 10,
         'offset' => 20,
-        'data' => []
+        'data' => [],
     ];
 
     Http::fake([
@@ -119,7 +119,7 @@ it('can list installments with parameters', function () {
     $params = [
         'customer' => 'cus_123456789',
         'limit' => 10,
-        'offset' => 20
+        'offset' => 20,
     ];
 
     $result = $this->resource->list($params);
@@ -136,7 +136,7 @@ it('can list installments with parameters', function () {
 it('can remove installment', function () {
     $mockResponse = [
         'deleted' => true,
-        'id' => 'ins_123456789'
+        'id' => 'ins_123456789',
     ];
 
     Http::fake([
@@ -161,16 +161,16 @@ it('can list payments for installment', function () {
                 'id' => 'pay_123456789',
                 'installment' => 'ins_123456789',
                 'value' => 50.00,
-                'status' => 'RECEIVED'
+                'status' => 'RECEIVED',
             ],
             [
                 'object' => 'payment',
                 'id' => 'pay_987654321',
                 'installment' => 'ins_123456789',
                 'value' => 50.00,
-                'status' => 'PENDING'
-            ]
-        ]
+                'status' => 'PENDING',
+            ],
+        ],
     ];
 
     Http::fake([
@@ -189,7 +189,7 @@ it('can list payments with status filter', function () {
         'object' => 'list',
         'hasMore' => false,
         'totalCount' => 0,
-        'data' => []
+        'data' => [],
     ];
 
     Http::fake([
@@ -215,9 +215,9 @@ it('can refund installment', function () {
         'refunds' => [
             [
                 'status' => 'DONE',
-                'value' => 150.00
-            ]
-        ]
+                'value' => 150.00,
+            ],
+        ],
     ];
 
     Http::fake([
@@ -238,14 +238,14 @@ it('can update splits with array input', function () {
             [
                 'walletId' => 'wallet_123',
                 'fixedValue' => 25.00,
-                'status' => 'PENDING'
+                'status' => 'PENDING',
             ],
             [
                 'walletId' => 'wallet_456',
                 'percentualValue' => 50.00,
-                'status' => 'PENDING'
-            ]
-        ]
+                'status' => 'PENDING',
+            ],
+        ],
     ];
 
     Http::fake([
@@ -255,12 +255,12 @@ it('can update splits with array input', function () {
     $splits = [
         [
             'walletId' => 'wallet_123',
-            'fixedValue' => 25.00
+            'fixedValue' => 25.00,
         ],
         [
             'walletId' => 'wallet_456',
-            'percentualValue' => 50.00
-        ]
+            'percentualValue' => 50.00,
+        ],
     ];
 
     $result = $this->resource->updateSplits('ins_123456789', $splits);
@@ -279,9 +279,9 @@ it('can update splits with Split entity input', function () {
             [
                 'walletId' => 'wallet_123',
                 'fixedValue' => 30.00,
-                'status' => 'PENDING'
-            ]
-        ]
+                'status' => 'PENDING',
+            ],
+        ],
     ];
 
     Http::fake([
@@ -303,7 +303,7 @@ it('can update splits with Split entity input', function () {
 
 it('can handle empty splits response', function () {
     $mockResponse = [
-        'splits' => []
+        'splits' => [],
     ];
 
     Http::fake([
@@ -320,12 +320,12 @@ it('handles create validation errors', function () {
     Http::fake([
         '*' => Http::response([
             'errors' => [
-                ['code' => 'invalid_customer', 'description' => 'Customer is required']
-            ]
+                ['code' => 'invalid_customer', 'description' => 'Customer is required'],
+            ],
         ], 400),
     ]);
 
-    expect(fn() => $this->resource->create([]))
+    expect(fn () => $this->resource->create([]))
         ->toThrow(\Exception::class);
 });
 
@@ -333,12 +333,12 @@ it('handles find not found error', function () {
     Http::fake([
         '*' => Http::response([
             'errors' => [
-                ['code' => 'not_found', 'description' => 'Installment not found']
-            ]
+                ['code' => 'not_found', 'description' => 'Installment not found'],
+            ],
         ], 404),
     ]);
 
-    expect(fn() => $this->resource->find('ins_invalid'))
+    expect(fn () => $this->resource->find('ins_invalid'))
         ->toThrow(\Exception::class);
 });
 
@@ -346,12 +346,12 @@ it('handles refund errors', function () {
     Http::fake([
         '*' => Http::response([
             'errors' => [
-                ['code' => 'invalid_refund', 'description' => 'Cannot refund this installment']
-            ]
+                ['code' => 'invalid_refund', 'description' => 'Cannot refund this installment'],
+            ],
         ], 400),
     ]);
 
-    expect(fn() => $this->resource->refund('ins_123456789'))
+    expect(fn () => $this->resource->refund('ins_123456789'))
         ->toThrow(\Exception::class);
 });
 
@@ -359,16 +359,16 @@ it('handles updateSplits errors', function () {
     Http::fake([
         '*' => Http::response([
             'errors' => [
-                ['code' => 'invalid_splits', 'description' => 'Invalid splits configuration']
-            ]
+                ['code' => 'invalid_splits', 'description' => 'Invalid splits configuration'],
+            ],
         ], 400),
     ]);
 
     $splits = [
-        ['walletId' => 'invalid_wallet', 'fixedValue' => -10.00]
+        ['walletId' => 'invalid_wallet', 'fixedValue' => -10.00],
     ];
 
-    expect(fn() => $this->resource->updateSplits('ins_123456789', $splits))
+    expect(fn () => $this->resource->updateSplits('ins_123456789', $splits))
         ->toThrow(\Exception::class);
 });
 
@@ -376,9 +376,9 @@ it('handles network errors', function () {
     Http::fake([
         '*' => function () {
             throw new \Exception('Network error');
-        }
+        },
     ]);
 
-    expect(fn() => $this->resource->find('ins_123'))
+    expect(fn () => $this->resource->find('ins_123'))
         ->toThrow(\Exception::class, 'Network error');
 });

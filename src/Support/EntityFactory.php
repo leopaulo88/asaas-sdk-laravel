@@ -72,12 +72,14 @@ class EntityFactory
     public static function isRegistered(string $objectType): bool
     {
         $entityMap = static::getEntityMapping();
+
         return isset($entityMap[$objectType]);
     }
 
     public static function getEntityClass(string $objectType): ?string
     {
         $entityMap = static::getEntityMapping();
+
         return $entityMap[$objectType] ?? null;
     }
 

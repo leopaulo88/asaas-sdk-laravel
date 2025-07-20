@@ -80,10 +80,10 @@ class SubscriptionResource extends BaseResource
 
     /**
      * Remove a subscription.
+     *
      * @see https://docs.asaas.com/reference/remove-subscription
      *
-     * @param string $id The ID of the subscription to remove.
-     * @return Deleted
+     * @param  string  $id  The ID of the subscription to remove.
      */
     public function remove(string $id): Deleted
     {
