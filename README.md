@@ -168,10 +168,11 @@ class PaymentService
 All entities in this SDK support multiple instantiation patterns:
 
 ### 1. Using `new` Constructor
-```php
-use Leopaulo88\Asaas\Entities\Customer\CustomerCreateEntity;
 
-$customer = new CustomerCreateEntity(
+```php
+use Leopaulo88\Asaas\Entities\Customer\CustomerCreate;
+
+$customer = new CustomerCreate(
     name: 'John Doe',
     email: 'john@example.com',
     cpfCnpj: '12345678901'

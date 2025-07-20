@@ -1,11 +1,11 @@
 <?php
 
 use Leopaulo88\Asaas\Entities\Account\AccountCreate;
-use Leopaulo88\Asaas\Entities\Customer\CustomerCreateEntity;
+use Leopaulo88\Asaas\Entities\Customer\CustomerCreate;
 
-it('supports all patterns for CustomerCreateEntity', function () {
+it('supports all patterns for CustomerCreate', function () {
     // 1. Named Parameters (Padrão mais moderno)
-    $customer1 = new CustomerCreateEntity(
+    $customer1 = new CustomerCreate(
         name: 'João Silva',
         email: 'joao@exemplo.com',
         cpfCnpj: '12345678901',
@@ -17,7 +17,7 @@ it('supports all patterns for CustomerCreateEntity', function () {
     expect($customer1->toArray())->toHaveKey('name', 'João Silva');
 
     // 2. Static Method fromArray (Novo padrão)
-    $customer2 = CustomerCreateEntity::fromArray([
+    $customer2 = CustomerCreate::fromArray([
         'name' => 'Maria Santos',
         'email' => 'maria@exemplo.com',
         'cpfCnpj' => '98765432100',
@@ -28,7 +28,7 @@ it('supports all patterns for CustomerCreateEntity', function () {
     expect($customer2->address)->toBe('Rua das Flores, 123');
 
     // 3. Fluent Interface (Compatibilidade)
-    $customer3 = (new CustomerCreateEntity)
+    $customer3 = (new CustomerCreate)
         ->name('Pedro Costa')
         ->email('pedro@exemplo.com')
         ->cpfCnpj('11122233344')
@@ -39,7 +39,7 @@ it('supports all patterns for CustomerCreateEntity', function () {
     expect($customer3->phone)->toBe('11888888888');
 
     // 4. Propriedades Diretas (Novo padrão)
-    $customer4 = new CustomerCreateEntity;
+    $customer4 = new CustomerCreate;
     $customer4->name = 'Ana Silva';
     $customer4->email = 'ana@exemplo.com';
     $customer4->cpfCnpj = '55566677788';
@@ -48,7 +48,7 @@ it('supports all patterns for CustomerCreateEntity', function () {
     expect($customer4->toArray())->toHaveKey('email', 'ana@exemplo.com');
 
     // 5. Combinando padrões
-    $customer5 = (new CustomerCreateEntity(
+    $customer5 = (new CustomerCreate(
         name: 'Carlos Lima',
         email: 'carlos@exemplo.com'
     ))
@@ -110,7 +110,7 @@ it('supports all patterns for AccountCreate', function () {
 
 it('maintains backwards compatibility with existing code', function () {
     // Novo padrão: static fromArray
-    $customer = CustomerCreateEntity::fromArray([
+    $customer = CustomerCreate::fromArray([
         'name' => 'Cliente Novo',
         'email' => 'novo@exemplo.com',
         'cpfCnpj' => '12345678901',
@@ -119,7 +119,7 @@ it('maintains backwards compatibility with existing code', function () {
     expect($customer->name)->toBe('Cliente Novo');
 
     // Fluent interface continua funcionando
-    $customerFluent = (new CustomerCreateEntity)
+    $customerFluent = (new CustomerCreate)
         ->name('Cliente Fluent')
         ->email('fluent@exemplo.com');
 

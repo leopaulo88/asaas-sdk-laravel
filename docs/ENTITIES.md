@@ -21,9 +21,9 @@ All entities in the Asaas SDK support three instantiation patterns:
 ### 1. Constructor Pattern (`new`)
 
 ```php
-use Leopaulo88\Asaas\Entities\Customer\CustomerCreateEntity;
+use Leopaulo88\Asaas\Entities\Customer\CustomerCreate;
 
-$customer = new CustomerCreateEntity(
+$customer = new CustomerCreate(
     name: 'John Doe',
     email: 'john@example.com',
     cpfCnpj: '12345678901'

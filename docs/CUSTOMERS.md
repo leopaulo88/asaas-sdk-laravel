@@ -31,17 +31,17 @@ $customer = Asaas::customers()->create([
 ### Using Entity
 
 ```php
-use Leopaulo88\Asaas\Entities\Customer\CustomerCreateEntity;
+use Leopaulo88\Asaas\Entities\Customer\CustomerCreate;
 
 // Using constructor
-$customerData = new CustomerCreateEntity(
+$customerData = new CustomerCreate(
     name: 'John Doe',
     email: 'john@example.com',
     cpfCnpj: '12345678901'
 );
 
 // Using fluent interface
-$customerData = CustomerCreateEntity::make()
+$customerData = CustomerCreate::make()
     ->name('John Doe')
     ->email('john@example.com')
     ->cpfCnpj('12345678901')
@@ -151,9 +151,9 @@ $customer = Asaas::customers()->update('cus_123456789', [
 ### Using Entity
 
 ```php
-use Leopaulo88\Asaas\Entities\Customer\CustomerUpdateEntity;
+use Leopaulo88\Asaas\Entities\Customer\CustomerUpdate;
 
-$updateData = CustomerUpdateEntity::make()
+$updateData = CustomerUpdate::make()
     ->name('John Updated')
     ->email('john.updated@example.com')
     ->phone('11999999999')
