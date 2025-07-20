@@ -15,10 +15,6 @@ use Leopaulo88\Asaas\Entities\CreditCardToken\CreditCardTokenResponse;
 use Leopaulo88\Asaas\Enums\BillingType;
 use Leopaulo88\Asaas\Enums\PaymentStatus;
 
-/**
- * @var Split[] $split
- * @var Refund[] $refunds
- */
 class PaymentResponse extends BaseResponse
 {
     public ?string $object;
@@ -97,6 +93,7 @@ class PaymentResponse extends BaseResponse
 
     public ?Interest $interest = null;
 
+    /** @var Split[]|null */
     public ?array $split = null;
 
     public ?bool $postalService = null;
@@ -107,5 +104,6 @@ class PaymentResponse extends BaseResponse
 
     public ?Escrow $escrow = null;
 
+    /** @var Refund[]|null */
     public ?array $refunds = null;
 }

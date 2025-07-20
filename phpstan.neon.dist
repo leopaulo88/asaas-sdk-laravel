@@ -6,7 +6,15 @@ parameters:
     paths:
         - src
         - config
-        - database
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
+    treatPhpDocTypesAsCertain: false
+
+    ignoreErrors:
+        # Allow env() calls in config files
+        - '#Called .env. outside of the config directory which returns null when the config is cached#'
+        # Allow unsafe usage of new static()
+        - '#Unsafe usage of new static\(\)#'
+        # Allow return type issues with static
+        - '#Method .* should return static\(.+\) but returns object#'

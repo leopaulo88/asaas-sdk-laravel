@@ -31,6 +31,9 @@ abstract class BaseResponse implements ResponseInterface
         return $data;
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public static function fromArray(array $data): static
     {
         return new static($data);

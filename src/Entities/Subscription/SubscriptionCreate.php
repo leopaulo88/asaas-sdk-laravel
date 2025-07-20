@@ -14,7 +14,6 @@ use Leopaulo88\Asaas\Entities\Common\Split;
 use Leopaulo88\Asaas\Enums\BillingType;
 use Leopaulo88\Asaas\Enums\SubscriptionCycle;
 
-/** @var Split[] $split */
 class SubscriptionCreate extends BaseEntity
 {
     public function __construct(
@@ -30,6 +29,7 @@ class SubscriptionCreate extends BaseEntity
         public ?Carbon $endDate = null,
         public ?int $maxPayments = null,
         public ?string $externalReference = null,
+        /** @var Split[]|null */
         public ?array $split = null,
         public ?Callback $callback = null,
 
@@ -137,19 +137,21 @@ class SubscriptionCreate extends BaseEntity
         return $this;
     }
 
-    /** @var Split[]|Split */
+    /**
+     * @param  Split[]|Split  $splits
+     */
     public function split(array|Split $splits): self
     {
         $arraySplits = [];
 
         if ($splits instanceof Split) {
-            $arraySplits[] = Split::fromArray($splits);
+            $arraySplits[] = $splits;
         } else {
             foreach ($splits as $split) {
-                if ($split instanceof Split) {
+                if (is_array($split)) {
                     $arraySplits[] = Split::fromArray($split);
-                } elseif (is_array($split)) {
-                    $arraySplits[] = Split::fromArray($split);
+                } else {
+                    $arraySplits[] = $split;
                 }
             }
         }

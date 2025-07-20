@@ -75,10 +75,6 @@ class ObjectHydrator
         $isNullable = $propertyInfo['nullable'];
         $arrayElementType = $propertyInfo['arrayElementType'] ?? null;
 
-        if ($value === null && $isNullable) {
-            return null;
-        }
-
         if ($propertyType === 'array') {
             if (! is_array($value)) {
                 $value = [$value];
@@ -113,13 +109,9 @@ class ObjectHydrator
         if (class_exists($propertyType)) {
             $objectInstance = $this->createObjectInstance($propertyType, $value);
 
+            // If object creation failed and we have a nullable type, return null
             if ($objectInstance === $value && ! ($objectInstance instanceof $propertyType)) {
-
-                if ($isNullable) {
-                    return null;
-                }
-
-                return $value;
+                return $isNullable ? null : $value;
             }
 
             return $objectInstance;

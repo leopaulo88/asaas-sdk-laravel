@@ -13,7 +13,6 @@ use Leopaulo88\Asaas\Enums\BillingType;
 use Leopaulo88\Asaas\Enums\SubscriptionCycle;
 use Leopaulo88\Asaas\Enums\SubscriptionStatus;
 
-/** @var Split[] $split */
 class SubscriptionUpdate extends BaseEntity
 {
     public function __construct(
@@ -28,6 +27,7 @@ class SubscriptionUpdate extends BaseEntity
         public ?Carbon $endDate = null,
         public ?bool $updatePendingPayments = null,
         public ?string $externalReference = null,
+        /** @var Split[]|null */
         public ?array $split = null,
         public ?Callback $callback = null,
     ) {}
@@ -107,19 +107,21 @@ class SubscriptionUpdate extends BaseEntity
         return $this;
     }
 
-    /** @var Split[]|Split */
+    /**
+     * @param  Split[]|Split  $splits
+     */
     public function split(array|Split $splits): self
     {
         $arraySplits = [];
 
         if ($splits instanceof Split) {
-            $arraySplits[] = Split::fromArray($splits);
+            $arraySplits[] = $splits;
         } else {
             foreach ($splits as $split) {
-                if ($split instanceof Split) {
+                if (is_array($split)) {
                     $arraySplits[] = Split::fromArray($split);
-                } elseif (is_array($split)) {
-                    $arraySplits[] = Split::fromArray($split);
+                } else {
+                    $arraySplits[] = $split;
                 }
             }
         }

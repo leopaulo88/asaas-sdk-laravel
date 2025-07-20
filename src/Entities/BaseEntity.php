@@ -10,6 +10,7 @@ abstract class BaseEntity implements EntityInterface
 {
     public static function make(): static
     {
+        /** @var static */
         return new static;
     }
 
@@ -49,8 +50,12 @@ abstract class BaseEntity implements EntityInterface
         return in_array($fieldName, $dateTimeFields);
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public static function fromArray(array $data): static
     {
+        /** @var static */
         $instance = new static;
         $hydrator = new ObjectHydrator;
         $hydrator->fillObject($instance, $data);

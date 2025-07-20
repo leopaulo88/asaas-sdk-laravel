@@ -43,9 +43,9 @@ abstract class BaseResource
             return EntityFactory::createFromResponse($response);
         } catch (RequestException $e) {
             $response = $e->response;
-            $body = $response?->json() ?? [];
-            $message = data_get($body, 'errors.0.description', $e->getMessage());
-            $status = $response?->status() ?? 0;
+            $body = $response->json() ?? [];
+            $message = data_get($body, 'errors.0.description') ?? $e->getMessage();
+            $status = $response->status();
             switch ($status) {
                 case 400:
                     throw new BadRequestException($message, $status, $e, $body);

@@ -6,9 +6,6 @@ use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
 use Leopaulo88\Asaas\Enums\RefundsStatus;
 
-/**
- * @var RefundedSplit[] $refundedSplits
- */
 class Refund extends BaseEntity
 {
     // Only for response
@@ -22,6 +19,7 @@ class Refund extends BaseEntity
 
     public ?string $transactionReceiptUrl;
 
+    /** @var RefundedSplit[]|null */
     public ?array $refundedSplits;
 
     public function __construct(

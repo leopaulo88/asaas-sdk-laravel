@@ -51,7 +51,7 @@ class AsaasClient
         }
 
         $availableEnvironments = array_keys(config('asaas.api_urls', []));
-        if (! in_array($this->config['environment'], $availableEnvironments)) {
+        if (! in_array($this->config['environment'], $availableEnvironments, true)) {
             throw new InvalidEnvironmentException($this->config['environment'], $availableEnvironments);
         }
 
@@ -60,6 +60,9 @@ class AsaasClient
         }
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getHeaders(): array
     {
         return [
@@ -72,6 +75,6 @@ class AsaasClient
 
     protected function isRateLimitEnabled(): bool
     {
-        return $this->config['rate_limit']['enabled'] ?? false;
+        return (bool) ($this->config['rate_limit']['enabled'] ?? false);
     }
 }

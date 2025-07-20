@@ -12,7 +12,6 @@ use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Split;
 use Leopaulo88\Asaas\Enums\BillingType;
 
-/** @var Split[] $split */
 class PaymentCreate extends BaseEntity
 {
     public function __construct(
@@ -30,6 +29,7 @@ class PaymentCreate extends BaseEntity
         public ?Interest $interest = null,
         public ?Fine $fine = null,
         public ?bool $postalService = null,
+        /** @var Split[]|null */
         public ?array $split = null,
         public ?Callback $callback = null,
 
@@ -163,10 +163,10 @@ class PaymentCreate extends BaseEntity
         $splits = [];
 
         foreach ($split as $item) {
-            if ($item instanceof Split) {
-                $splits[] = $item;
-            } elseif (is_array($item)) {
+            if (is_array($item)) {
                 $splits[] = Split::fromArray($item);
+            } else {
+                $splits[] = $item;
             }
         }
 
