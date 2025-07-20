@@ -1,30 +1,22 @@
 <?php
 
+use Illuminate\Support\Facades\Config;
 use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
 use Leopaulo88\Asaas\Support\EntityFactory;
 
 beforeEach(function () {
+    // Backup da configuração original
+    $this->originalMapping = Config::get('asaas.entity_mapping', []);
 
-    $reflection = new ReflectionClass(EntityFactory::class);
-    $property = $reflection->getProperty('entityMap');
-    $property->setAccessible(true);
-    $originalMap = $property->getValue();
-
-    // Usar apenas mapeamentos básicos para testes
-    $property->setValue([
+    // Configurar apenas mapeamentos básicos para testes
+    Config::set('asaas.entity_mapping', [
         'customer' => CustomerResponse::class,
     ]);
-
-    // Guardar o mapa original para restaurar depois
-    $this->originalMap = $originalMap;
 });
 
 afterEach(function () {
-    // Restaurar o mapa original após cada teste
-    $reflection = new ReflectionClass(EntityFactory::class);
-    $property = $reflection->getProperty('entityMap');
-    $property->setAccessible(true);
-    $property->setValue($this->originalMap);
+    // Restaurar a configuração original após cada teste
+    Config::set('asaas.entity_mapping', $this->originalMapping);
 });
 
 describe('EntityFactory', function () {

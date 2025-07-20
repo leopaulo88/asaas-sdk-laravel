@@ -318,7 +318,7 @@ describe('CustomerResource', function () {
                 ]),
             ]);
 
-            $result = $this->customerResource->delete($customerId);
+            $result = $this->customerResource->remove($customerId);
 
             expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Common\Deleted::class)
                 ->and($result->id)->toBe($customerId)
@@ -334,7 +334,7 @@ describe('CustomerResource', function () {
             ]);
 
             $customerId = 'cus_123';
-            $result = $this->customerResource->delete($customerId);
+            $result = $this->customerResource->remove($customerId);
 
             expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Common\Deleted::class);
 

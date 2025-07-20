@@ -25,9 +25,21 @@ Install the package via Composer:
 composer require leopaulo88/asaas-sdk-laravel
 ```
 
-### Publish Configuration
+### Quick Installation
 
-Publish the configuration file:
+Use the built-in installation command to set up the package automatically:
+
+```bash
+php artisan asaas:install
+```
+
+This command will:
+- Publish the configuration file to `config/asaas.php`
+- Ask if you want to star the repository on GitHub
+
+### Manual Installation
+
+Alternatively, you can publish the configuration file manually:
 
 ```bash
 php artisan vendor:publish --tag="asaas-sdk-laravel-config"
@@ -160,6 +172,7 @@ class PaymentService
 | **Customers** | Manage customers | [Customer Resource](docs/CUSTOMERS.md) |
 | **Payments** | Handle payments and charges | [Payment Resource](docs/PAYMENTS.md) |
 | **Subscriptions** | Manage recurring subscriptions | [Subscription Resource](docs/SUBSCRIPTIONS.md) |
+| **Installments** | Create and manage installment payments | [Installment Resource](docs/INSTALLMENTS.md) |
 | **Credit Cards** | Tokenize credit cards | [Credit Card Resource](docs/CREDIT_CARDS.md) |
 | **Accounts** | Account management | [Account Resource](docs/ACCOUNTS.md) |
 
@@ -181,7 +194,7 @@ $customer = new CustomerCreate(
 
 ### 2. Using `make()` Static Method
 ```php
-$customer = CustomerCreateEntity::make()
+$customer = CustomerCreate::make()
     ->name('John Doe')
     ->email('john@example.com')
     ->cpfCnpj('12345678901');
@@ -189,7 +202,7 @@ $customer = CustomerCreateEntity::make()
 
 ### 3. Using `fromArray()` Static Method
 ```php
-$customer = CustomerCreateEntity::fromArray([
+$customer = CustomerCreate::fromArray([
     'name' => 'John Doe',
     'email' => 'john@example.com',
     'cpfCnpj' => '12345678901'
@@ -199,8 +212,8 @@ $customer = CustomerCreateEntity::fromArray([
 ## Complete Entity Reference
 
 ### Customer Entities
-- **CustomerCreateEntity** - For creating customers
-- **CustomerUpdateEntity** - For updating customers  
+- **CustomerCreate** - For creating customers
+- **CustomerUpdate** - For updating customers  
 - **CustomerResponse** - API response entity
 
 ### Payment Entities
@@ -215,6 +228,10 @@ $customer = CustomerCreateEntity::fromArray([
 - **SubscriptionUpdate** - For updating subscriptions
 - **SubscriptionResponse** - API response entity
 - **SubscriptionUpdateCreditCard** - For updating subscription credit cards
+
+### Installment Entities
+- **InstallmentCreate** - For creating installments
+- **InstallmentResponse** - API response entity
 
 ### Credit Card Entities
 - **CreditCardTokenCreate** - For tokenizing credit cards
@@ -273,6 +290,7 @@ composer test
 - [Customer Management](docs/CUSTOMERS.md)
 - [Payment Processing](docs/PAYMENTS.md)
 - [Subscription Management](docs/SUBSCRIPTIONS.md)
+- [Installment Management](docs/INSTALLMENTS.md)
 - [Credit Card Tokenization](docs/CREDIT_CARDS.md)
 - [Account Information](docs/ACCOUNTS.md)
 - [Entity Reference](docs/ENTITIES.md)

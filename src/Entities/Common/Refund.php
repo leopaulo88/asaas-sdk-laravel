@@ -22,6 +22,8 @@ class Refund extends BaseEntity
     /** @var RefundedSplit[]|null */
     public ?array $refundedSplits;
 
+    public ?string $paymentId;
+
     public function __construct(
         public ?float $value = null,
         public ?string $description = null,

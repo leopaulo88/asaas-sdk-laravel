@@ -69,13 +69,13 @@ class CustomerResource extends BaseResource
     }
 
     /**
-     * Delete a customer.
+     * Remove a customer.
      *
      * @see https://docs.asaas.com/reference/remove-customer
      */
-    public function delete(string $id): Deleted
+    public function remove(string $id): Deleted
     {
-        $response = parent::delete("/customers/{$id}");
+        $response = $this->delete("/customers/{$id}");
 
         return Deleted::fromArray($response);
     }

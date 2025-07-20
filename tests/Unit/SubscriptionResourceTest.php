@@ -328,7 +328,7 @@ describe('SubscriptionResource', function () {
                 ]),
             ]);
 
-            $result = $this->subscriptionResource->delete($subscriptionId);
+            $result = $this->subscriptionResource->remove($subscriptionId);
 
             expect($result)->toBeInstanceOf(Deleted::class)
                 ->and($result->id)->toBe($subscriptionId)
@@ -344,7 +344,7 @@ describe('SubscriptionResource', function () {
             ]);
 
             $subscriptionId = 'sub_test';
-            $result = $this->subscriptionResource->delete($subscriptionId);
+            $result = $this->subscriptionResource->remove($subscriptionId);
 
             expect($result)->toBeInstanceOf(Deleted::class);
 

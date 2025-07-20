@@ -79,11 +79,13 @@ class SubscriptionResource extends BaseResource
     }
 
     /**
-     * Delete a subscription.
-     *
+     * Remove a subscription.
      * @see https://docs.asaas.com/reference/remove-subscription
+     *
+     * @param string $id The ID of the subscription to remove.
+     * @return Deleted
      */
-    public function delete(string $id): Deleted
+    public function remove(string $id): Deleted
     {
         $res = parent::delete("/subscriptions/{$id}");
 
