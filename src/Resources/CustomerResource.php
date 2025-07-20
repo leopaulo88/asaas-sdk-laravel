@@ -3,9 +3,9 @@
 namespace Leopaulo88\Asaas\Resources;
 
 use Leopaulo88\Asaas\Entities\Common\Deleted;
-use Leopaulo88\Asaas\Entities\Customer\CustomerCreateEntity;
+use Leopaulo88\Asaas\Entities\Customer\CustomerCreate;
 use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
-use Leopaulo88\Asaas\Entities\Customer\CustomerUpdateEntity;
+use Leopaulo88\Asaas\Entities\Customer\CustomerUpdate;
 use Leopaulo88\Asaas\Entities\List\ListResponse;
 
 class CustomerResource extends BaseResource
@@ -35,10 +35,10 @@ class CustomerResource extends BaseResource
      *
      * @see https://docs.asaas.com/reference/create-new-customer
      */
-    public function create(array|CustomerCreateEntity $data): CustomerResponse
+    public function create(array|CustomerCreate $data): CustomerResponse
     {
         if (is_array($data)) {
-            $data = CustomerCreateEntity::fromArray($data);
+            $data = CustomerCreate::fromArray($data);
         }
 
         return $this->post('/customers', $data->toArray());
@@ -59,23 +59,23 @@ class CustomerResource extends BaseResource
      *
      * @see https://docs.asaas.com/reference/update-existing-customer
      */
-    public function update(string $id, array|CustomerUpdateEntity $data): CustomerResponse
+    public function update(string $id, array|CustomerUpdate $data): CustomerResponse
     {
         if (is_array($data)) {
-            $data = CustomerUpdateEntity::fromArray($data);
+            $data = CustomerUpdate::fromArray($data);
         }
 
         return $this->put("/customers/{$id}", $data->toArray());
     }
 
     /**
-     * Delete a customer.
+     * Remove a customer.
      *
      * @see https://docs.asaas.com/reference/remove-customer
      */
-    public function delete(string $id): Deleted
+    public function remove(string $id): Deleted
     {
-        $response = parent::delete("/customers/{$id}");
+        $response = $this->delete("/customers/{$id}");
 
         return Deleted::fromArray($response);
     }

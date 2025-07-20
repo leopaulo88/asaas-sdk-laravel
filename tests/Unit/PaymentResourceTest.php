@@ -325,7 +325,7 @@ describe('PaymentResource', function () {
                 ]),
             ]);
 
-            $result = $this->paymentResource->delete($paymentId);
+            $result = $this->paymentResource->remove($paymentId);
 
             expect($result)->toBeInstanceOf(Deleted::class)
                 ->and($result->id)->toBe($paymentId)
@@ -341,7 +341,7 @@ describe('PaymentResource', function () {
             ]);
 
             $paymentId = 'pay_test';
-            $result = $this->paymentResource->delete($paymentId);
+            $result = $this->paymentResource->remove($paymentId);
 
             expect($result)->toBeInstanceOf(Deleted::class);
 

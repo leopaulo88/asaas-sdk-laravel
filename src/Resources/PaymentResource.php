@@ -94,15 +94,17 @@ class PaymentResource extends BaseResource
     }
 
     /**
-     * Delete a payment.
+     * Remove a payment.
      *
      * @see https://docs.asaas.com/reference/delete-payment
+     *
+     * @param  string  $id  The unique identifier of the payment to be removed.
      */
-    public function delete(string $id): Deleted
+    public function remove(string $id): Deleted
     {
-        $response = parent::delete("/payments/{$id}");
+        $res = $this->delete("/payments/{$id}");
 
-        return Deleted::fromArray($response);
+        return Deleted::fromArray($res);
     }
 
     /**

@@ -1,11 +1,28 @@
 <?php
 
+use Illuminate\Support\Facades\Config;
 use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
 use Leopaulo88\Asaas\Entities\List\ListResponse;
 use Leopaulo88\Asaas\Support\EntityFactory;
 
 beforeEach(function () {
-    // Não precisa mais de initialize() - o mapeamento é estático
+    // Backup da configuração original
+    $this->originalMapping = Config::get('asaas.entity_mapping', []);
+
+    // Garantir que temos os mappings básicos para os testes
+    if (empty($this->originalMapping)) {
+        Config::set('asaas.entity_mapping', [
+            'customer' => CustomerResponse::class,
+            'list' => ListResponse::class,
+        ]);
+    }
+});
+
+afterEach(function () {
+    // Restaurar a configuração original após cada teste
+    if (isset($this->originalMapping)) {
+        Config::set('asaas.entity_mapping', $this->originalMapping);
+    }
 });
 
 describe('EntityFactory', function () {

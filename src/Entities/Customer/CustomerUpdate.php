@@ -4,7 +4,7 @@ namespace Leopaulo88\Asaas\Entities\Customer;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
 
-class CustomerCreateEntity extends BaseEntity
+class CustomerUpdate extends BaseEntity
 {
     public function __construct(
         public ?string $name = null,

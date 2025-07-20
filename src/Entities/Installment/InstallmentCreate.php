@@ -1,10 +1,9 @@
 <?php
 
-namespace Leopaulo88\Asaas\Entities\Payment;
+namespace Leopaulo88\Asaas\Entities\Installment;
 
 use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Entities\Common\Callback;
 use Leopaulo88\Asaas\Entities\Common\CreditCard;
 use Leopaulo88\Asaas\Entities\Common\CreditCardHolderInfo;
 use Leopaulo88\Asaas\Entities\Common\Discount;
@@ -13,26 +12,24 @@ use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Split;
 use Leopaulo88\Asaas\Enums\BillingType;
 
-class PaymentCreate extends BaseEntity
+class InstallmentCreate extends BaseEntity
 {
     public function __construct(
+        public ?int $installmentCount = null,
         public ?string $customer = null,
-        public ?BillingType $billingType = null,
         public ?float $value = null,
+        public ?float $totalValue = null,
+        public ?BillingType $billingType = null,
         public ?Carbon $dueDate = null,
         public ?string $description = null,
+        public ?bool $postalService = null,
         public ?int $daysAfterDueDateToRegistrationCancellation = null,
         public ?string $externalReference = null,
-        public ?int $installmentCount = null,
-        public ?float $totalValue = null,
-        public ?float $installmentValue = null,
         public ?Discount $discount = null,
         public ?Interest $interest = null,
         public ?Fine $fine = null,
-        public ?bool $postalService = null,
         /** @var Split[]|null */
         public ?array $split = null,
-        public ?Callback $callback = null,
 
         // Credit Card
         public ?CreditCard $creditCard = null,
@@ -41,6 +38,13 @@ class PaymentCreate extends BaseEntity
         public ?bool $authorizeOnly = null,
         public ?string $remoteIp = null,
     ) {}
+
+    public function installmentCount(int $installmentCount): self
+    {
+        $this->installmentCount = $installmentCount;
+
+        return $this;
+    }
 
     public function customer(string $customer): self
     {
@@ -63,6 +67,13 @@ class PaymentCreate extends BaseEntity
     public function value(float $value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function totalValue(float $totalValue): self
+    {
+        $this->totalValue = $totalValue;
 
         return $this;
     }
@@ -94,27 +105,6 @@ class PaymentCreate extends BaseEntity
     public function externalReference(string $externalReference): self
     {
         $this->externalReference = $externalReference;
-
-        return $this;
-    }
-
-    public function installmentCount(int $installmentCount): self
-    {
-        $this->installmentCount = $installmentCount;
-
-        return $this;
-    }
-
-    public function totalValue(float $totalValue): self
-    {
-        $this->totalValue = $totalValue;
-
-        return $this;
-    }
-
-    public function installmentValue(float $installmentValue): self
-    {
-        $this->installmentValue = $installmentValue;
 
         return $this;
     }
@@ -175,17 +165,6 @@ class PaymentCreate extends BaseEntity
         }
 
         $this->split = $splits;
-
-        return $this;
-    }
-
-    public function callback(array|Callback $callback): self
-    {
-        if (is_array($callback)) {
-            $callback = Callback::fromArray($callback);
-        }
-
-        $this->callback = $callback;
 
         return $this;
     }

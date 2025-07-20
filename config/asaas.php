@@ -59,4 +59,37 @@ return [
         'requests_per_minute' => (int) env('ASAAS_RATE_LIMIT_RPM', 500),
         'burst_limit' => (int) env('ASAAS_RATE_LIMIT_BURST', 100),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Entity Mapping
+    |--------------------------------------------------------------------------
+    |
+    | Mapping between API object types and their corresponding entity classes.
+    | You can customize or extend these mappings as needed.
+    |
+    */
+    'entity_mapping' => [
+        'customer' => \Leopaulo88\Asaas\Entities\Customer\CustomerResponse::class,
+        'account' => \Leopaulo88\Asaas\Entities\Account\AccountResponse::class,
+        'list' => \Leopaulo88\Asaas\Entities\List\ListResponse::class,
+        'payment' => \Leopaulo88\Asaas\Entities\Payment\PaymentResponse::class,
+        'subscription' => \Leopaulo88\Asaas\Entities\Subscription\SubscriptionResponse::class,
+        'installment' => \Leopaulo88\Asaas\Entities\Installment\InstallmentResponse::class,
+
+        /*
+        | Custom Mappings
+        |--------------------------------------------------------------------------
+        |
+        | You can add your own entity mappings here. Custom entities must
+        | implement the ResponseInterface contract.
+        |
+        | Example:
+        | 'custom_object' => \App\Entities\CustomEntity::class,
+        |
+        | Note: Your custom entity class must implement:
+        | \Leopaulo88\Asaas\Contracts\ResponseInterface
+        |
+        */
+    ],
 ];

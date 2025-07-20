@@ -3,18 +3,16 @@
 namespace Leopaulo88\Asaas\Support;
 
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Config;
 
 class EntityFactory
 {
-    protected static array $entityMap = [
-        'customer' => \Leopaulo88\Asaas\Entities\Customer\CustomerResponse::class,
-        'account' => \Leopaulo88\Asaas\Entities\Account\AccountResponse::class,
-        'list' => \Leopaulo88\Asaas\Entities\List\ListResponse::class,
-        'payment' => \Leopaulo88\Asaas\Entities\Payment\PaymentResponse::class,
-        'subscription' => \Leopaulo88\Asaas\Entities\Subscription\SubscriptionResponse::class,
-    ];
-
     protected static array $conversionStack = [];
+
+    protected static function getEntityMap(): array
+    {
+        return Config::get('asaas.entity_mapping', []);
+    }
 
     public static function createFromResponse(Response $response)
     {
@@ -35,7 +33,9 @@ class EntityFactory
             return $data;
         }
 
-        if (! isset(static::$entityMap[$objectType])) {
+        $entityMap = static::getEntityMap();
+
+        if (! isset($entityMap[$objectType])) {
             return $data;
         }
 
@@ -47,7 +47,7 @@ class EntityFactory
         static::$conversionStack[] = $dataHash;
 
         try {
-            $entityClass = static::$entityMap[$objectType];
+            $entityClass = $entityMap[$objectType];
             $result = $entityClass::fromArray($data);
         } finally {
             array_pop(static::$conversionStack);
@@ -58,27 +58,36 @@ class EntityFactory
 
     public static function registerEntity(string $objectType, string $entityClass): void
     {
-        static::$entityMap[$objectType] = $entityClass;
+        $currentMapping = static::getEntityMapping();
+        $currentMapping[$objectType] = $entityClass;
+
+        Config::set('asaas.entity_mapping', $currentMapping);
     }
 
-    public static function getEntityMap(): array
+    public static function getEntityMapping(): array
     {
-        return static::$entityMap;
+        return Config::get('asaas.entity_mapping', []);
     }
 
     public static function isRegistered(string $objectType): bool
     {
-        return isset(static::$entityMap[$objectType]);
+        $entityMap = static::getEntityMapping();
+
+        return isset($entityMap[$objectType]);
     }
 
     public static function getEntityClass(string $objectType): ?string
     {
-        return static::$entityMap[$objectType] ?? null;
+        $entityMap = static::getEntityMapping();
+
+        return $entityMap[$objectType] ?? null;
     }
 
     public static function unregisterEntity(string $objectType): void
     {
-        unset(static::$entityMap[$objectType]);
+        $currentMapping = Config::get('asaas.entity_mapping', []);
+        unset($currentMapping[$objectType]);
+        Config::set('asaas.entity_mapping', $currentMapping);
     }
 
     public static function createWithFallback($data, ?string $fallbackClass = null)

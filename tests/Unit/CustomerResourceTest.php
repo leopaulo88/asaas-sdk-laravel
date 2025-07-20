@@ -153,8 +153,8 @@ describe('CustomerResource', function () {
                 ->and($result->cpfCnpj)->toBe('12345678901');
         });
 
-        it('should create customer with CustomerCreateEntity', function () {
-            $request = with(new Customer\CustomerCreateEntity)
+        it('should create customer with CustomerCreate', function () {
+            $request = with(new Customer\CustomerCreate)
                 ->name('Maria Santos')
                 ->cpfCnpj('98765432100')
                 ->email('maria@teste.com');
@@ -284,9 +284,9 @@ describe('CustomerResource', function () {
                 ->and($result->email)->toBe('novo@email.com');
         });
 
-        it('should update customer with CustomerUpdateEntity', function () {
+        it('should update customer with CustomerUpdate', function () {
             $customerId = 'cus_123';
-            $request = with(new Customer\CustomerUpdateEntity)->email('atualizado@email.com');
+            $request = with(new Customer\CustomerUpdate)->email('atualizado@email.com');
 
             Http::fake([
                 "https://sandbox.asaas.com/api/v3/customers/{$customerId}" => Http::response([
@@ -318,7 +318,7 @@ describe('CustomerResource', function () {
                 ]),
             ]);
 
-            $result = $this->customerResource->delete($customerId);
+            $result = $this->customerResource->remove($customerId);
 
             expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Common\Deleted::class)
                 ->and($result->id)->toBe($customerId)
@@ -334,7 +334,7 @@ describe('CustomerResource', function () {
             ]);
 
             $customerId = 'cus_123';
-            $result = $this->customerResource->delete($customerId);
+            $result = $this->customerResource->remove($customerId);
 
             expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Common\Deleted::class);
 
