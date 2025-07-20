@@ -44,7 +44,7 @@ return [
     | Timeout in seconds for HTTP requests to the Asaas API.
     |
     */
-    'timeout' => env('ASAAS_TIMEOUT', 30),
+    'timeout' => (int) env('ASAAS_TIMEOUT', 30),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,8 +55,8 @@ return [
     |
     */
     'rate_limit' => [
-        'enabled' => env('ASAAS_RATE_LIMIT_ENABLED', true),
-        'requests_per_minute' => env('ASAAS_RATE_LIMIT_RPM', 500),
-        'burst_limit' => env('ASAAS_RATE_LIMIT_BURST', 100),
+        'enabled' => (bool) env('ASAAS_RATE_LIMIT_ENABLED', true),
+        'requests_per_minute' => (int) env('ASAAS_RATE_LIMIT_RPM', 500),
+        'burst_limit' => (int) env('ASAAS_RATE_LIMIT_BURST', 100),
     ],
 ];

@@ -12,9 +12,6 @@ use Leopaulo88\Asaas\Enums\BillingType;
 use Leopaulo88\Asaas\Enums\SubscriptionCycle;
 use Leopaulo88\Asaas\Enums\SubscriptionStatus;
 
-/**
- * @var Split[] $split
- */
 class SubscriptionResponse extends BaseResponse
 {
     public ?string $object;
@@ -55,5 +52,6 @@ class SubscriptionResponse extends BaseResponse
 
     public ?string $checkoutSession;
 
-    public ?array $split;
+    /** @var Split[]|null */
+    public ?array $split = null;
 }
