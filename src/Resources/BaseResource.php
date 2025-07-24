@@ -12,7 +12,7 @@ use Leopaulo88\Asaas\Support\EntityFactory;
 
 abstract class BaseResource
 {
-    public function __construct(private AsaasClient $client) {}
+    public function __construct(protected AsaasClient $client) {}
 
     protected function get(string $endpoint, array $query = [])
     {
