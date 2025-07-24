@@ -1,15 +1,15 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Entities\List\ListResponse;
 use Leopaulo88\Asaas\Entities\Transfer\TransferCreate;
 use Leopaulo88\Asaas\Entities\Transfer\TransferResponse;
+use Leopaulo88\Asaas\Enums\TransferOperationType;
+use Leopaulo88\Asaas\Enums\TransferStatus;
+use Leopaulo88\Asaas\Enums\TransferType;
 use Leopaulo88\Asaas\Resources\TransferResource;
 use Leopaulo88\Asaas\Support\AsaasClient;
-use Leopaulo88\Asaas\Enums\TransferType;
-use Leopaulo88\Asaas\Enums\TransferStatus;
-use Leopaulo88\Asaas\Enums\TransferOperationType;
-use Carbon\Carbon;
 
 beforeEach(function () {
     $this->client = new AsaasClient('test_api_key', 'sandbox');
@@ -277,8 +277,8 @@ it('makes correct HTTP requests', function () {
             'id' => 'tra_create_123',
             'value' => 100.00,
             'type' => 'TED',
-            'status' => 'PENDING'
-        ], 200)
+            'status' => 'PENDING',
+        ], 200),
     ]);
 
     $result = $this->resource->create(['value' => 100.00]);
@@ -298,8 +298,8 @@ it('makes correct HTTP requests for list', function () {
             'object' => 'list',
             'data' => [],
             'hasMore' => false,
-            'totalCount' => 0
-        ], 200)
+            'totalCount' => 0,
+        ], 200),
     ]);
 
     $listResult = $this->resource->list(['type' => 'PIX']);
@@ -320,8 +320,8 @@ it('makes correct HTTP requests for find', function () {
             'id' => 'tra_find_123',
             'value' => 100.00,
             'type' => 'TED',
-            'status' => 'PENDING'
-        ], 200)
+            'status' => 'PENDING',
+        ], 200),
     ]);
 
     $findResult = $this->resource->find('tra_find_123');
@@ -341,8 +341,8 @@ it('makes correct HTTP requests for cancel', function () {
             'id' => 'tra_cancel_456',
             'value' => 100.00,
             'type' => 'TED',
-            'status' => 'CANCELLED'
-        ], 200)
+            'status' => 'CANCELLED',
+        ], 200),
     ]);
 
     $cancelResult = $this->resource->cancel('tra_cancel_456');

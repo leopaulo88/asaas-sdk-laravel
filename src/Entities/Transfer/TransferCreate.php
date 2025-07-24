@@ -6,24 +6,22 @@ use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
 use Leopaulo88\Asaas\Entities\Common\BankAccount;
 use Leopaulo88\Asaas\Entities\Common\Recurring;
-use Leopaulo88\Asaas\Enums\BankAccountType;
-use Leopaulo88\Asaas\Enums\TransferOperationType;
 use Leopaulo88\Asaas\Enums\PixAddressKeyType;
-
+use Leopaulo88\Asaas\Enums\TransferOperationType;
 
 class TransferCreate extends BaseEntity
 {
     public function __construct(
-        public ?float                 $value = null,
+        public ?float $value = null,
         public ?string $walletId = null,
-        public ?BankAccount                 $bankAccount = null,
+        public ?BankAccount $bankAccount = null,
         public ?TransferOperationType $operationType = null,
-        public ?string                $pixAddressKey = null,
-        public ?PixAddressKeyType     $pixAddressKeyType = null,
-        public ?string                $description = null,
-        public ?Carbon               $scheduleDate = null,
-        public ?string                $externalReference = null,
-        public ?Recurring                $recurring = null,
+        public ?string $pixAddressKey = null,
+        public ?PixAddressKeyType $pixAddressKeyType = null,
+        public ?string $description = null,
+        public ?Carbon $scheduleDate = null,
+        public ?string $externalReference = null,
+        public ?Recurring $recurring = null,
     ) {}
 
     public function value(float $value): self

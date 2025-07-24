@@ -12,7 +12,7 @@ class Recurring extends BaseEntity
      * For the WEEKLY frequency, the maximum accepted is: 51
      * For the MONTHLY frequency, the maximum accepted is: 11
      */
-      public function __construct(
+    public function __construct(
         public ?RecurringFrequency $frequency = null,
         public ?int $quantity = null,
     ) {}

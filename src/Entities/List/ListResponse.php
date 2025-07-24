@@ -37,8 +37,7 @@ class ListResponse extends BaseResponse
      * Get the data automatically converted to appropriate entity instances
      * based on the object type of each item
      */
-    public function
-    getData(): array
+    public function getData(): array
     {
         return EntityFactory::createCollectionFromArray($this->data);
     }

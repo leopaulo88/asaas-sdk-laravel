@@ -9,6 +9,7 @@ use Leopaulo88\Asaas\Enums\BankAccountType;
 class BankAccount extends BaseEntity
 {
     public ?string $agencyDigit;
+
     public ?string $pixAddressKey;
 
     public function __construct(
@@ -31,60 +32,70 @@ class BankAccount extends BaseEntity
         }
 
         $this->bank = $bank;
+
         return $this;
     }
 
     public function accountName(string $accountName): self
     {
         $this->accountName = $accountName;
+
         return $this;
     }
 
     public function ownerName(string $ownerName): self
     {
         $this->ownerName = $ownerName;
+
         return $this;
     }
 
     public function ownerBirthDate(Carbon $ownerBirthDate): self
     {
         $this->ownerBirthDate = $ownerBirthDate;
+
         return $this;
     }
 
     public function cpfCnpj(string $cpfCnpj): self
     {
         $this->cpfCnpj = $cpfCnpj;
+
         return $this;
     }
 
     public function agency(string $agency): self
     {
         $this->agency = $agency;
+
         return $this;
     }
 
     public function account(string $account): self
     {
         $this->account = $account;
+
         return $this;
     }
 
     public function accountDigit(string $accountDigit): self
     {
         $this->accountDigit = $accountDigit;
+
         return $this;
     }
 
     public function bankAccountType(BankAccountType $bankAccountType): self
     {
         $this->bankAccountType = $bankAccountType;
+
         return $this;
     }
 
     public function ispb(string $ispb): self
     {
         $this->ispb = $ispb;
+
         return $this;
     }
 }
