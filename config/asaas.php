@@ -76,6 +76,7 @@ return [
         'payment' => \Leopaulo88\Asaas\Entities\Payment\PaymentResponse::class,
         'subscription' => \Leopaulo88\Asaas\Entities\Subscription\SubscriptionResponse::class,
         'installment' => \Leopaulo88\Asaas\Entities\Installment\InstallmentResponse::class,
+        'transfer' => \Leopaulo88\Asaas\Entities\Transfer\TransferResponse::class,
 
         /*
         | Custom Mappings

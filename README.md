@@ -173,6 +173,7 @@ class PaymentService
 | **Payments** | Handle payments and charges | [Payment Resource](docs/PAYMENTS.md) |
 | **Subscriptions** | Manage recurring subscriptions | [Subscription Resource](docs/SUBSCRIPTIONS.md) |
 | **Installments** | Create and manage installment payments | [Installment Resource](docs/INSTALLMENTS.md) |
+| **Transfers** | Create and manage transfers between accounts | [Transfer Resource](docs/TRANSFERS.md) |
 | **Credit Cards** | Tokenize credit cards | [Credit Card Resource](docs/CREDIT_CARDS.md) |
 | **Accounts** | Account management | [Account Resource](docs/ACCOUNTS.md) |
 
@@ -233,6 +234,10 @@ $customer = CustomerCreate::fromArray([
 - **InstallmentCreate** - For creating installments
 - **InstallmentResponse** - API response entity
 
+### Transfer Entities
+- **TransferCreate** - For creating transfers
+- **TransferResponse** - API response entity
+
 ### Credit Card Entities
 - **CreditCardTokenCreate** - For tokenizing credit cards
 - **CreditCardTokenResponse** - Token response entity
@@ -291,6 +296,7 @@ composer test
 - [Payment Processing](docs/PAYMENTS.md)
 - [Subscription Management](docs/SUBSCRIPTIONS.md)
 - [Installment Management](docs/INSTALLMENTS.md)
+- [Transfer Management](docs/TRANSFERS.md)
 - [Credit Card Tokenization](docs/CREDIT_CARDS.md)
 - [Account Information](docs/ACCOUNTS.md)
 - [Entity Reference](docs/ENTITIES.md)
