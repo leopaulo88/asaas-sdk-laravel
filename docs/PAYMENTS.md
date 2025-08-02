@@ -44,6 +44,16 @@ $payment = Asaas::payments()->create([
 ]);
 ```
 
+### Get Pix QR Code for Payment
+
+```php
+$pixQrCode = Asaas::payments()->pixQrCode('pay_123456789');
+
+echo "Base64 Image: {$pixQrCode->encodedImage}\n";
+echo "Payload: {$pixQrCode->payload}\n";
+echo "Expiration Date: {$pixQrCode->expirationDate}\n";
+```
+
 ### Using Entity
 
 ```php
@@ -329,6 +339,13 @@ public ?Discount $discount = null;
 public ?Interest $interest = null;
 public ?Fine $fine = null;
 public ?string $externalReference = null;
+```
+
+### Pix
+```php
+public ?string $encodedImage;
+public ?string $payload;
+public ?string $expirationDate;
 ```
 
 ### PaymentResponse
