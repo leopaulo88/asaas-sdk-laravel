@@ -9,7 +9,7 @@ class SplitProcessor extends BaseEntity
     public function process(array &$data): void
     {
 
-        $isInstallment = !empty($data['installmentCount']) && $data['installmentCount'] > 1;
+        $isInstallment = ! empty($data['installmentCount']) && $data['installmentCount'] > 1;
 
         if ($isInstallment) {
             unset($data['installmentValue']);
@@ -26,15 +26,15 @@ class SplitProcessor extends BaseEntity
 
     private function cleanSplitArray(array &$splitItem, bool $isInstallment): void
     {
-        $hasPercentual = !empty($splitItem['percentualValue']);
-        $hasFixed = !empty($splitItem['fixedValue']);
-        $hasTotalFixed = !empty($splitItem['totalFixedValue']);
+        $hasPercentual = ! empty($splitItem['percentualValue']);
+        $hasFixed = ! empty($splitItem['fixedValue']);
+        $hasTotalFixed = ! empty($splitItem['totalFixedValue']);
 
         if ($hasPercentual) {
             $this->removeFields($splitItem, ['fixedValue', 'totalFixedValue']);
         } elseif ($isInstallment && $hasTotalFixed) {
             $this->removeFields($splitItem, ['fixedValue', 'percentualValue']);
-        } elseif (!$isInstallment && $hasFixed) {
+        } elseif (! $isInstallment && $hasFixed) {
             $this->removeFields($splitItem, ['percentualValue', 'totalFixedValue']);
         } else {
             $fieldsToRemove = $isInstallment ? ['fixedValue'] : ['totalFixedValue'];
@@ -44,15 +44,15 @@ class SplitProcessor extends BaseEntity
 
     private function cleanSplitObject(object $splitItem, bool $isInstallment): void
     {
-        $hasPercentual = property_exists($splitItem, 'percentualValue') && !empty($splitItem->percentualValue);
-        $hasFixed = property_exists($splitItem, 'fixedValue') && !empty($splitItem->fixedValue);
-        $hasTotalFixed = property_exists($splitItem, 'totalFixedValue') && !empty($splitItem->totalFixedValue);
+        $hasPercentual = property_exists($splitItem, 'percentualValue') && ! empty($splitItem->percentualValue);
+        $hasFixed = property_exists($splitItem, 'fixedValue') && ! empty($splitItem->fixedValue);
+        $hasTotalFixed = property_exists($splitItem, 'totalFixedValue') && ! empty($splitItem->totalFixedValue);
 
         if ($hasPercentual) {
             $this->removeProperties($splitItem, ['fixedValue', 'totalFixedValue']);
         } elseif ($isInstallment && $hasTotalFixed) {
             $this->removeProperties($splitItem, ['fixedValue', 'percentualValue']);
-        } elseif (!$isInstallment && $hasFixed) {
+        } elseif (! $isInstallment && $hasFixed) {
             $this->removeProperties($splitItem, ['percentualValue', 'totalFixedValue']);
         } else {
             $fieldsToRemove = $isInstallment ? ['fixedValue'] : ['totalFixedValue'];

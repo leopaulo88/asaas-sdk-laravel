@@ -232,14 +232,14 @@ class PaymentCreate extends BaseEntity
         return $this;
     }
 
-   public function toArray(bool $preserveEmpty = false): array
-   {
-       $data = parent::toArray($preserveEmpty);
+    public function toArray(bool $preserveEmpty = false): array
+    {
+        $data = parent::toArray($preserveEmpty);
 
-       if (!empty($data['split'])) {
-           SplitProcessor::make()->process($data);
-       }
+        if (! empty($data['split'])) {
+            SplitProcessor::make()->process($data);
+        }
 
-       return $data;
-   }
+        return $data;
+    }
 }
