@@ -3,6 +3,7 @@
 namespace Leopaulo88\Asaas\Resources;
 
 use Leopaulo88\Asaas\Entities\Common\Deleted;
+use Leopaulo88\Asaas\Entities\Common\Pix;
 use Leopaulo88\Asaas\Entities\Common\Refund;
 use Leopaulo88\Asaas\Entities\List\ListResponse;
 use Leopaulo88\Asaas\Entities\Payment\BillingInfoResponse;
@@ -189,5 +190,17 @@ class PaymentResource extends BaseResource
         }
 
         return $this->post("/payments/{$id}/refund", $refund->toArray());
+    }
+
+    /**
+     * Retrieve the QR code for a Pix payment.
+     *
+     * @see https://docs.asaas.com/reference/get-qr-code-for-pix-payments
+     */
+    public function pixQrCode(string $id): Pix
+    {
+        $response = $this->get("/payments/{$id}/pixQrCode");
+
+        return Pix::fromArray($response);
     }
 }
