@@ -20,7 +20,15 @@ abstract class BaseEntity implements EntityInterface
 
         foreach (get_object_vars($this) as $key => $value) {
             if ($preserveEmpty || $value !== null) {
-                if ($value instanceof \BackedEnum) {
+                if (is_array($value)) {
+                    foreach ($value as $v) {
+                        if (is_object($v) && method_exists($v, 'toArray')) {
+                            $data[$key][] = $v->toArray($preserveEmpty);
+                        } else {
+                            $data[$key][] = $v;
+                        }
+                    }
+                } elseif ($value instanceof \BackedEnum) {
                     $data[$key] = $value->value;
                 } elseif ($value instanceof \Carbon\Carbon) {
                     // Converter Carbon para formato apropriado
