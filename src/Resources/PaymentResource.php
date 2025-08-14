@@ -163,7 +163,7 @@ class PaymentResource extends BaseResource
     {
         $res = $this->get("/payments/{$id}/viewingInfo");
 
-        return ViewingInfoResponse::fromResponse($res);
+        return ViewingInfoResponse::fromArray($res);
     }
 
     /**
@@ -175,7 +175,7 @@ class PaymentResource extends BaseResource
     {
         $response = $this->get("/payments/{$id}/status");
 
-        return StatusResponse::fromResponse($response);
+        return StatusResponse::fromArray($response);
     }
 
     /**
