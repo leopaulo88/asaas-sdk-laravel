@@ -16,7 +16,7 @@ class TransferResponse extends BaseResponse
 
     public ?string $id;
 
-    public ?TransferType $type;
+    public ?string $type;
 
     public ?Carbon $dateCreated;
 
