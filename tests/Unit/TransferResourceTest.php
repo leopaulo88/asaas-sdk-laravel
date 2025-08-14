@@ -7,7 +7,6 @@ use Leopaulo88\Asaas\Entities\Transfer\TransferCreate;
 use Leopaulo88\Asaas\Entities\Transfer\TransferResponse;
 use Leopaulo88\Asaas\Enums\TransferOperationType;
 use Leopaulo88\Asaas\Enums\TransferStatus;
-use Leopaulo88\Asaas\Enums\TransferType;
 use Leopaulo88\Asaas\Resources\TransferResource;
 use Leopaulo88\Asaas\Support\AsaasClient;
 
@@ -56,7 +55,7 @@ it('can create transfer with array data', function () {
     expect($result)->toBeInstanceOf(TransferResponse::class)
         ->and($result->id)->toBe('tra_123456789')
         ->and($result->value)->toBe(250.00)
-        ->and($result->type)->toBe(TransferType::TED)
+        ->and($result->type)->toBe('TED')
         ->and($result->status)->toBe(TransferStatus::PENDING)
         ->and($result->scheduleDate)->toBeInstanceOf(Carbon::class)
         ->and($result->scheduleDate->format('Y-m-d'))->toBe('2024-01-15');
@@ -89,7 +88,7 @@ it('can create transfer with entity', function () {
     expect($result)->toBeInstanceOf(TransferResponse::class)
         ->and($result->id)->toBe('tra_987654321')
         ->and($result->value)->toBe(100.00)
-        ->and($result->type)->toBe(TransferType::PIX)
+        ->and($result->type)->toBe('PIX')
         ->and($result->status)->toBe(TransferStatus::PENDING);
 });
 
@@ -134,9 +133,9 @@ it('can list transfers without parameters', function () {
         ->and($result->data)->toHaveCount(2)
         ->and($result->getData()[0])->toBeInstanceOf(TransferResponse::class)
         ->and($result->getData()[0]->id)->toBe('tra_123456789')
-        ->and($result->getData()[0]->type)->toBe(TransferType::TED)
+        ->and($result->getData()[0]->type)->toBe('TED')
         ->and($result->getData()[1]->id)->toBe('tra_987654321')
-        ->and($result->getData()[1]->type)->toBe(TransferType::PIX);
+        ->and($result->getData()[1]->type)->toBe('PIX');
 });
 
 it('can list transfers with parameters', function () {
@@ -177,7 +176,7 @@ it('can list transfers with parameters', function () {
     expect($result)->toBeInstanceOf(ListResponse::class)
         ->and($result->totalCount)->toBe(1)
         ->and($result->getData())->toHaveCount(1)
-        ->and($result->getData()[0]->type)->toBe(TransferType::TED);
+        ->and($result->getData()[0]->type)->toBe('TED');
 });
 
 it('can find transfer by id', function () {
@@ -214,7 +213,7 @@ it('can find transfer by id', function () {
     expect($result)->toBeInstanceOf(TransferResponse::class)
         ->and($result->id)->toBe('tra_123456789')
         ->and($result->value)->toBe(250.00)
-        ->and($result->type)->toBe(TransferType::TED)
+        ->and($result->type)->toBe('TED')
         ->and($result->status)->toBe(TransferStatus::DONE)
         ->and($result->description)->toBe('Transferência de teste')
         ->and($result->operationType)->toBe(TransferOperationType::TED);
@@ -265,7 +264,7 @@ it('handles different transfer types correctly', function () {
     $result = $this->resource->find('tra_pix_123');
 
     expect($result)->toBeInstanceOf(TransferResponse::class)
-        ->and($result->type)->toBe(TransferType::PIX)
+        ->and($result->type)->toBe('PIX')
         ->and($result->operationType)->toBe(TransferOperationType::PIX);
 });
 

@@ -8,7 +8,6 @@ use Leopaulo88\Asaas\Entities\Common\BankAccount;
 use Leopaulo88\Asaas\Entities\Common\TransferAccount;
 use Leopaulo88\Asaas\Enums\TransferOperationType;
 use Leopaulo88\Asaas\Enums\TransferStatus;
-use Leopaulo88\Asaas\Enums\TransferType;
 
 class TransferResponse extends BaseResponse
 {
@@ -16,7 +15,7 @@ class TransferResponse extends BaseResponse
 
     public ?string $id;
 
-    public ?TransferType $type;
+    public ?string $type;
 
     public ?Carbon $dateCreated;
 

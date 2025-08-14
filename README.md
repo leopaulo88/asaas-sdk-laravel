@@ -176,6 +176,7 @@ class PaymentService
 | **Transfers** | Create and manage transfers between accounts | [Transfer Resource](docs/TRANSFERS.md) |
 | **Credit Cards** | Tokenize credit cards | [Credit Card Resource](docs/CREDIT_CARDS.md) |
 | **Accounts** | Account management | [Account Resource](docs/ACCOUNTS.md) |
+| **Finance** | Retrieve financial information | [Finance Resource](docs/FINANCE.md) |
 
 ## Entity Usage Patterns
 
@@ -256,6 +257,33 @@ $customer = CustomerCreate::fromArray([
 - **ListResponse** - Paginated list responses
 - **AccountResponse** - Account information response
 
+## Finance Resource
+
+The Finance Resource allows you to retrieve financial information from your Asaas account, such as balance, payment statistics, and split statistics.
+
+### Example Usage
+
+```php
+use Leopaulo88\Asaas\Facades\Asaas;
+
+// Get account balance
+$balance = Asaas::finance()->balance();
+echo "Balance: {$balance->balance}";
+
+// Get payment statistics
+$stats = Asaas::finance()->statistics(['foo' => 'bar']);
+echo "Quantity: {$stats->quantity}";
+echo "Total value: {$stats->value}";
+echo "Net value: {$stats->netValue}";
+
+// Get split statistics
+$splitStats = Asaas::finance()->splitStatistics();
+echo "Income: {$splitStats->income}";
+echo "Outcome: {$splitStats->outcome}";
+```
+
+For more details, see [docs/FINANCE.md](docs/FINANCE.md).
+
 ## Error Handling
 
 The SDK provides specific exceptions for different error scenarios:
@@ -301,6 +329,7 @@ composer test
 - [Account Information](docs/ACCOUNTS.md)
 - [Entity Reference](docs/ENTITIES.md)
 - [Error Handling](docs/ERROR_HANDLING.md)
+- [Finance Resource](docs/FINANCE.md)
 
 ## Contributing
 
