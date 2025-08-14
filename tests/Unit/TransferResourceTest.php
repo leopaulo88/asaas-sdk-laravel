@@ -7,7 +7,6 @@ use Leopaulo88\Asaas\Entities\Transfer\TransferCreate;
 use Leopaulo88\Asaas\Entities\Transfer\TransferResponse;
 use Leopaulo88\Asaas\Enums\TransferOperationType;
 use Leopaulo88\Asaas\Enums\TransferStatus;
-use Leopaulo88\Asaas\Enums\TransferType;
 use Leopaulo88\Asaas\Resources\TransferResource;
 use Leopaulo88\Asaas\Support\AsaasClient;
 

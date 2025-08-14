@@ -1,8 +1,8 @@
 <?php
 
-use Leopaulo88\Asaas\Resources\FinanceResource;
-use Leopaulo88\Asaas\Entities\Finance\StatisticResponse;
 use Leopaulo88\Asaas\Entities\Finance\SplitStatisticResponse;
+use Leopaulo88\Asaas\Entities\Finance\StatisticResponse;
+use Leopaulo88\Asaas\Resources\FinanceResource;
 use PHPUnit\Framework\MockObject\MockObject;
 
 describe('FinanceResource', function () {

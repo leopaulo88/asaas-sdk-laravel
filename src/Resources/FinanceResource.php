@@ -2,12 +2,9 @@
 
 namespace Leopaulo88\Asaas\Resources;
 
-use Leopaulo88\Asaas\Entities\Account\AccountCreate;
-use Leopaulo88\Asaas\Entities\Account\AccountResponse;
 use Leopaulo88\Asaas\Entities\Finance\BalanceResponse;
 use Leopaulo88\Asaas\Entities\Finance\SplitStatisticResponse;
 use Leopaulo88\Asaas\Entities\Finance\StatisticResponse;
-use Leopaulo88\Asaas\Entities\List\ListResponse;
 
 class FinanceResource extends BaseResource
 {
@@ -40,7 +37,6 @@ class FinanceResource extends BaseResource
      *
      * @see https://docs.asaas.com/reference/retrieve-split-values
      */
-
     public function splitStatistics(): SplitStatisticResponse
     {
         $response = $this->get('/finance/split/statistics');
