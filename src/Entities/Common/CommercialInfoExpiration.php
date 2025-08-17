@@ -12,4 +12,3 @@ class CommercialInfoExpiration extends BaseEntity
         public ?Carbon $scheduledDate = null,
     ) {}
 }
-

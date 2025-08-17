@@ -12,4 +12,3 @@ class AccountNumber extends BaseEntity
         public ?string $accountDigit = null,
     ) {}
 }
-
