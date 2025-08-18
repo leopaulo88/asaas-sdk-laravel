@@ -3,6 +3,7 @@
 namespace Leopaulo88\Asaas\Entities\Account;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
+use Leopaulo88\Asaas\Entities\Common\Webhook;
 
 class AccountCreate extends BaseEntity
 {
@@ -21,8 +22,8 @@ class AccountCreate extends BaseEntity
         public ?string $complement = null,
         public ?string $province = null,
         public ?string $postalCode = null,
+        /** @var Webhook[] $webhooks */
         public ?array $webhooks = null,
-        public ?string $accountManager = null
     ) {}
 
     public function name(string $name): self
@@ -123,16 +124,13 @@ class AccountCreate extends BaseEntity
         return $this;
     }
 
-    public function webhooks(array $webhooks): self
+    public function webhooks(array|Webhook $webhooks): self
     {
+        if (! is_array($webhooks)) {
+            $webhooks = [$webhooks];
+        }
+
         $this->webhooks = $webhooks;
-
-        return $this;
-    }
-
-    public function accountManager(string $accountManager): self
-    {
-        $this->accountManager = $accountManager;
 
         return $this;
     }

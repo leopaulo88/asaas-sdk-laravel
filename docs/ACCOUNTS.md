@@ -1,10 +1,12 @@
 # Account Resource
 
-The Account Resource allows you to retrieve information about your Asaas account, including account details, balance, and configuration settings.
+The Account Resource allows you to retrieve information about your Asaas account, including account details, balance, configuration settings, and also create sub-accounts with webhook configurations.
 
 ## Table of Contents
 
 - [Getting Account Information](#getting-account-information)
+- [Creating Sub-Accounts](#creating-sub-accounts)
+- [Webhook Configuration](#webhook-configuration)
 - [Entity Reference](#entity-reference)
 - [Best Practices](#best-practices)
 
@@ -95,6 +97,218 @@ class AccountService
     }
 }
 ```
+
+## Creating Sub-Accounts
+
+### Basic Account Creation
+
+You can create sub-accounts using either array data or the fluent interface:
+
+```php
+use Leopaulo88\Asaas\Facades\Asaas;
+use Leopaulo88\Asaas\Entities\Account\AccountCreate;
+
+// Using array data
+$accountData = [
+    'name' => 'João Silva',
+    'email' => 'joao@exemplo.com',
+    'cpfCnpj' => '12345678901',
+    'birthDate' => '1990-01-01',
+    'phone' => '11999999999',
+    'mobilePhone' => '11888888888',
+    'address' => 'Rua das Flores, 123',
+    'addressNumber' => '123',
+    'complement' => 'Apto 45',
+    'province' => 'Centro',
+    'postalCode' => '01234-567',
+    'companyType' => 'MEI',
+    'site' => 'https://joao.com.br',
+    'incomeValue' => 5000
+];
+
+$account = Asaas::accounts()->create($accountData);
+
+// Using fluent interface
+$account = Asaas::accounts()->create(
+    (new AccountCreate)
+        ->name('Maria Santos')
+        ->email('maria@exemplo.com')
+        ->cpfCnpj('98765432100')
+        ->birthDate('1985-05-15')
+        ->phone('11888888888')
+        ->address('Av. Paulista, 1000')
+        ->addressNumber('1000')
+        ->province('Bela Vista')
+        ->postalCode('01310-100')
+        ->site('https://maria.com.br')
+        ->incomeValue(7500)
+);
+
+echo "Account created with ID: {$account->id}\n";
+echo "API Key: {$account->apiKey}\n";
+```
+
+## Webhook Configuration
+
+### Creating Account with Webhooks
+
+You can configure webhooks during account creation to receive real-time notifications:
+
+```php
+use Leopaulo88\Asaas\Entities\Common\Webhook;
+use Leopaulo88\Asaas\Enums\WebhookEvent;
+use Leopaulo88\Asaas\Enums\WebhookSendType;
+
+// Using array data
+$accountData = [
+    'name' => 'João Silva',
+    'email' => 'joao@exemplo.com',
+    'cpfCnpj' => '12345678901',
+    'webhooks' => [
+        [
+            'name' => 'Payment Webhook',
+            'url' => 'https://meusite.com/webhook/payment',
+            'email' => 'admin@meusite.com',
+            'enabled' => true,
+            'apiVersion' => 3,
+            'authToken' => 'meu_token_secreto_123',
+            'sendType' => 'SEQUENTIALLY',
+            'events' => [
+                'PAYMENT_CREATED',
+                'PAYMENT_CONFIRMED',
+                'PAYMENT_RECEIVED',
+                'PAYMENT_OVERDUE'
+            ]
+        ]
+    ]
+];
+
+$account = Asaas::accounts()->create($accountData);
+```
+
+### Using Webhook Entity with Fluent Interface
+
+```php
+// Creating a payment webhook
+$paymentWebhook = (new Webhook)
+    ->name('Payment Notifications')
+    ->url('https://meusite.com/webhook/payments')
+    ->email('financeiro@meusite.com')
+    ->enabled(true)
+    ->apiVersion(3)
+    ->authToken('webhook_token_payments_123')
+    ->sendType(WebhookSendType::SEQUENTIALLY)
+    ->events([
+        WebhookEvent::PAYMENT_CREATED,
+        WebhookEvent::PAYMENT_CONFIRMED,
+        WebhookEvent::PAYMENT_RECEIVED,
+        WebhookEvent::PAYMENT_OVERDUE,
+        WebhookEvent::PAYMENT_REFUNDED
+    ]);
+
+// Creating a subscription webhook
+$subscriptionWebhook = (new Webhook)
+    ->name('Subscription Events')
+    ->url('https://meusite.com/webhook/subscriptions')
+    ->enabled(true)
+    ->sendType(WebhookSendType::NON_SEQUENTIALLY)
+    ->events([
+        WebhookEvent::SUBSCRIPTION_CREATED,
+        WebhookEvent::SUBSCRIPTION_UPDATED,
+        WebhookEvent::SUBSCRIPTION_INACTIVATED
+    ]);
+
+// Creating account with multiple webhooks
+$account = Asaas::accounts()->create(
+    (new AccountCreate)
+        ->name('Empresa ABC Ltda')
+        ->email('contato@empresaabc.com')
+        ->cpfCnpj('12.345.678/0001-90')
+        ->companyType('LTDA')
+        ->phone('1133334444')
+        ->webhooks([$paymentWebhook, $subscriptionWebhook])
+);
+```
+
+### Single Webhook Configuration
+
+```php
+// Adding a single webhook
+$webhook = (new Webhook)
+    ->name('All Events Webhook')
+    ->url('https://meusite.com/webhook/all')
+    ->email('admin@meusite.com')
+    ->enabled(true)
+    ->authToken('master_webhook_token')
+    ->sendType(WebhookSendType::SEQUENTIALLY)
+    ->events([
+        WebhookEvent::PAYMENT_CREATED,
+        WebhookEvent::PAYMENT_CONFIRMED,
+        WebhookEvent::SUBSCRIPTION_CREATED,
+        WebhookEvent::TRANSFER_CREATED
+    ]);
+
+$account = Asaas::accounts()->create(
+    (new AccountCreate)
+        ->name('Freelancer Silva')
+        ->email('freelancer@exemplo.com')
+        ->cpfCnpj('12345678901')
+        ->webhooks($webhook) // Single webhook
+);
+```
+
+### Available Webhook Events
+
+The SDK supports all Asaas webhook events:
+
+#### Payment Events
+- `PAYMENT_CREATED` - Payment created
+- `PAYMENT_AWAITING_RISK_ANALYSIS` - Payment awaiting risk analysis
+- `PAYMENT_APPROVED_BY_RISK_ANALYSIS` - Payment approved by risk analysis
+- `PAYMENT_REPROVED_BY_RISK_ANALYSIS` - Payment reproved by risk analysis
+- `PAYMENT_AUTHORIZED` - Payment authorized
+- `PAYMENT_UPDATED` - Payment updated
+- `PAYMENT_CONFIRMED` - Payment confirmed
+- `PAYMENT_RECEIVED` - Payment received
+- `PAYMENT_CREDIT_CARD_CAPTURE_REFUSED` - Credit card capture refused
+- `PAYMENT_ANTICIPATED` - Payment anticipated
+- `PAYMENT_OVERDUE` - Payment overdue
+- `PAYMENT_DELETED` - Payment deleted
+- `PAYMENT_RESTORED` - Payment restored
+- `PAYMENT_REFUNDED` - Payment refunded
+- `PAYMENT_PARTIALLY_REFUNDED` - Payment partially refunded
+- `PAYMENT_REFUND_IN_PROGRESS` - Payment refund in progress
+- `PAYMENT_RECEIVED_IN_CASH_UNDONE` - Payment received in cash undone
+- `PAYMENT_CHARGEBACK_REQUESTED` - Payment chargeback requested
+- `PAYMENT_CHARGEBACK_DISPUTE` - Payment chargeback dispute
+- `PAYMENT_AWAITING_CHARGEBACK_REVERSAL` - Payment awaiting chargeback reversal
+- `PAYMENT_DUNNING_RECEIVED` - Payment dunning received
+- `PAYMENT_DUNNING_REQUESTED` - Payment dunning requested
+- `PAYMENT_BANK_SLIP_VIEWED` - Bank slip viewed
+- `PAYMENT_CHECKOUT_VIEWED` - Checkout viewed
+
+#### Subscription Events
+- `SUBSCRIPTION_CREATED` - Subscription created
+- `SUBSCRIPTION_UPDATED` - Subscription updated
+- `SUBSCRIPTION_INACTIVATED` - Subscription inactivated
+- `SUBSCRIPTION_DELETED` - Subscription deleted
+
+#### Transfer Events
+- `TRANSFER_CREATED` - Transfer created
+- `TRANSFER_PENDING` - Transfer pending
+- `TRANSFER_IN_BANK_PROCESSING` - Transfer in bank processing
+- `TRANSFER_BLOCKED` - Transfer blocked
+
+#### Invoice Events
+- `INVOICE_CREATED` - Invoice created
+- `INVOICE_UPDATED` - Invoice updated
+- `INVOICE_AUTHORIZED` - Invoice authorized
+- `INVOICE_CANCELED` - Invoice canceled
+
+### Webhook Send Types
+
+- `WebhookSendType::SEQUENTIALLY` - Events are sent one by one in order
+- `WebhookSendType::NON_SEQUENTIALLY` - Events are sent as they occur, potentially out of order
 
 ## Entity Reference
 

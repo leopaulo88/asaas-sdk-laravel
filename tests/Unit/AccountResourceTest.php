@@ -1,8 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Asaas;
 use Leopaulo88\Asaas\Entities\Account\AccountCreate;
 use Leopaulo88\Asaas\Entities\Account\AccountResponse;
+use Leopaulo88\Asaas\Entities\Common\Webhook;
+use Leopaulo88\Asaas\Enums\WebhookEvent;
+use Leopaulo88\Asaas\Enums\WebhookSendType;
 
 beforeEach(function () {
     $this->asaas = new Asaas('test_api_key', 'sandbox');
@@ -212,4 +216,181 @@ it('can list accounts', function () {
         ->and($result->getData())->toHaveCount(2)
         ->and($result->getData()[0])->toBeInstanceOf(AccountResponse::class)
         ->and($result->getData()[0]->id)->toBe('acc_123456789');
+});
+
+it('can create account with webhooks using array data', function () {
+    $accountData = [
+        'name' => 'João Silva',
+        'email' => 'joao@exemplo.com',
+        'cpfCnpj' => '12345678901',
+        'birthDate' => '1990-01-01',
+        'phone' => '11999999999',
+        'webhooks' => [
+            [
+                'name' => 'Payment Webhook',
+                'url' => 'https://example.com/webhook/payment',
+                'email' => 'admin@example.com',
+                'enabled' => true,
+                'apiVersion' => 3,
+                'authToken' => 'webhook_auth_token_123',
+                'sendType' => 'SEQUENTIALLY',
+                'events' => ['PAYMENT_CREATED', 'PAYMENT_CONFIRMED', 'PAYMENT_RECEIVED'],
+            ],
+        ],
+    ];
+
+    $mockResponse = [
+        'object' => 'account',
+        'id' => 'acc_123456789',
+        'name' => 'João Silva',
+        'email' => 'joao@exemplo.com',
+        'loginEmail' => 'joao@exemplo.com',
+        'phone' => '11999999999',
+        'mobilePhone' => '',
+        'address' => '',
+        'addressNumber' => '',
+        'complement' => '',
+        'province' => '',
+        'postalCode' => '',
+        'cpfCnpj' => '12345678901',
+        'birthDate' => '1990-01-01',
+        'personType' => 'FISICA',
+        'companyType' => null,
+        'city' => 'São Paulo',
+        'state' => 'SP',
+        'country' => 'Brasil',
+        'site' => null,
+        'walletId' => '',
+        'apiKey' => 'test_api_key_subaccount',
+        'dateCreated' => '2024-01-01',
+    ];
+
+    Http::fake([
+        'sandbox.asaas.com/api/v3/accounts' => Http::response($mockResponse, 200),
+    ]);
+
+    $result = $this->asaas->accounts()->create($accountData);
+
+    expect($result)->toBeInstanceOf(AccountResponse::class)
+        ->and($result->id)->toBe('acc_123456789')
+        ->and($result->name)->toBe('João Silva')
+        ->and($result->email)->toBe('joao@exemplo.com');
+});
+
+it('can create account with webhooks using fluent interface', function () {
+    $webhook = (new Webhook)
+        ->name('Payment Webhook')
+        ->url('https://example.com/webhook/payment')
+        ->email('admin@example.com')
+        ->enabled(true)
+        ->apiVersion(3)
+        ->authToken('webhook_auth_token_123')
+        ->sendType(WebhookSendType::SEQUENTIALLY)
+        ->events([
+            WebhookEvent::PAYMENT_CREATED,
+            WebhookEvent::PAYMENT_CONFIRMED,
+            WebhookEvent::PAYMENT_RECEIVED,
+        ]);
+
+    $accountRequest = (new AccountCreate)
+        ->name('Maria Santos')
+        ->email('maria@exemplo.com')
+        ->cpfCnpj('98765432100')
+        ->birthDate('1985-05-15')
+        ->phone('11888888888')
+        ->webhooks($webhook);
+
+    $mockResponse = [
+        'object' => 'account',
+        'id' => 'acc_987654321',
+        'name' => 'Maria Santos',
+        'email' => 'maria@exemplo.com',
+        'loginEmail' => 'maria@exemplo.com',
+        'phone' => '11888888888',
+        'mobilePhone' => '',
+        'address' => '',
+        'addressNumber' => '',
+        'complement' => '',
+        'province' => '',
+        'postalCode' => '',
+        'cpfCnpj' => '98765432100',
+        'birthDate' => '1985-05-15',
+        'personType' => 'FISICA',
+        'companyType' => null,
+        'city' => 'São Paulo',
+        'state' => 'SP',
+        'country' => 'Brasil',
+        'site' => null,
+        'walletId' => '',
+        'apiKey' => 'test_api_key_subaccount_2',
+        'dateCreated' => '2024-01-01',
+    ];
+
+    Http::fake([
+        'sandbox.asaas.com/api/v3/accounts' => Http::response($mockResponse, 200),
+    ]);
+
+    $result = $this->asaas->accounts()->create($accountRequest);
+
+    expect($result)->toBeInstanceOf(AccountResponse::class)
+        ->and($result->id)->toBe('acc_987654321')
+        ->and($result->name)->toBe('Maria Santos');
+});
+
+it('can create account with multiple webhooks', function () {
+    $paymentWebhook = (new Webhook)
+        ->name('Payment Webhook')
+        ->url('https://example.com/webhook/payment')
+        ->enabled(true)
+        ->sendType(WebhookSendType::SEQUENTIALLY)
+        ->events([WebhookEvent::PAYMENT_CREATED, WebhookEvent::PAYMENT_CONFIRMED]);
+
+    $subscriptionWebhook = (new Webhook)
+        ->name('Subscription Webhook')
+        ->url('https://example.com/webhook/subscription')
+        ->enabled(true)
+        ->sendType(WebhookSendType::NON_SEQUENTIALLY)
+        ->events([WebhookEvent::SUBSCRIPTION_CREATED, WebhookEvent::SUBSCRIPTION_UPDATED]);
+
+    $accountRequest = (new AccountCreate)
+        ->name('Carlos Oliveira')
+        ->email('carlos@exemplo.com')
+        ->cpfCnpj('11122233344')
+        ->webhooks([$paymentWebhook, $subscriptionWebhook]);
+
+    $mockResponse = [
+        'object' => 'account',
+        'id' => 'acc_111222333',
+        'name' => 'Carlos Oliveira',
+        'email' => 'carlos@exemplo.com',
+        'loginEmail' => 'carlos@exemplo.com',
+        'phone' => '',
+        'mobilePhone' => '',
+        'address' => '',
+        'addressNumber' => '',
+        'complement' => '',
+        'province' => '',
+        'postalCode' => '',
+        'cpfCnpj' => '11122233344',
+        'birthDate' => '',
+        'personType' => 'FISICA',
+        'companyType' => null,
+        'city' => 'São Paulo',
+        'state' => 'SP',
+        'country' => 'Brasil',
+        'site' => null,
+        'walletId' => '',
+        'apiKey' => 'test_api_key_subaccount_3',
+        'dateCreated' => '2024-01-01',
+    ];
+
+    Http::fake([
+        'sandbox.asaas.com/api/v3/accounts' => Http::response($mockResponse, 200),
+    ]);
+
+    $result = $this->asaas->accounts()->create($accountRequest);
+
+    expect($result)->toBeInstanceOf(AccountResponse::class)
+        ->and($result->id)->toBe('acc_111222333')
+        ->and($result->name)->toBe('Carlos Oliveira');
 });
