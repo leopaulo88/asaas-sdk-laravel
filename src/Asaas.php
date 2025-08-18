@@ -7,6 +7,7 @@ use Leopaulo88\Asaas\Concerns\HasCreditCards;
 use Leopaulo88\Asaas\Concerns\HasCustomers;
 use Leopaulo88\Asaas\Concerns\HasFinance;
 use Leopaulo88\Asaas\Concerns\HasInstallments;
+use Leopaulo88\Asaas\Concerns\HasMyAccount;
 use Leopaulo88\Asaas\Concerns\HasPayments;
 use Leopaulo88\Asaas\Concerns\HasSubscriptions;
 use Leopaulo88\Asaas\Concerns\HasTransfers;
@@ -14,7 +15,7 @@ use Leopaulo88\Asaas\Support\AsaasClient;
 
 class Asaas
 {
-    use HasAccounts, HasCreditCards, HasCustomers, HasFinance, HasInstallments, HasPayments, HasSubscriptions, HasTransfers;
+    use HasAccounts, HasCreditCards, HasCustomers, HasFinance, HasInstallments, HasMyAccount, HasPayments, HasSubscriptions, HasTransfers;
 
     protected AsaasClient $client;
 
