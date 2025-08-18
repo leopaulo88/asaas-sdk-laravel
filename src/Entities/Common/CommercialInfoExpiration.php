@@ -8,5 +8,6 @@ use Leopaulo88\Asaas\Entities\BaseEntity;
 class CommercialInfoExpiration extends BaseEntity
 {
     public ?bool $isExpired = null;
-        public ?Carbon $scheduledDate = null;
+
+    public ?Carbon $scheduledDate = null;
 }

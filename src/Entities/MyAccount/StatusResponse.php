@@ -8,8 +8,12 @@ use Leopaulo88\Asaas\Enums\MyAccountStatus;
 class StatusResponse extends BaseResponse
 {
     public ?string $id;
+
     public ?MyAccountStatus $commercialInfo;
+
     public ?MyAccountStatus $bankAccountInfo;
+
     public ?MyAccountStatus $documentation;
+
     public ?MyAccountStatus $general;
 }

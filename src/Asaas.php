@@ -15,7 +15,7 @@ use Leopaulo88\Asaas\Support\AsaasClient;
 
 class Asaas
 {
-    use HasAccounts, HasCreditCards, HasCustomers, HasFinance, HasInstallments, HasPayments, HasSubscriptions, HasTransfers, HasMyAccount;
+    use HasAccounts, HasCreditCards, HasCustomers, HasFinance, HasInstallments, HasMyAccount, HasPayments, HasSubscriptions, HasTransfers;
 
     protected AsaasClient $client;
 
