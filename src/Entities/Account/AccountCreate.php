@@ -16,17 +16,15 @@ class AccountCreate extends BaseEntity
         public ?string $phone = null,
         public ?string $mobilePhone = null,
         public ?string $site = null,
-        public ?int    $incomeValue = null,
+        public ?int $incomeValue = null,
         public ?string $address = null,
         public ?string $addressNumber = null,
         public ?string $complement = null,
         public ?string $province = null,
         public ?string $postalCode = null,
         /** @var Webhook[] $webhooks */
-        public ?array  $webhooks = null,
-    )
-    {
-    }
+        public ?array $webhooks = null,
+    ) {}
 
     public function name(string $name): self
     {
@@ -129,7 +127,7 @@ class AccountCreate extends BaseEntity
     public function webhooks(array|Webhook $webhooks): self
     {
         if (! is_array($webhooks)) {
-           $webhooks = [$webhooks];
+            $webhooks = [$webhooks];
         }
 
         $this->webhooks = $webhooks;

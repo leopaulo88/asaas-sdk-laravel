@@ -17,7 +17,7 @@ it('can create webhook with fluent interface', function () {
         ->events([
             WebhookEvent::PAYMENT_CREATED,
             WebhookEvent::PAYMENT_CONFIRMED,
-            WebhookEvent::PAYMENT_RECEIVED
+            WebhookEvent::PAYMENT_RECEIVED,
         ]);
 
     expect($webhook->name)->toBe('Test Webhook')
@@ -44,7 +44,7 @@ it('can create webhook with constructor parameters', function () {
         sendType: WebhookSendType::NON_SEQUENTIALLY,
         events: [
             WebhookEvent::SUBSCRIPTION_CREATED,
-            WebhookEvent::SUBSCRIPTION_UPDATED
+            WebhookEvent::SUBSCRIPTION_UPDATED,
         ]
     );
 
@@ -119,7 +119,7 @@ it('can create webhook for all event types', function () {
         WebhookEvent::INVOICE_CREATED,
         WebhookEvent::INVOICE_UPDATED,
         WebhookEvent::INVOICE_AUTHORIZED,
-        WebhookEvent::INVOICE_CANCELED
+        WebhookEvent::INVOICE_CANCELED,
     ];
 
     $webhook = (new Webhook)

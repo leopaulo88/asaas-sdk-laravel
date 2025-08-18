@@ -3,7 +3,6 @@
 namespace Leopaulo88\Asaas\Entities\Common;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Enums\RecurringFrequency;
 use Leopaulo88\Asaas\Enums\WebhookEvent;
 use Leopaulo88\Asaas\Enums\WebhookSendType;
 
@@ -79,7 +78,7 @@ class Webhook extends BaseEntity
     }
 
     /**
-     * @param WebhookEvent[] $events
+     * @param  WebhookEvent[]  $events
      * @return $this
      */
     public function events(array $events): self

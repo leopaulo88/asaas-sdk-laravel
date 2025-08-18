@@ -1,12 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Asaas;
 use Leopaulo88\Asaas\Entities\Account\AccountCreate;
 use Leopaulo88\Asaas\Entities\Account\AccountResponse;
 use Leopaulo88\Asaas\Entities\Common\Webhook;
 use Leopaulo88\Asaas\Enums\WebhookEvent;
 use Leopaulo88\Asaas\Enums\WebhookSendType;
-use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
     $this->asaas = new Asaas('test_api_key', 'sandbox');
@@ -234,9 +234,9 @@ it('can create account with webhooks using array data', function () {
                 'apiVersion' => 3,
                 'authToken' => 'webhook_auth_token_123',
                 'sendType' => 'SEQUENTIALLY',
-                'events' => ['PAYMENT_CREATED', 'PAYMENT_CONFIRMED', 'PAYMENT_RECEIVED']
-            ]
-        ]
+                'events' => ['PAYMENT_CREATED', 'PAYMENT_CONFIRMED', 'PAYMENT_RECEIVED'],
+            ],
+        ],
     ];
 
     $mockResponse = [
@@ -289,7 +289,7 @@ it('can create account with webhooks using fluent interface', function () {
         ->events([
             WebhookEvent::PAYMENT_CREATED,
             WebhookEvent::PAYMENT_CONFIRMED,
-            WebhookEvent::PAYMENT_RECEIVED
+            WebhookEvent::PAYMENT_RECEIVED,
         ]);
 
     $accountRequest = (new AccountCreate)
