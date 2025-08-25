@@ -3,7 +3,6 @@
 namespace Leopaulo88\Asaas\Entities\Common;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Enums\RecurringFrequency;
 
 class Recurring extends BaseEntity
 {
@@ -13,16 +12,12 @@ class Recurring extends BaseEntity
      * For the MONTHLY frequency, the maximum accepted is: 11
      */
     public function __construct(
-        public ?RecurringFrequency $frequency = null,
+        public ?string $frequency = null,
         public ?int $quantity = null,
     ) {}
 
-    public function frequency(string|RecurringFrequency $frequency): self
+    public function frequency(string $frequency): self
     {
-        if (is_string($frequency)) {
-            $frequency = RecurringFrequency::tryFrom($frequency);
-        }
-
         $this->frequency = $frequency;
 
         return $this;

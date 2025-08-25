@@ -4,7 +4,6 @@ namespace Leopaulo88\Asaas\Entities\Customer;
 
 use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseResponse;
-use Leopaulo88\Asaas\Enums\PersonType;
 
 class CustomerResponse extends BaseResponse
 {
@@ -42,12 +41,10 @@ class CustomerResponse extends BaseResponse
 
     public ?string $postalCode;
 
-    // Document and identification
     public ?string $cpfCnpj;
 
-    public ?PersonType $personType;
+    public ?string $personType;
 
-    // Additional fields
     public ?bool $deleted;
 
     public ?string $additionalEmails;

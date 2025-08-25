@@ -28,8 +28,6 @@ abstract class BaseEntity implements EntityInterface
                             $data[$key][] = $v;
                         }
                     }
-                } elseif ($value instanceof \BackedEnum) {
-                    $data[$key] = $value->value;
                 } elseif ($value instanceof \Carbon\Carbon) {
                     // Converter Carbon para formato apropriado
                     if ($this->isDateTimeField($key)) {
@@ -53,6 +51,7 @@ abstract class BaseEntity implements EntityInterface
         $dateTimeFields = [
             'dateCreated',
             'effectiveDate',
+            'scheduledDate',
         ];
 
         return in_array($fieldName, $dateTimeFields);

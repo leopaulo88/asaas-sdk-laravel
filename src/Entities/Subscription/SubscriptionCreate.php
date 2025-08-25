@@ -11,20 +11,18 @@ use Leopaulo88\Asaas\Entities\Common\Discount;
 use Leopaulo88\Asaas\Entities\Common\Fine;
 use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Split;
-use Leopaulo88\Asaas\Enums\BillingType;
-use Leopaulo88\Asaas\Enums\SubscriptionCycle;
 
 class SubscriptionCreate extends BaseEntity
 {
     public function __construct(
         public ?string $customer = null,
-        public ?BillingType $billingType = null,
+        public ?string $billingType = null,
         public ?float $value = null,
         public ?Carbon $nextDueDate = null,
         public ?Discount $discount = null,
         public ?Interest $interest = null,
         public ?Fine $fine = null,
-        public ?SubscriptionCycle $cycle = null,
+        public ?string $cycle = null,
         public ?string $description = null,
         public ?Carbon $endDate = null,
         public ?int $maxPayments = null,
@@ -48,7 +46,7 @@ class SubscriptionCreate extends BaseEntity
         return $this;
     }
 
-    public function billingType(BillingType $billingType): self
+    public function billingType(string $billingType): self
     {
         $this->billingType = $billingType;
 
@@ -102,7 +100,7 @@ class SubscriptionCreate extends BaseEntity
         return $this;
     }
 
-    public function cycle(SubscriptionCycle $cycle): self
+    public function cycle(string $cycle): self
     {
         $this->cycle = $cycle;
 

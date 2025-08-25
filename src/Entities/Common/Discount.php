@@ -3,14 +3,13 @@
 namespace Leopaulo88\Asaas\Entities\Common;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Enums\DiscountType;
 
 class Discount extends BaseEntity
 {
     public function __construct(
         public ?float $value = null,
         public ?int $dueDateLimitDays = null,
-        public ?DiscountType $type = null
+        public ?string $type = null
     ) {}
 
     public function value(float $value): self
@@ -27,12 +26,8 @@ class Discount extends BaseEntity
         return $this;
     }
 
-    public function type(string|DiscountType $type): self
+    public function type(string $type): self
     {
-        if (is_string($type)) {
-            $type = DiscountType::tryFrom($type);
-        }
-
         $this->type = $type;
 
         return $this;

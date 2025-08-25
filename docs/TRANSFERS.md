@@ -1,4 +1,4 @@
-# Transfer Resource
+m# Transfer Resource
 
 The `TransferResource` provides methods for creating and managing transfers through the Asaas API. Transfers allow you to move funds between accounts, supporting both bank transfers (TED) and PIX transactions.
 
@@ -177,15 +177,15 @@ Response entity containing transfer information:
 ```php
 // Properties available in TransferResponse
 $transfer->id;                    // string - Unique identifier
-$transfer->type;                  // TransferType enum (PIX, TED, INTERNAL)
+$transfer->type;                  // string - Transfer type (PIX, TED, INTERNAL)
 $transfer->value;                 // float - Transfer amount
 $transfer->netValue;              // float - Net amount after fees
-$transfer->status;                // TransferStatus enum
+$transfer->status;                // string - Transfer status
 $transfer->transferFee;           // float - Transfer fee charged
 $transfer->dateCreated;           // Carbon - Creation date
 $transfer->scheduleDate;          // Carbon - Scheduled execution date
 $transfer->effectiveDate;         // Carbon - When transfer was executed
-$transfer->operationType;         // TransferOperationType enum
+$transfer->operationType;         // string - Transfer operation type
 $transfer->description;           // string - Transfer description
 $transfer->externalReference;     // string - External reference ID
 $transfer->failReason;           // string - Failure reason if applicable

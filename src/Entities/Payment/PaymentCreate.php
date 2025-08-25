@@ -11,13 +11,12 @@ use Leopaulo88\Asaas\Entities\Common\Discount;
 use Leopaulo88\Asaas\Entities\Common\Fine;
 use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Split;
-use Leopaulo88\Asaas\Enums\BillingType;
 
 class PaymentCreate extends BaseEntity
 {
     public function __construct(
         public ?string $customer = null,
-        public ?BillingType $billingType = null,
+        public ?string $billingType = null,
         public ?float $value = null,
         public ?Carbon $dueDate = null,
         public ?string $description = null,
@@ -40,6 +39,7 @@ class PaymentCreate extends BaseEntity
         public ?string $creditCardToken = null,
         public ?bool $authorizeOnly = null,
         public ?string $remoteIp = null,
+        public ?string $softDescriptorText = null,
     ) {}
 
     public function customer(string $customer): self
@@ -49,12 +49,8 @@ class PaymentCreate extends BaseEntity
         return $this;
     }
 
-    public function billingType(string|BillingType $billingType): self
+    public function billingType(string $billingType): self
     {
-        if (is_string($billingType)) {
-            $billingType = BillingType::tryFrom($billingType);
-        }
-
         $this->billingType = $billingType;
 
         return $this;
@@ -228,6 +224,13 @@ class PaymentCreate extends BaseEntity
     public function remoteIp(string $remoteIp): self
     {
         $this->remoteIp = $remoteIp;
+
+        return $this;
+    }
+
+    public function softDescriptorText(string $softDescriptorText): self
+    {
+        $this->softDescriptorText = $softDescriptorText;
 
         return $this;
     }

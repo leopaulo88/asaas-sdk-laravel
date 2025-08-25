@@ -42,7 +42,7 @@ if ($account->accountNumber) {
 }
 
 // Check person type
-echo "Person Type: {$account->personType->value}\n";
+echo "Person Type: {$account->personType}\n";
 echo "CPF/CNPJ: {$account->cpfCnpj}\n";
 
 // Check if account can receive transfers
@@ -66,10 +66,10 @@ class AccountService
             'account_id' => $account->id,
             'business_name' => $account->name,
             'email' => $account->email,
-            'person_type' => $account->personType->value,
+            'person_type' => $account->personType,
             'can_receive_transfers' => $account->canReceiveTransfers,
             'city' => $account->city,
-            'state' => $account->state?->value,
+            'state' => $account->state,
             'postal_code' => $account->postalCode
         ];
     }
@@ -155,9 +155,7 @@ echo "API Key: {$account->apiKey}\n";
 You can configure webhooks during account creation to receive real-time notifications:
 
 ```php
-use Leopaulo88\Asaas\Entities\Common\Webhook;
-use Leopaulo88\Asaas\Enums\WebhookEvent;
-use Leopaulo88\Asaas\Enums\WebhookSendType;
+use Leopaulo88\Asaas\Enums\WebhookEvent;use Leopaulo88\Asaas\Enums\WebhookSendType;
 
 // Using array data
 $accountData = [
@@ -166,7 +164,7 @@ $accountData = [
     'cpfCnpj' => '12345678901',
     'webhooks' => [
         [
-            'name' => 'Payment Webhook',
+            'name' => 'Payment WebhookCreate',
             'url' => 'https://meusite.com/webhook/payment',
             'email' => 'admin@meusite.com',
             'enabled' => true,
@@ -197,13 +195,13 @@ $paymentWebhook = (new Webhook)
     ->enabled(true)
     ->apiVersion(3)
     ->authToken('webhook_token_payments_123')
-    ->sendType(WebhookSendType::SEQUENTIALLY)
+    ->sendType('SEQUENTIALLY')
     ->events([
-        WebhookEvent::PAYMENT_CREATED,
-        WebhookEvent::PAYMENT_CONFIRMED,
-        WebhookEvent::PAYMENT_RECEIVED,
-        WebhookEvent::PAYMENT_OVERDUE,
-        WebhookEvent::PAYMENT_REFUNDED
+        'PAYMENT_CREATED',
+        'PAYMENT_CONFIRMED',
+        'PAYMENT_RECEIVED',
+        'PAYMENT_OVERDUE',
+        'PAYMENT_REFUNDED'
     ]);
 
 // Creating a subscription webhook
@@ -211,11 +209,11 @@ $subscriptionWebhook = (new Webhook)
     ->name('Subscription Events')
     ->url('https://meusite.com/webhook/subscriptions')
     ->enabled(true)
-    ->sendType(WebhookSendType::NON_SEQUENTIALLY)
+    ->sendType('NON_SEQUENTIALLY')
     ->events([
-        WebhookEvent::SUBSCRIPTION_CREATED,
-        WebhookEvent::SUBSCRIPTION_UPDATED,
-        WebhookEvent::SUBSCRIPTION_INACTIVATED
+        'SUBSCRIPTION_CREATED',
+        'SUBSCRIPTION_UPDATED',
+        'SUBSCRIPTION_INACTIVATED'
     ]);
 
 // Creating account with multiple webhooks
@@ -235,17 +233,17 @@ $account = Asaas::accounts()->create(
 ```php
 // Adding a single webhook
 $webhook = (new Webhook)
-    ->name('All Events Webhook')
+    ->name('All Events WebhookCreate')
     ->url('https://meusite.com/webhook/all')
     ->email('admin@meusite.com')
     ->enabled(true)
     ->authToken('master_webhook_token')
-    ->sendType(WebhookSendType::SEQUENTIALLY)
+    ->sendType('SEQUENTIALLY')
     ->events([
-        WebhookEvent::PAYMENT_CREATED,
-        WebhookEvent::PAYMENT_CONFIRMED,
-        WebhookEvent::SUBSCRIPTION_CREATED,
-        WebhookEvent::TRANSFER_CREATED
+        'PAYMENT_CREATED',
+        'PAYMENT_CONFIRMED',
+        'SUBSCRIPTION_CREATED',
+        'TRANSFER_CREATED'
     ]);
 
 $account = Asaas::accounts()->create(
@@ -331,10 +329,10 @@ public ?string $province;
 public ?string $postalCode;
 public ?string $cpfCnpj;
 public ?Carbon $birthDate;
-public ?PersonType $personType;
+public ?string $personType;
 public ?string $companyType;
-public ?BrazilianState $city;
-public ?BrazilianState $state;
+public ?string $city;
+public ?string $state;
 public ?string $country;
 public ?AccountNumber $accountNumber;
 public ?string $site;
@@ -464,12 +462,12 @@ class AccountDisplayService
                 'complement' => $account->complement,
                 'district' => $account->province,
                 'city' => $account->city,
-                'state' => $account->state?->value,
+                'state' => $account->state,
                 'postal_code' => $this->formatPostalCode($account->postalCode),
                 'country' => $account->country
             ],
             'business_info' => [
-                'person_type' => $account->personType->value,
+                'person_type' => $account->personType,
                 'document' => $this->formatDocument($account->cpfCnpj),
                 'company_type' => $account->companyType,
                 'birth_date' => $account->birthDate?->format('d/m/Y')

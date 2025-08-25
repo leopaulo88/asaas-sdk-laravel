@@ -8,12 +8,11 @@ use Leopaulo88\Asaas\Entities\Common\Discount;
 use Leopaulo88\Asaas\Entities\Common\Fine;
 use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Split;
-use Leopaulo88\Asaas\Enums\BillingType;
 
 class PaymentUpdate extends BaseEntity
 {
     public function __construct(
-        public ?BillingType $billingType = null,
+        public ?string $billingType = null,
         public ?float $value = null,
         public ?string $dueDate = null,
         public ?string $description = null,
@@ -28,12 +27,8 @@ class PaymentUpdate extends BaseEntity
         public ?Callback $callback = null,
     ) {}
 
-    public function billingType(string|BillingType $billingType): self
+    public function billingType(string $billingType): self
     {
-        if (is_string($billingType)) {
-            $billingType = BillingType::tryFrom($billingType);
-        }
-
         $this->billingType = $billingType;
 
         return $this;

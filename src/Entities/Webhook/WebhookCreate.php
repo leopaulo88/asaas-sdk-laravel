@@ -1,12 +1,10 @@
 <?php
 
-namespace Leopaulo88\Asaas\Entities\Common;
+namespace Leopaulo88\Asaas\Entities\Webhook;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Enums\WebhookEvent;
-use Leopaulo88\Asaas\Enums\WebhookSendType;
 
-class Webhook extends BaseEntity
+class WebhookCreate extends BaseEntity
 {
     public function __construct(
         public ?string $name = null,
@@ -16,8 +14,7 @@ class Webhook extends BaseEntity
         public ?bool $interrupted = null,
         public ?int $apiVersion = null,
         public ?string $authToken = null,
-        public ?WebhookSendType $sendType = null,
-        /** @var WebhookEvent[] $events */
+        public ?string $sendType = null,
         public ?array $events = null,
     ) {}
 
@@ -70,17 +67,13 @@ class Webhook extends BaseEntity
         return $this;
     }
 
-    public function sendType(WebhookSendType $sendType): self
+    public function sendType(string $sendType): self
     {
         $this->sendType = $sendType;
 
         return $this;
     }
 
-    /**
-     * @param  WebhookEvent[]  $events
-     * @return $this
-     */
     public function events(array $events): self
     {
         $this->events = $events;

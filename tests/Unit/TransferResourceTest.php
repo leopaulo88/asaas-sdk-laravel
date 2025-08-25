@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Entities\List\ListResponse;
 use Leopaulo88\Asaas\Entities\Transfer\TransferCreate;
 use Leopaulo88\Asaas\Entities\Transfer\TransferResponse;
-use Leopaulo88\Asaas\Enums\TransferOperationType;
-use Leopaulo88\Asaas\Enums\TransferStatus;
 use Leopaulo88\Asaas\Resources\TransferResource;
 use Leopaulo88\Asaas\Support\AsaasClient;
 
@@ -56,7 +54,7 @@ it('can create transfer with array data', function () {
         ->and($result->id)->toBe('tra_123456789')
         ->and($result->value)->toBe(250.00)
         ->and($result->type)->toBe('TED')
-        ->and($result->status)->toBe(TransferStatus::PENDING)
+        ->and($result->status)->toBe('PENDING')
         ->and($result->scheduleDate)->toBeInstanceOf(Carbon::class)
         ->and($result->scheduleDate->format('Y-m-d'))->toBe('2024-01-15');
 });
@@ -89,7 +87,7 @@ it('can create transfer with entity', function () {
         ->and($result->id)->toBe('tra_987654321')
         ->and($result->value)->toBe(100.00)
         ->and($result->type)->toBe('PIX')
-        ->and($result->status)->toBe(TransferStatus::PENDING);
+        ->and($result->status)->toBe('PENDING');
 });
 
 it('can list transfers without parameters', function () {
@@ -214,9 +212,9 @@ it('can find transfer by id', function () {
         ->and($result->id)->toBe('tra_123456789')
         ->and($result->value)->toBe(250.00)
         ->and($result->type)->toBe('TED')
-        ->and($result->status)->toBe(TransferStatus::DONE)
+        ->and($result->status)->toBe('DONE')
         ->and($result->description)->toBe('Transferência de teste')
-        ->and($result->operationType)->toBe(TransferOperationType::TED);
+        ->and($result->operationType)->toBe('TED');
 });
 
 it('can cancel transfer', function () {
@@ -240,7 +238,7 @@ it('can cancel transfer', function () {
 
     expect($result)->toBeInstanceOf(TransferResponse::class)
         ->and($result->id)->toBe('tra_123456789')
-        ->and($result->status)->toBe(TransferStatus::CANCELLED)
+        ->and($result->status)->toBe('CANCELLED')
         ->and($result->value)->toBe(250.00);
 });
 
@@ -265,7 +263,7 @@ it('handles different transfer types correctly', function () {
 
     expect($result)->toBeInstanceOf(TransferResponse::class)
         ->and($result->type)->toBe('PIX')
-        ->and($result->operationType)->toBe(TransferOperationType::PIX);
+        ->and($result->operationType)->toBe('PIX');
 });
 
 it('makes correct HTTP requests', function () {

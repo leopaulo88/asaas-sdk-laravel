@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Http;
 use Leopaulo88\Asaas\Asaas;
 use Leopaulo88\Asaas\Entities\Account\AccountCreate;
 use Leopaulo88\Asaas\Entities\Account\AccountResponse;
-use Leopaulo88\Asaas\Entities\Common\Webhook;
-use Leopaulo88\Asaas\Enums\WebhookEvent;
-use Leopaulo88\Asaas\Enums\WebhookSendType;
+use Leopaulo88\Asaas\Entities\Webhook\WebhookCreate;
 
 beforeEach(function () {
     $this->asaas = new Asaas('test_api_key', 'sandbox');
@@ -227,7 +225,7 @@ it('can create account with webhooks using array data', function () {
         'phone' => '11999999999',
         'webhooks' => [
             [
-                'name' => 'Payment Webhook',
+                'name' => 'Payment WebhookCreate',
                 'url' => 'https://example.com/webhook/payment',
                 'email' => 'admin@example.com',
                 'enabled' => true,
@@ -278,18 +276,18 @@ it('can create account with webhooks using array data', function () {
 });
 
 it('can create account with webhooks using fluent interface', function () {
-    $webhook = (new Webhook)
-        ->name('Payment Webhook')
+    $webhook = (new WebhookCreate)
+        ->name('Payment WebhookCreate')
         ->url('https://example.com/webhook/payment')
         ->email('admin@example.com')
         ->enabled(true)
         ->apiVersion(3)
         ->authToken('webhook_auth_token_123')
-        ->sendType(WebhookSendType::SEQUENTIALLY)
+        ->sendType('SEQUENTIALLY')
         ->events([
-            WebhookEvent::PAYMENT_CREATED,
-            WebhookEvent::PAYMENT_CONFIRMED,
-            WebhookEvent::PAYMENT_RECEIVED,
+            'PAYMENT_CREATED',
+            'PAYMENT_CONFIRMED',
+            'PAYMENT_RECEIVED',
         ]);
 
     $accountRequest = (new AccountCreate)
@@ -338,19 +336,19 @@ it('can create account with webhooks using fluent interface', function () {
 });
 
 it('can create account with multiple webhooks', function () {
-    $paymentWebhook = (new Webhook)
-        ->name('Payment Webhook')
+    $paymentWebhook = (new WebhookCreate)
+        ->name('Payment WebhookCreate')
         ->url('https://example.com/webhook/payment')
         ->enabled(true)
-        ->sendType(WebhookSendType::SEQUENTIALLY)
-        ->events([WebhookEvent::PAYMENT_CREATED, WebhookEvent::PAYMENT_CONFIRMED]);
+        ->sendType('SEQUENTIALLY')
+        ->events(['PAYMENT_CREATED', 'PAYMENT_CONFIRMED']);
 
-    $subscriptionWebhook = (new Webhook)
-        ->name('Subscription Webhook')
+    $subscriptionWebhook = (new WebhookCreate)
+        ->name('Subscription WebhookCreate')
         ->url('https://example.com/webhook/subscription')
         ->enabled(true)
-        ->sendType(WebhookSendType::NON_SEQUENTIALLY)
-        ->events([WebhookEvent::SUBSCRIPTION_CREATED, WebhookEvent::SUBSCRIPTION_UPDATED]);
+        ->sendType('NON_SEQUENTIALLY')
+        ->events(['SUBSCRIPTION_CREATED', 'SUBSCRIPTION_UPDATED']);
 
     $accountRequest = (new AccountCreate)
         ->name('Carlos Oliveira')
