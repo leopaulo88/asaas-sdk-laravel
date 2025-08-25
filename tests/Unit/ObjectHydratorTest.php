@@ -1,7 +1,6 @@
 <?php
 
 use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
-use Leopaulo88\Asaas\Enums\PersonType;
 use Leopaulo88\Asaas\Support\ObjectHydrator;
 
 it('can handle enum properties automatically', function () {
@@ -18,8 +17,7 @@ it('can handle enum properties automatically', function () {
 
     $customer = new CustomerResponse($transformedData);
 
-    expect($customer->personType)->toBeInstanceOf(PersonType::class);
-    expect($customer->personType->value)->toBe('FISICA');
+    expect($customer->personType)->toBe('FISICA');
 });
 
 it('can handle type casting automatically', function () {
@@ -122,7 +120,6 @@ it('can get property type information', function () {
     $typeInfo = $hydrator->getPropertyType(CustomerResponse::class, 'personType');
 
     expect($typeInfo)->toBeArray();
-    expect($typeInfo['type'])->toBe(PersonType::class);
     expect($typeInfo['nullable'])->toBeTrue();
 
     $nameTypeInfo = $hydrator->getPropertyType(CustomerResponse::class, 'name');

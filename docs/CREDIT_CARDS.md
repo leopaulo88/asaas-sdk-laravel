@@ -29,7 +29,7 @@ $token = Asaas::creditCards()->tokenize([
 
 echo "Token: {$token->creditCardToken}\n";
 echo "Masked Number: {$token->creditCardNumber}\n";
-echo "Brand: {$token->creditCardBrand->value}\n";
+echo "Brand: {$token->creditCardBrand}\n";
 ```
 
 ### Using Entity
@@ -206,15 +206,6 @@ public ?string $creditCardNumber; // Masked number (e.g., "****1111")
 public ?CreditCardBrand $creditCardBrand; // VISA, MASTERCARD, AMEX, etc.
 public ?string $creditCardToken; // Token to use in payments
 ```
-
-## Supported Credit Card Brands
-
-- **VISA** - Visa cards
-- **MASTERCARD** - Mastercard cards
-- **AMEX** - American Express cards
-- **HIPERCARD** - Hipercard cards
-- **DINERS** - Diners Club cards
-- **ELO** - Elo cards
 
 ## Error Handling
 

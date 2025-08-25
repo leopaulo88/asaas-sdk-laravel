@@ -398,7 +398,7 @@ describe('PaymentResource', function () {
 
             expect($result)->toBeInstanceOf(PaymentResponse::class)
                 ->and($result->id)->toBe($paymentId)
-                ->and($result->status->value)->toBe('RECEIVED');
+                ->and($result->status)->toBe('RECEIVED');
 
             Http::assertSent(function ($request) use ($paymentId) {
                 return $request->method() === 'POST'
@@ -434,7 +434,7 @@ describe('PaymentResource', function () {
 
             expect($result)->toBeInstanceOf(PaymentResponse::class)
                 ->and($result->id)->toBe($paymentId)
-                ->and($result->status->value)->toBe('RECEIVED');
+                ->and($result->status)->toBe('RECEIVED');
         });
 
         it('should pay with credit card using PaymentCreditCard entity', function () {

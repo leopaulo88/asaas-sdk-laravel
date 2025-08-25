@@ -6,8 +6,6 @@ use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseResponse;
 use Leopaulo88\Asaas\Entities\Common\BankAccount;
 use Leopaulo88\Asaas\Entities\Common\TransferAccount;
-use Leopaulo88\Asaas\Enums\TransferOperationType;
-use Leopaulo88\Asaas\Enums\TransferStatus;
 
 class TransferResponse extends BaseResponse
 {
@@ -23,7 +21,7 @@ class TransferResponse extends BaseResponse
 
     public ?float $netValue;
 
-    public ?TransferStatus $status;
+    public ?string $status;
 
     public ?float $transferFee;
 
@@ -41,7 +39,7 @@ class TransferResponse extends BaseResponse
 
     public ?string $transactionReceiptUrl;
 
-    public ?TransferOperationType $operationType;
+    public ?string $operationType;
 
     public ?string $description;
 

@@ -4,7 +4,6 @@ namespace Leopaulo88\Asaas\Entities\Common;
 
 use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Enums\BankAccountType;
 
 class BankAccount extends BaseEntity
 {
@@ -21,7 +20,7 @@ class BankAccount extends BaseEntity
         public ?string $agency = null,
         public ?string $account = null,
         public ?string $accountDigit = null,
-        public ?BankAccountType $bankAccountType = null,
+        public ?string $bankAccountType = null,
         public ?string $ispb = null,
     ) {}
 
@@ -85,7 +84,7 @@ class BankAccount extends BaseEntity
         return $this;
     }
 
-    public function bankAccountType(BankAccountType $bankAccountType): self
+    public function bankAccountType($bankAccountType): self
     {
         $this->bankAccountType = $bankAccountType;
 

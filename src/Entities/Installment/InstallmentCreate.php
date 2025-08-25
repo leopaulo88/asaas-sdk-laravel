@@ -10,7 +10,6 @@ use Leopaulo88\Asaas\Entities\Common\Discount;
 use Leopaulo88\Asaas\Entities\Common\Fine;
 use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Split;
-use Leopaulo88\Asaas\Enums\BillingType;
 
 class InstallmentCreate extends BaseEntity
 {
@@ -19,7 +18,7 @@ class InstallmentCreate extends BaseEntity
         public ?string $customer = null,
         public ?float $value = null,
         public ?float $totalValue = null,
-        public ?BillingType $billingType = null,
+        public ?string $billingType = null,
         public ?Carbon $dueDate = null,
         public ?string $description = null,
         public ?bool $postalService = null,
@@ -53,12 +52,8 @@ class InstallmentCreate extends BaseEntity
         return $this;
     }
 
-    public function billingType(string|BillingType $billingType): self
+    public function billingType(string $billingType): self
     {
-        if (is_string($billingType)) {
-            $billingType = BillingType::tryFrom($billingType);
-        }
-
         $this->billingType = $billingType;
 
         return $this;

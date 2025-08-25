@@ -382,7 +382,7 @@ describe('SubscriptionResource', function () {
 
             expect($result)->toBeInstanceOf(SubscriptionResponse::class)
                 ->and($result->id)->toBe($subscriptionId)
-                ->and($result->billingType->value)->toBe('CREDIT_CARD');
+                ->and($result->billingType)->toBe('CREDIT_CARD');
         });
 
         it('should update credit card with SubscriptionUpdateCreditCard entity', function () {

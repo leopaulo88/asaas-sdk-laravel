@@ -4,14 +4,12 @@ namespace Leopaulo88\Asaas\Entities\Common;
 
 use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Enums\RefundsStatus;
 
 class Refund extends BaseEntity
 {
-    // Only for response
     public ?Carbon $dateCreated;
 
-    public ?RefundsStatus $status;
+    public ?string $status;
 
     public ?string $endToEndIdentifier;
 

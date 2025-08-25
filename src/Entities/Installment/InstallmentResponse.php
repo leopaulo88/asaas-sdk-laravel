@@ -7,7 +7,6 @@ use Leopaulo88\Asaas\Entities\BaseResponse;
 use Leopaulo88\Asaas\Entities\Common\Chargeback;
 use Leopaulo88\Asaas\Entities\Common\Refund;
 use Leopaulo88\Asaas\Entities\CreditCardToken\CreditCardTokenResponse;
-use Leopaulo88\Asaas\Enums\BillingType;
 
 class InstallmentResponse extends BaseResponse
 {
@@ -23,7 +22,7 @@ class InstallmentResponse extends BaseResponse
 
     public ?int $installmentCount;
 
-    public ?BillingType $billingType;
+    public ?string $billingType;
 
     public ?Carbon $paymentDate;
 

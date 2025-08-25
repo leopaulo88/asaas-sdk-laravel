@@ -97,10 +97,6 @@ class ObjectHydrator
             return $this->castBuiltInType($value, $propertyType);
         }
 
-        if (enum_exists($propertyType)) {
-            return $this->createEnumInstance($propertyType, $value);
-        }
-
         // Handle Carbon date conversion
         if ($propertyType === 'Carbon\Carbon' && is_string($value)) {
             return $this->createCarbonInstance($value);
@@ -129,23 +125,6 @@ class ObjectHydrator
             'bool' => (bool) $value,
             default => $value
         };
-    }
-
-    private function createEnumInstance(string $enumClass, $value)
-    {
-        try {
-            if (method_exists($enumClass, 'from')) {
-                return $enumClass::from($value);
-            }
-
-            if (method_exists($enumClass, 'tryFrom')) {
-                return $enumClass::tryFrom($value) ?? $value;
-            }
-
-            return $value;
-        } catch (\Throwable) {
-            return $value;
-        }
     }
 
     private function createObjectInstance(string $className, $value)

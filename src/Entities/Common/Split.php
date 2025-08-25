@@ -3,8 +3,6 @@
 namespace Leopaulo88\Asaas\Entities\Common;
 
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Enums\CancellationReason;
-use Leopaulo88\Asaas\Enums\SplitStatus;
 
 class Split extends BaseEntity
 {
@@ -15,8 +13,8 @@ class Split extends BaseEntity
         public ?float $percentualValue = null,
         public ?float $totalFixedValue = null,
         public ?float $totalValue = null,
-        public ?CancellationReason $cancellationReason = null,
-        public ?SplitStatus $status = null,
+        public ?string $cancellationReason = null,
+        public ?string $status = null,
         public ?string $externalReference = null,
         public ?string $description = null
     ) {}

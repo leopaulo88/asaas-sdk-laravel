@@ -6,8 +6,6 @@ use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
 use Leopaulo88\Asaas\Entities\Common\BankAccount;
 use Leopaulo88\Asaas\Entities\Common\Recurring;
-use Leopaulo88\Asaas\Enums\PixAddressKeyType;
-use Leopaulo88\Asaas\Enums\TransferOperationType;
 
 class TransferCreate extends BaseEntity
 {
@@ -15,9 +13,9 @@ class TransferCreate extends BaseEntity
         public ?float $value = null,
         public ?string $walletId = null,
         public ?BankAccount $bankAccount = null,
-        public ?TransferOperationType $operationType = null,
+        public ?string $operationType = null,
         public ?string $pixAddressKey = null,
-        public ?PixAddressKeyType $pixAddressKeyType = null,
+        public ?string $pixAddressKeyType = null,
         public ?string $description = null,
         public ?Carbon $scheduleDate = null,
         public ?string $externalReference = null,
@@ -49,7 +47,7 @@ class TransferCreate extends BaseEntity
         return $this;
     }
 
-    public function operationType(TransferOperationType $operationType): self
+    public function operationType(string $operationType): self
     {
         $this->operationType = $operationType;
 
@@ -63,7 +61,7 @@ class TransferCreate extends BaseEntity
         return $this;
     }
 
-    public function pixAddressKeyType(PixAddressKeyType $pixAddressKeyType): self
+    public function pixAddressKeyType(string $pixAddressKeyType): self
     {
         $this->pixAddressKeyType = $pixAddressKeyType;
 

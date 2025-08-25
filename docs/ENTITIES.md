@@ -63,7 +63,7 @@ $customer = new CustomerCreateEntity(
     name: 'Jane Smith',
     email: 'jane@example.com',
     cpfCnpj: '98765432100',
-    personType: PersonType::FISICA
+    personType: 'FISICA'
 );
 
 // Fluent
@@ -71,7 +71,7 @@ $customer = CustomerCreateEntity::make()
     ->name('Jane Smith')
     ->email('jane@example.com')
     ->cpfCnpj('98765432100')
-    ->personType(PersonType::FISICA)
+    ->personType('FISICA')
     ->address('123 Main Street')
     ->addressNumber('123')
     ->postalCode('12345678')

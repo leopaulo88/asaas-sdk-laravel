@@ -48,7 +48,7 @@ describe('CreditCardResource', function () {
 
             expect($result)->toBeInstanceOf(CreditCardTokenResponse::class)
                 ->and($result->creditCardNumber)->toBe('****1111')
-                ->and($result->creditCardBrand->value)->toBe('VISA')
+                ->and($result->creditCardBrand)->toBe('VISA')
                 ->and($result->creditCardToken)->toBe('cc_token_123456789');
 
             Http::assertSent(function ($request) {
@@ -74,7 +74,7 @@ describe('CreditCardResource', function () {
 
             expect($result)->toBeInstanceOf(CreditCardTokenResponse::class)
                 ->and($result->creditCardNumber)->toBe('****4242')
-                ->and($result->creditCardBrand->value)->toBe('MASTERCARD')
+                ->and($result->creditCardBrand)->toBe('MASTERCARD')
                 ->and($result->creditCardToken)->toBe('cc_token_987654321');
         });
 
@@ -194,7 +194,7 @@ describe('CreditCardResource', function () {
             $result = $this->creditCardResource->tokenize($requestData);
 
             expect($result)->toBeInstanceOf(CreditCardTokenResponse::class)
-                ->and($result->creditCardBrand->value)->toBe('VISA')
+                ->and($result->creditCardBrand)->toBe('VISA')
                 ->and($result->creditCardToken)->toBe('cc_token_visa');
         });
 
@@ -221,7 +221,7 @@ describe('CreditCardResource', function () {
             $result = $this->creditCardResource->tokenize($requestData);
 
             expect($result)->toBeInstanceOf(CreditCardTokenResponse::class)
-                ->and($result->creditCardBrand->value)->toBe('MASTERCARD')
+                ->and($result->creditCardBrand)->toBe('MASTERCARD')
                 ->and($result->creditCardToken)->toBe('cc_token_mastercard');
         });
 
@@ -248,7 +248,7 @@ describe('CreditCardResource', function () {
             $result = $this->creditCardResource->tokenize($requestData);
 
             expect($result)->toBeInstanceOf(CreditCardTokenResponse::class)
-                ->and($result->creditCardBrand->value)->toBe('AMEX')
+                ->and($result->creditCardBrand)->toBe('AMEX')
                 ->and($result->creditCardToken)->toBe('cc_token_amex');
         });
 

@@ -4,8 +4,6 @@ namespace Leopaulo88\Asaas\Entities\Common;
 
 use Carbon\Carbon;
 use Leopaulo88\Asaas\Entities\BaseEntity;
-use Leopaulo88\Asaas\Enums\ChargebackReason;
-use Leopaulo88\Asaas\Enums\ChargebackStatus;
 
 class Chargeback extends BaseEntity
 {
@@ -14,8 +12,8 @@ class Chargeback extends BaseEntity
         public ?string $installment = null,
         public ?string $customerAccount = null,
         public ?string $payment = null,
-        public ?ChargebackStatus $status = null,
-        public ?ChargebackReason $reason = null,
+        public ?string $status = null,
+        public ?string $reason = null,
         public ?Carbon $disputeStartDate = null,
         public ?float $value = null,
         public ?Carbon $paymentDate = null,

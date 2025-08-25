@@ -3,17 +3,16 @@
 namespace Leopaulo88\Asaas\Entities\MyAccount;
 
 use Leopaulo88\Asaas\Entities\BaseResponse;
-use Leopaulo88\Asaas\Enums\MyAccountStatus;
 
 class StatusResponse extends BaseResponse
 {
     public ?string $id;
 
-    public ?MyAccountStatus $commercialInfo;
+    public ?string $commercialInfo;
 
-    public ?MyAccountStatus $bankAccountInfo;
+    public ?string $bankAccountInfo;
 
-    public ?MyAccountStatus $documentation;
+    public ?string $documentation;
 
-    public ?MyAccountStatus $general;
+    public ?string $general;
 }

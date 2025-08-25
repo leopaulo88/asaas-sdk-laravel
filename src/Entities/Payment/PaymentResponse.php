@@ -12,8 +12,6 @@ use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Refund;
 use Leopaulo88\Asaas\Entities\Common\Split;
 use Leopaulo88\Asaas\Entities\CreditCardToken\CreditCardTokenResponse;
-use Leopaulo88\Asaas\Enums\BillingType;
-use Leopaulo88\Asaas\Enums\PaymentStatus;
 
 class PaymentResponse extends BaseResponse
 {
@@ -43,7 +41,7 @@ class PaymentResponse extends BaseResponse
 
     public ?string $description;
 
-    public ?BillingType $billingType;
+    public ?string $billingType;
 
     public ?CreditCardTokenResponse $creditCard;
 
@@ -53,7 +51,7 @@ class PaymentResponse extends BaseResponse
 
     public ?string $pixQrCodeId = null;
 
-    public ?PaymentStatus $status = null;
+    public ?string $status = null;
 
     public ?Carbon $dueDate = null;
 

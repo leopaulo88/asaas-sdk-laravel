@@ -24,7 +24,7 @@ abstract class BaseResponse implements ResponseInterface
         $data = [];
         foreach (get_object_vars($this) as $key => $value) {
             if ($preserveEmpty || $value !== null) {
-                $data[$key] = $value instanceof \BackedEnum ? $value->value : $value;
+                $data[$key] = $value;
             }
         }
 

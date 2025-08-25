@@ -8,9 +8,6 @@ use Leopaulo88\Asaas\Entities\Common\Discount;
 use Leopaulo88\Asaas\Entities\Common\Fine;
 use Leopaulo88\Asaas\Entities\Common\Interest;
 use Leopaulo88\Asaas\Entities\Common\Split;
-use Leopaulo88\Asaas\Enums\BillingType;
-use Leopaulo88\Asaas\Enums\SubscriptionCycle;
-use Leopaulo88\Asaas\Enums\SubscriptionStatus;
 
 class SubscriptionResponse extends BaseResponse
 {
@@ -24,9 +21,9 @@ class SubscriptionResponse extends BaseResponse
 
     public ?string $paymentLink;
 
-    public ?BillingType $billingType;
+    public ?string $billingType;
 
-    public ?SubscriptionCycle $cycle;
+    public ?string $cycle;
 
     public ?float $value;
 
@@ -36,7 +33,7 @@ class SubscriptionResponse extends BaseResponse
 
     public ?string $description;
 
-    public ?SubscriptionStatus $status;
+    public ?string $status;
 
     public ?Discount $discount;
 
