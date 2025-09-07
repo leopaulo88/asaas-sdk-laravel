@@ -48,7 +48,7 @@ class ListResponse extends BaseResponse
      *
      * @param  string  $entityClass  The entity class to map data to
      */
-    public function getDataAs(string $entityClass): array
+    public function getDataAs(string $entityClass): Collection
     {
         return EntityFactory::createCollectionAs($this->data, $entityClass);
     }
