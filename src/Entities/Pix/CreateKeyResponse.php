@@ -7,19 +7,19 @@ use Leopaulo88\Asaas\Entities\BaseResponse;
 
 class CreateKeyResponse extends BaseResponse
 {
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?string $key;
+    public ?string $key = null;
 
-    public ?string $type;
+    public ?string $type = null;
 
-    public ?string $status;
+    public ?string $status = null;
 
-    public ?Carbon $dateCreated;
+    public ?Carbon $dateCreated = null;
 
-    public ?bool $canBeDeleted;
+    public ?bool $canBeDeleted = null;
 
-    public ?string $cannotBeDeletedReason;
+    public ?string $cannotBeDeletedReason = null;
 
-    public ?PixQrCode $qrCode;
+    public ?PixQrCode $qrCode = null;
 }
