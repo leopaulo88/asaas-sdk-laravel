@@ -2,6 +2,7 @@
 
 namespace Leopaulo88\Asaas\Entities\List;
 
+use Illuminate\Support\Collection;
 use Leopaulo88\Asaas\Concerns\HasPagination;
 use Leopaulo88\Asaas\Entities\BaseResponse;
 use Leopaulo88\Asaas\Support\EntityFactory;
@@ -37,7 +38,7 @@ class ListResponse extends BaseResponse
      * Get the data automatically converted to appropriate entity instances
      * based on the object type of each item
      */
-    public function getData(): array
+    public function getData(): Collection
     {
         return EntityFactory::createCollectionFromArray($this->data);
     }
@@ -47,7 +48,7 @@ class ListResponse extends BaseResponse
      *
      * @param  string  $entityClass  The entity class to map data to
      */
-    public function getDataAs(string $entityClass): array
+    public function getDataAs(string $entityClass): Collection
     {
         return EntityFactory::createCollectionAs($this->data, $entityClass);
     }
