@@ -10,39 +10,39 @@ use Leopaulo88\Asaas\Entities\CreditCardToken\CreditCardTokenResponse;
 
 class InstallmentResponse extends BaseResponse
 {
-    public ?string $object;
+    public ?string $object = null;
 
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?float $value;
+    public ?float $value = null;
 
-    public ?float $netValue;
+    public ?float $netValue = null;
 
-    public ?float $paymentValue;
+    public ?float $paymentValue = null;
 
-    public ?int $installmentCount;
+    public ?int $installmentCount = null;
 
-    public ?string $billingType;
+    public ?string $billingType = null;
 
-    public ?Carbon $paymentDate;
+    public ?Carbon $paymentDate = null;
 
-    public ?string $description;
+    public ?string $description = null;
 
-    public ?int $expirationDay;
+    public ?int $expirationDay = null;
 
-    public ?Carbon $dateCreated;
+    public ?Carbon $dateCreated = null;
 
-    public ?string $customer;
+    public ?string $customer = null;
 
-    public ?string $paymentLink;
+    public ?string $paymentLink = null;
 
-    public ?string $checkoutSession;
+    public ?string $checkoutSession = null;
 
-    public ?string $transactionReceiptUrl;
+    public ?string $transactionReceiptUrl = null;
 
-    public ?Chargeback $chargeback;
+    public ?Chargeback $chargeback = null;
 
-    public ?CreditCardTokenResponse $creditCard;
+    public ?CreditCardTokenResponse $creditCard = null;
 
     public ?bool $deleted = null;
 

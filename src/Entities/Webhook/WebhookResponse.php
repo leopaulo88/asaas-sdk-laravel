@@ -6,23 +6,23 @@ use Leopaulo88\Asaas\Entities\BaseResponse;
 
 class WebhookResponse extends BaseResponse
 {
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?string $name;
+    public ?string $name = null;
 
-    public ?string $url;
+    public ?string $url = null;
 
-    public ?string $email;
+    public ?string $email = null;
 
-    public ?bool $enabled;
+    public ?bool $enabled = null;
 
-    public ?bool $interrupted;
+    public ?bool $interrupted = null;
 
-    public ?int $apiVersion;
+    public ?int $apiVersion = null;
 
-    public ?bool $hasAuthToken;
+    public ?bool $hasAuthToken = null;
 
-    public ?string $sendType;
+    public ?string $sendType = null;
 
-    public ?array $events;
+    public ?array $events = null;
 }

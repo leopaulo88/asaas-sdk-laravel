@@ -7,7 +7,7 @@ use Leopaulo88\Asaas\Entities\BaseEntity;
 class ChargebackCreditCard extends BaseEntity
 {
     public function __construct(
-        public ?string $number,
-        public ?string $brand
+        public ?string $number = null,
+        public ?string $brand = null
     ) {}
 }

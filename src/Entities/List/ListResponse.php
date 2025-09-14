@@ -12,19 +12,19 @@ class ListResponse extends BaseResponse
     use HasPagination;
 
     // Pagination attributes
-    public ?bool $hasMore;
+    public ?bool $hasMore = null;
 
-    public ?int $totalCount;
+    public ?int $totalCount = null;
 
-    public ?int $limit;
+    public ?int $limit = null;
 
-    public ?int $offset;
+    public ?int $offset = null;
 
     // List data
-    public array $data;
+    public array $data = [];
 
     // Object info
-    public ?string $object;
+    public ?string $object = null;
 
     /**
      * Get the raw data array

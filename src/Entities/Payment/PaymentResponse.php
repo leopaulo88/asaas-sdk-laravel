@@ -15,35 +15,35 @@ use Leopaulo88\Asaas\Entities\CreditCardToken\CreditCardTokenResponse;
 
 class PaymentResponse extends BaseResponse
 {
-    public ?string $object;
+    public ?string $object = null;
 
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?Carbon $dateCreated;
+    public ?Carbon $dateCreated = null;
 
-    public ?string $customer;
+    public ?string $customer = null;
 
-    public ?string $subscription;
+    public ?string $subscription = null;
 
-    public ?string $installment;
+    public ?string $installment = null;
 
-    public ?string $checkoutSession;
+    public ?string $checkoutSession = null;
 
-    public ?string $paymentLink;
+    public ?string $paymentLink = null;
 
-    public ?float $value;
+    public ?float $value = null;
 
-    public ?float $netValue;
+    public ?float $netValue = null;
 
-    public ?float $originalValue;
+    public ?float $originalValue = null;
 
-    public ?float $interestValue;
+    public ?float $interestValue = null;
 
-    public ?string $description;
+    public ?string $description = null;
 
-    public ?string $billingType;
+    public ?string $billingType = null;
 
-    public ?CreditCardTokenResponse $creditCard;
+    public ?CreditCardTokenResponse $creditCard = null;
 
     public ?bool $canBePaidAfterDueDate = null;
 

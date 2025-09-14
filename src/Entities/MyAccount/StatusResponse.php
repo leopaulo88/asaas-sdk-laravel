@@ -6,13 +6,13 @@ use Leopaulo88\Asaas\Entities\BaseResponse;
 
 class StatusResponse extends BaseResponse
 {
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?string $commercialInfo;
+    public ?string $commercialInfo = null;
 
-    public ?string $bankAccountInfo;
+    public ?string $bankAccountInfo = null;
 
-    public ?string $documentation;
+    public ?string $documentation = null;
 
-    public ?string $general;
+    public ?string $general = null;
 }

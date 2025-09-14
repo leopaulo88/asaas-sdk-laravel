@@ -7,7 +7,7 @@ use Leopaulo88\Asaas\Entities\BaseResponse;
 
 class ViewingInfoResponse extends BaseResponse
 {
-    public ?Carbon $invoiceViewedDate;
+    public ?Carbon $invoiceViewedDate = null;
 
-    public ?Carbon $boletoViewedDate;
+    public ?Carbon $boletoViewedDate = null;
 }
