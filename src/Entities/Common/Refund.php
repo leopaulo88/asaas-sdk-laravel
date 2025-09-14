@@ -7,20 +7,20 @@ use Leopaulo88\Asaas\Entities\BaseEntity;
 
 class Refund extends BaseEntity
 {
-    public ?Carbon $dateCreated;
+    public ?Carbon $dateCreated = null;
 
-    public ?string $status;
+    public ?string $status = null;
 
-    public ?string $endToEndIdentifier;
+    public ?string $endToEndIdentifier = null;
 
-    public ?Carbon $effectiveDate;
+    public ?Carbon $effectiveDate = null;
 
-    public ?string $transactionReceiptUrl;
+    public ?string $transactionReceiptUrl = null;
 
     /** @var RefundedSplit[]|null */
-    public ?array $refundedSplits;
+    public ?array $refundedSplits = null;
 
-    public ?string $paymentId;
+    public ?string $paymentId = null;
 
     public function __construct(
         public ?float $value = null,

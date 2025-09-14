@@ -9,45 +9,45 @@ use Leopaulo88\Asaas\Entities\Common\TransferAccount;
 
 class TransferResponse extends BaseResponse
 {
-    public ?string $object;
+    public ?string $object = null;
 
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?string $type;
+    public ?string $type = null;
 
-    public ?Carbon $dateCreated;
+    public ?Carbon $dateCreated = null;
 
-    public ?float $value;
+    public ?float $value = null;
 
-    public ?float $netValue;
+    public ?float $netValue = null;
 
-    public ?string $status;
+    public ?string $status = null;
 
-    public ?float $transferFee;
+    public ?float $transferFee = null;
 
-    public ?Carbon $effectiveDate;
+    public ?Carbon $effectiveDate = null;
 
-    public ?Carbon $scheduleDate;
+    public ?Carbon $scheduleDate = null;
 
-    public ?string $endToEndIdentifier;
+    public ?string $endToEndIdentifier = null;
 
-    public ?bool $authorized;
+    public ?bool $authorized = null;
 
-    public ?string $failReason;
+    public ?string $failReason = null;
 
-    public ?string $externalReference;
+    public ?string $externalReference = null;
 
-    public ?string $transactionReceiptUrl;
+    public ?string $transactionReceiptUrl = null;
 
-    public ?string $operationType;
+    public ?string $operationType = null;
 
-    public ?string $description;
+    public ?string $description = null;
 
-    public ?string $recurring;
+    public ?string $recurring = null;
 
-    public ?BankAccount $bankAccount;
+    public ?BankAccount $bankAccount = null;
 
-    public ?string $walletId;
+    public ?string $walletId = null;
 
-    public ?TransferAccount $account;
+    public ?TransferAccount $account = null;
 }

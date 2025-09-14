@@ -9,9 +9,9 @@ use Leopaulo88\Asaas\Entities\CreditCardToken\CreditCardTokenResponse;
 
 class BillingInfoResponse extends BaseResponse
 {
-    public ?Pix $pix;
+    public ?Pix $pix = null;
 
-    public ?CreditCardTokenResponse $creditCard;
+    public ?CreditCardTokenResponse $creditCard = null;
 
-    public ?BankSlip $bankSlip;
+    public ?BankSlip $bankSlip = null;
 }

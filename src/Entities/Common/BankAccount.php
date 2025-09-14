@@ -7,9 +7,9 @@ use Leopaulo88\Asaas\Entities\BaseEntity;
 
 class BankAccount extends BaseEntity
 {
-    public ?string $agencyDigit;
+    public ?string $agencyDigit = null;
 
-    public ?string $pixAddressKey;
+    public ?string $pixAddressKey = null;
 
     public function __construct(
         public ?Bank $bank = null,

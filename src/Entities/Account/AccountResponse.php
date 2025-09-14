@@ -8,53 +8,53 @@ use Leopaulo88\Asaas\Entities\Common\CommercialInfoExpiration;
 
 class AccountResponse extends BaseResponse
 {
-    public ?string $object;
+    public ?string $object = null;
 
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?string $name;
+    public ?string $name = null;
 
-    public ?string $email;
+    public ?string $email = null;
 
-    public ?string $loginEmail;
+    public ?string $loginEmail = null;
 
-    public ?string $phone;
+    public ?string $phone = null;
 
-    public ?string $mobilePhone;
+    public ?string $mobilePhone = null;
 
-    public ?string $address;
+    public ?string $address = null;
 
-    public ?string $addressNumber;
+    public ?string $addressNumber = null;
 
-    public ?string $complement;
+    public ?string $complement = null;
 
-    public ?string $province;
+    public ?string $province = null;
 
-    public ?string $postalCode;
+    public ?string $postalCode = null;
 
-    public ?string $cpfCnpj;
+    public ?string $cpfCnpj = null;
 
-    public ?string $birthDate;
+    public ?string $birthDate = null;
 
-    public ?string $personType;
+    public ?string $personType = null;
 
-    public ?string $companyType;
+    public ?string $companyType = null;
 
-    public ?string $city;
+    public ?string $city = null;
 
-    public ?string $state;
+    public ?string $state = null;
 
-    public ?string $country;
+    public ?string $country = null;
 
-    public ?string $tradingName;
+    public ?string $tradingName = null;
 
-    public ?string $site;
+    public ?string $site = null;
 
-    public ?string $walletId;
+    public ?string $walletId = null;
 
-    public ?AccountNumber $accountNumber;
+    public ?AccountNumber $accountNumber = null;
 
-    public ?CommercialInfoExpiration $commercialInfoExpiration;
+    public ?CommercialInfoExpiration $commercialInfoExpiration = null;
 
-    public ?string $apiKey;
+    public ?string $apiKey = null;
 }
