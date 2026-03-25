@@ -44,7 +44,7 @@ class AccessTokensResource extends BaseResource
         return $this->put("/accounts/{$this->accountId}/accessTokens/{$id}", $data->toArray());
     }
 
-    public function remove(string $id)
+    public function remove(string $id): mixed
     {
         return $this->delete("/accounts/{$this->accountId}/accessTokens/{$id}");
     }
