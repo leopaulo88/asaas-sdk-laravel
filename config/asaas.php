@@ -1,5 +1,13 @@
 <?php
 
+use Leopaulo88\Asaas\Entities\Account\AccountResponse;
+use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
+use Leopaulo88\Asaas\Entities\Installment\InstallmentResponse;
+use Leopaulo88\Asaas\Entities\List\ListResponse;
+use Leopaulo88\Asaas\Entities\Payment\PaymentResponse;
+use Leopaulo88\Asaas\Entities\Subscription\SubscriptionResponse;
+use Leopaulo88\Asaas\Entities\Transfer\TransferResponse;
+
 // config for Leopaulo88/AsaasSdkLaravel
 return [
     /*
@@ -70,13 +78,13 @@ return [
     |
     */
     'entity_mapping' => [
-        'customer' => \Leopaulo88\Asaas\Entities\Customer\CustomerResponse::class,
-        'account' => \Leopaulo88\Asaas\Entities\Account\AccountResponse::class,
-        'list' => \Leopaulo88\Asaas\Entities\List\ListResponse::class,
-        'payment' => \Leopaulo88\Asaas\Entities\Payment\PaymentResponse::class,
-        'subscription' => \Leopaulo88\Asaas\Entities\Subscription\SubscriptionResponse::class,
-        'installment' => \Leopaulo88\Asaas\Entities\Installment\InstallmentResponse::class,
-        'transfer' => \Leopaulo88\Asaas\Entities\Transfer\TransferResponse::class,
+        'customer' => CustomerResponse::class,
+        'account' => AccountResponse::class,
+        'list' => ListResponse::class,
+        'payment' => PaymentResponse::class,
+        'subscription' => SubscriptionResponse::class,
+        'installment' => InstallmentResponse::class,
+        'transfer' => TransferResponse::class,
 
         /*
         | Custom Mappings

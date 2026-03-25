@@ -1,5 +1,6 @@
 <?php
 
+use Leopaulo88\Asaas\Entities\Finance\BalanceResponse;
 use Leopaulo88\Asaas\Entities\Finance\SplitStatisticResponse;
 use Leopaulo88\Asaas\Entities\Finance\StatisticResponse;
 use Leopaulo88\Asaas\Resources\FinanceResource;
@@ -22,7 +23,7 @@ describe('FinanceResource', function () {
             ->willReturn($mockResponse);
 
         $result = $this->resource->balance();
-        expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Finance\BalanceResponse::class);
+        expect($result)->toBeInstanceOf(BalanceResponse::class);
         expect($result->balance)->toBe(1234.56);
     });
 
