@@ -49,4 +49,9 @@ class AccountResource extends BaseResource
     {
         return $this->get("/accounts/{$id}");
     }
+
+    public function accessTokens(string $accountId)
+    {
+        return new AccessTokensResource($this->client, $accountId);
+    }
 }
