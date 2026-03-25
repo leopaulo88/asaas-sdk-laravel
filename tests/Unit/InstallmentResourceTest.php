@@ -326,7 +326,7 @@ it('handles create validation errors', function () {
     ]);
 
     expect(fn () => $this->resource->create([]))
-        ->toThrow(\Exception::class);
+        ->toThrow(Exception::class);
 });
 
 it('handles find not found error', function () {
@@ -339,7 +339,7 @@ it('handles find not found error', function () {
     ]);
 
     expect(fn () => $this->resource->find('ins_invalid'))
-        ->toThrow(\Exception::class);
+        ->toThrow(Exception::class);
 });
 
 it('handles refund errors', function () {
@@ -352,7 +352,7 @@ it('handles refund errors', function () {
     ]);
 
     expect(fn () => $this->resource->refund('ins_123456789'))
-        ->toThrow(\Exception::class);
+        ->toThrow(Exception::class);
 });
 
 it('handles updateSplits errors', function () {
@@ -369,16 +369,16 @@ it('handles updateSplits errors', function () {
     ];
 
     expect(fn () => $this->resource->updateSplits('ins_123456789', $splits))
-        ->toThrow(\Exception::class);
+        ->toThrow(Exception::class);
 });
 
 it('handles network errors', function () {
     Http::fake([
         '*' => function () {
-            throw new \Exception('Network error');
+            throw new Exception('Network error');
         },
     ]);
 
     expect(fn () => $this->resource->find('ins_123'))
-        ->toThrow(\Exception::class, 'Network error');
+        ->toThrow(Exception::class, 'Network error');
 });

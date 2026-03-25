@@ -2,7 +2,9 @@
 
 namespace Leopaulo88\Asaas\Entities\Pix;
 
-class PixQrCode extends \Leopaulo88\Asaas\Entities\BaseEntity
+use Leopaulo88\Asaas\Entities\BaseEntity;
+
+class PixQrCode extends BaseEntity
 {
     public ?string $encodedImage = null;
 

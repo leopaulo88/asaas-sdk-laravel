@@ -1,5 +1,6 @@
 <?php
 
+use Leopaulo88\Asaas\Entities\Account\AccountCreate;
 use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
 use Leopaulo88\Asaas\Support\ObjectHydrator;
 
@@ -28,7 +29,7 @@ it('can handle type casting automatically', function () {
     ];
 
     $hydrator = new ObjectHydrator;
-    $account = new \Leopaulo88\Asaas\Entities\Account\AccountCreate;
+    $account = new AccountCreate;
     $hydrator->fillObject($account, $mockData);
 
     expect($account->name)->toBe('Test Account');
