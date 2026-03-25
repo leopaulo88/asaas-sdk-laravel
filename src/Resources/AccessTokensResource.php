@@ -5,6 +5,7 @@ namespace Leopaulo88\Asaas\Resources;
 use Leopaulo88\Asaas\Entities\Account\AccessTokenCreate;
 use Leopaulo88\Asaas\Entities\Account\AccessTokenResponse;
 use Leopaulo88\Asaas\Entities\Account\AccessTokenUpdate;
+use Leopaulo88\Asaas\Entities\List\ListResponse;
 use Leopaulo88\Asaas\Support\AsaasClient;
 
 class AccessTokensResource extends BaseResource
@@ -17,13 +18,9 @@ class AccessTokensResource extends BaseResource
         $this->accountId = $accountId;
     }
 
-    public function list(): array
+    public function list(): ListResponse
     {
-        $res = $this->get("/accounts/{$this->accountId}/accessTokens");
-
-        $accessTokens = data_get($res->json(), 'accessTokens', []);
-
-        return array_map(fn ($accessToken) => AccessTokenResponse::fromArray($accessToken), $accessTokens);
+        return $this->get("/accounts/{$this->accountId}/accessTokens");
     }
 
     public function create(array|AccessTokenCreate $data): AccessTokenResponse
@@ -32,7 +29,9 @@ class AccessTokensResource extends BaseResource
             $data = AccessTokenCreate::fromArray($data);
         }
 
-        return $this->post("/accounts/{$this->accountId}/accessTokens", $data->toArray());
+        $res = $this->post("/accounts/{$this->accountId}/accessTokens", $data->toArray());
+
+        return AccessTokenResponse::fromArray($res);
     }
 
     public function update(string $id, array|AccessTokenUpdate $data): AccessTokenResponse
@@ -41,7 +40,9 @@ class AccessTokensResource extends BaseResource
             $data = AccessTokenUpdate::fromArray($data);
         }
 
-        return $this->put("/accounts/{$this->accountId}/accessTokens/{$id}", $data->toArray());
+        $res =  $this->put("/accounts/{$this->accountId}/accessTokens/{$id}", $data->toArray());
+
+        return AccessTokenResponse::fromArray($res);
     }
 
     public function remove(string $id): mixed
