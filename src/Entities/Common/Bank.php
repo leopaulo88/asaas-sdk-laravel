@@ -6,9 +6,9 @@ use Leopaulo88\Asaas\Entities\BaseEntity;
 
 class Bank extends BaseEntity
 {
-    public ?string $ispb;
+    public ?string $ispb = null;
 
-    public ?string $name;
+    public ?string $name = null;
 
     public function __construct(
         public ?string $code = null,

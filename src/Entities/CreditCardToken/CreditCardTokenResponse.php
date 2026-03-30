@@ -6,9 +6,9 @@ use Leopaulo88\Asaas\Entities\BaseResponse;
 
 class CreditCardTokenResponse extends BaseResponse
 {
-    public ?string $creditCardNumber;
+    public ?string $creditCardNumber = null;
 
-    public ?string $creditCardBrand;
+    public ?string $creditCardBrand = null;
 
-    public ?string $creditCardToken;
+    public ?string $creditCardToken = null;
 }

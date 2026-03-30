@@ -6,5 +6,5 @@ use Leopaulo88\Asaas\Entities\BaseResponse;
 
 class StatusResponse extends BaseResponse
 {
-    public ?string $status;
+    public ?string $status = null;
 }

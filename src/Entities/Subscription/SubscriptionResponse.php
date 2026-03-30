@@ -11,43 +11,43 @@ use Leopaulo88\Asaas\Entities\Common\Split;
 
 class SubscriptionResponse extends BaseResponse
 {
-    public ?string $object;
+    public ?string $object = null;
 
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?Carbon $dateCreated;
+    public ?Carbon $dateCreated = null;
 
-    public ?string $customer;
+    public ?string $customer = null;
 
-    public ?string $paymentLink;
+    public ?string $paymentLink = null;
 
-    public ?string $billingType;
+    public ?string $billingType = null;
 
-    public ?string $cycle;
+    public ?string $cycle = null;
 
-    public ?float $value;
+    public ?float $value = null;
 
-    public ?Carbon $nextDueDate;
+    public ?Carbon $nextDueDate = null;
 
-    public ?Carbon $endDate;
+    public ?Carbon $endDate = null;
 
-    public ?string $description;
+    public ?string $description = null;
 
-    public ?string $status;
+    public ?string $status = null;
 
-    public ?Discount $discount;
+    public ?Discount $discount = null;
 
-    public ?Fine $fine;
+    public ?Fine $fine = null;
 
-    public ?Interest $interest;
+    public ?Interest $interest = null;
 
-    public ?bool $deleted;
+    public ?bool $deleted = null;
 
-    public ?int $maxPayments;
+    public ?int $maxPayments = null;
 
-    public ?string $externalReference;
+    public ?string $externalReference = null;
 
-    public ?string $checkoutSession;
+    public ?string $checkoutSession = null;
 
     /** @var Split[]|null */
     public ?array $split = null;

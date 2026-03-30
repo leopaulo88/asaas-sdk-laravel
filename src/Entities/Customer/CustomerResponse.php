@@ -8,52 +8,52 @@ use Leopaulo88\Asaas\Entities\BaseResponse;
 class CustomerResponse extends BaseResponse
 {
     // Basic info
-    public ?string $object;
+    public ?string $object = null;
 
-    public ?string $id;
+    public ?string $id = null;
 
-    public ?Carbon $dateCreated;
+    public ?Carbon $dateCreated = null;
 
-    public ?string $name;
+    public ?string $name = null;
 
-    public ?string $email;
+    public ?string $email = null;
 
-    public ?string $phone;
+    public ?string $phone = null;
 
-    public ?string $mobilePhone;
+    public ?string $mobilePhone = null;
 
     // Address information
-    public ?string $address;
+    public ?string $address = null;
 
-    public ?string $addressNumber;
+    public ?string $addressNumber = null;
 
-    public ?string $complement;
+    public ?string $complement = null;
 
-    public ?string $province;
+    public ?string $province = null;
 
-    public ?int $city;
+    public ?int $city = null;
 
-    public ?string $cityName;
+    public ?string $cityName = null;
 
-    public ?string $state;
+    public ?string $state = null;
 
-    public ?string $country;
+    public ?string $country = null;
 
-    public ?string $postalCode;
+    public ?string $postalCode = null;
 
-    public ?string $cpfCnpj;
+    public ?string $cpfCnpj = null;
 
-    public ?string $personType;
+    public ?string $personType = null;
 
-    public ?bool $deleted;
+    public ?bool $deleted = null;
 
-    public ?string $additionalEmails;
+    public ?string $additionalEmails = null;
 
-    public ?string $externalReference;
+    public ?string $externalReference = null;
 
-    public ?bool $notificationDisabled;
+    public ?bool $notificationDisabled = null;
 
-    public ?string $observations;
+    public ?string $observations = null;
 
-    public ?bool $foreignCustomer;
+    public ?bool $foreignCustomer = null;
 }

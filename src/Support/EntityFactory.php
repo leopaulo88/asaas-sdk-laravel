@@ -3,6 +3,7 @@
 namespace Leopaulo88\Asaas\Support;
 
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 class EntityFactory
@@ -105,25 +106,25 @@ class EntityFactory
         return $data;
     }
 
-    public static function createCollectionFromArray(array $data): array
+    public static function createCollectionFromArray(array $data): Collection
     {
-        return array_map(function ($item) {
+        return collect(array_map(function ($item) {
             if (is_array($item)) {
                 return static::createFromArray($item);
             }
 
             return $item;
-        }, $data);
+        }, $data));
     }
 
-    public static function createCollectionAs(array $data, string $entityClass): array
+    public static function createCollectionAs(array $data, string $entityClass): Collection
     {
-        return array_map(function ($item) use ($entityClass) {
+        return collect(array_map(function ($item) use ($entityClass) {
             if (is_array($item)) {
                 return $entityClass::fromArray($item);
             }
 
             return $item;
-        }, $data);
+        }, $data));
     }
 }
