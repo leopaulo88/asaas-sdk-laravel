@@ -40,7 +40,7 @@ class AccessTokensResource extends BaseResource
             $data = AccessTokenUpdate::fromArray($data);
         }
 
-        $res =  $this->put("/accounts/{$this->accountId}/accessTokens/{$id}", $data->toArray());
+        $res = $this->put("/accounts/{$this->accountId}/accessTokens/{$id}", $data->toArray());
 
         return AccessTokenResponse::fromArray($res);
     }

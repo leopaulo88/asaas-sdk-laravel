@@ -52,6 +52,7 @@ abstract class BaseEntity implements EntityInterface
             'dateCreated',
             'effectiveDate',
             'scheduledDate',
+            'expirationDate'
         ];
 
         return in_array($fieldName, $dateTimeFields);
