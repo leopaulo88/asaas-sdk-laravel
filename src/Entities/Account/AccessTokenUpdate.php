@@ -24,6 +24,8 @@ class AccessTokenUpdate extends BaseEntity
     public function enabled(bool $enabled): self
     {
         $this->enabled = $enabled;
+
+        return $this;
     }
 
     public function expirationDate(Carbon $expirationDate): self
