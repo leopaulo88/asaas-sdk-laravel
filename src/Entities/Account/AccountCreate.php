@@ -22,7 +22,7 @@ class AccountCreate extends BaseEntity
         public ?string $complement = null,
         public ?string $province = null,
         public ?string $postalCode = null,
-        /** @var \Leopaulo88\Asaas\Entities\Webhook\WebhookCreate[] $webhooks */
+        /** @var WebhookCreate[] $webhooks */
         public ?array $webhooks = null,
     ) {}
 

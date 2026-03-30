@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+use Leopaulo88\Asaas\Entities\Common\Deleted;
 use Leopaulo88\Asaas\Entities\Customer;
 use Leopaulo88\Asaas\Entities\Customer\CustomerResponse;
 use Leopaulo88\Asaas\Entities\List\ListResponse;
@@ -320,7 +321,7 @@ describe('CustomerResource', function () {
 
             $result = $this->customerResource->remove($customerId);
 
-            expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Common\Deleted::class)
+            expect($result)->toBeInstanceOf(Deleted::class)
                 ->and($result->id)->toBe($customerId)
                 ->and($result->deleted)->toBe(true);
         });
@@ -336,7 +337,7 @@ describe('CustomerResource', function () {
             $customerId = 'cus_123';
             $result = $this->customerResource->remove($customerId);
 
-            expect($result)->toBeInstanceOf(\Leopaulo88\Asaas\Entities\Common\Deleted::class);
+            expect($result)->toBeInstanceOf(Deleted::class);
 
             Http::assertSent(function ($request) use ($customerId) {
                 return $request->method() === 'DELETE'

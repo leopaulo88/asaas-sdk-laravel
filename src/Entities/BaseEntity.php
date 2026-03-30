@@ -28,7 +28,7 @@ abstract class BaseEntity implements EntityInterface
                             $data[$key][] = $v;
                         }
                     }
-                } elseif ($value instanceof \Carbon\Carbon) {
+                } elseif ($value instanceof Carbon) {
                     // Converter Carbon para formato apropriado
                     if ($this->isDateTimeField($key)) {
                         $data[$key] = $value->format('Y-m-d H:i:s');

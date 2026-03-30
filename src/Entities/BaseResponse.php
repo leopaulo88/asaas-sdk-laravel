@@ -2,6 +2,7 @@
 
 namespace Leopaulo88\Asaas\Entities;
 
+use Illuminate\Http\Client\Response;
 use Leopaulo88\Asaas\Contracts\ResponseInterface;
 use Leopaulo88\Asaas\Support\ObjectHydrator;
 
@@ -39,7 +40,7 @@ abstract class BaseResponse implements ResponseInterface
         return new static($data);
     }
 
-    public static function fromResponse(\Illuminate\Http\Client\Response $response): static
+    public static function fromResponse(Response $response): static
     {
         return new static($response->json() ?? []);
     }
