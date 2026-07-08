@@ -31,9 +31,7 @@ class WebhookResource extends BaseResource
      */
     public function list(array $filters = []): ListResponse
     {
-        $response = $this->get($this->endpoint, $filters);
-
-        return new ListResponse($response);
+        return $this->get($this->endpoint, $filters);
     }
 
     /**
